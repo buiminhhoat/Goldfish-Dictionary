@@ -59,7 +59,7 @@ public class SignIn extends AppCompatActivity {
         btn_login_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile"));
+                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile", "email"));
             }
         });
     }
@@ -76,9 +76,8 @@ public class SignIn extends AppCompatActivity {
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     String name = object.getString("name");
-//                    String email = object.getString("email");
-//                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                    System.out.println(name);
+                    String email = object.getString("email");
+                    String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
                     //Sử dụng thông tin lấy được
                 } catch (JSONException e) {
                     e.printStackTrace();
