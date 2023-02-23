@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="knowledge_o">
+
+        <item name="android:textSize">
+            23sp
+        </item>
+
+        <item name="android:textColor">
+            #35F086
+        </item>
+
+    </style>
+
+    <style name="goldfish_di">
+
+        <item name="android:textSize">
+            64sp
+        </item>
+
+        <item name="android:textColor">
+            #E5FF44
+        </item>
+
+    </style>
+</resources>

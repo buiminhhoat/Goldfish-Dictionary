@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sign_in"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gradient_background"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_alignParentBottom="true"
+        >
+        <RelativeLayout
+            android:id="@+id/box_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/box"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginLeft="40dp"
+                    android:textColor="#E1E1E1"
+                    android:textSize="30sp"
+                    android:textFontWeight="950"
+                    android:fontFamily="@font/lato"
+                    />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#242846"
+                    android:drawableLeft="@drawable/icon_person"
+                    android:drawablePadding="20dp"
+                    android:hint="Username"
+                    android:padding="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#515AA0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/btn_sign_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="400dp"
+                        android:background="@drawable/button"
+                        android:backgroundTint="#202442"
+                        android:fontFamily="@font/lato"
+                        android:onClick="login"
+                        android:text="Sign In"
+                        android:textColor="#202442"
+                        android:textFontWeight="950"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="100dp"
+
+                    android:layout_alignParentBottom="true"
+                    >
+                    <Button
+                        android:id="@+id/btn_login_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="400dp"
+                        android:background="@drawable/button"
+                        android:backgroundTint="#202442"
+                        android:fontFamily="@font/lato"
+                        android:onClick="login"
+                        android:text="Login with Facebook"
+                        android:textColor="#202442"
+                        android:textFontWeight="950"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="50dp"
+
+                    android:layout_alignParentBottom="true"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#E1E1E1"
+                        android:textSize="18sp"
+                        android:textFontWeight="500"
+                        android:fontFamily="@font/lato"
+                        android:text="Don't have an account?"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green"
+                        android:textSize="18sp"
+                        android:textFontWeight="700"
+                        android:fontFamily="@font/lato"
+                        android:text=" Create new one"
+                        />
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_marginLeft="20dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/icon"
+            />
+    </RelativeLayout>
+</RelativeLayout>
