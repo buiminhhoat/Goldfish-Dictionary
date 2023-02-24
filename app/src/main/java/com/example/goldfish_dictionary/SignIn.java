@@ -9,8 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,9 +38,9 @@ import java.util.Arrays;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
-    Button btn_login_facebook;
+    ImageButton btn_login_facebook;
 
-    Button btn_login_google;
+    ImageButton btn_login_google;
     CallbackManager callbackManager;
 
     @Override
