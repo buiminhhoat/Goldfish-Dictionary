@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginBottom="138dp"
 
                     android:layout_alignParentBottom="true"
                     >
@@ -92,6 +92,29 @@
                         android:fontFamily="@font/lato"
                         android:onClick="login"
                         android:text="Login with Facebook"
+                        android:textColor="#202442"
+                        android:textFontWeight="950"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="85dp"
+
+                    android:layout_alignParentBottom="true"
+                    >
+                    <Button
+                        android:id="@+id/btn_login_google"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="400dp"
+                        android:background="@drawable/button"
+                        android:backgroundTint="#202442"
+                        android:fontFamily="@font/lato"
+                        android:onClick="login"
+                        android:text="Login with Google"
                         android:textColor="#202442"
                         android:textFontWeight="950"
                         android:textSize="20sp" />
