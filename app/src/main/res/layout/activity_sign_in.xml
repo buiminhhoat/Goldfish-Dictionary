@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/bg_fish" />
 
         <RelativeLayout
-            android:id="@+id/box_sign_up"
+            android:id="@+id/box_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="110dp"
@@ -295,13 +295,23 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="65dp"
             android:src="@drawable/icon"
-            app:layout_constraintBottom_toTopOf="@+id/box_sign_up"
-            app:layout_constraintEnd_toStartOf="@+id/box_sign_up"
+            app:layout_constraintBottom_toTopOf="@+id/box_sign_in"
+            app:layout_constraintEnd_toStartOf="@+id/box_sign_in"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.37"
             tools:layout_conversion_absoluteHeight="140dp"
             tools:layout_conversion_absoluteWidth="140dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="32dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_next" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
