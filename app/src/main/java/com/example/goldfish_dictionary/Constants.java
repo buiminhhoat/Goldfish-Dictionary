@@ -1,5 +1,7 @@
 package com.example.goldfish_dictionary;
 
+import java.net.InetAddress;
+
 public class Constants {
     public static String IP = "192.168.1.23";
     public static String PORT = "3306";
