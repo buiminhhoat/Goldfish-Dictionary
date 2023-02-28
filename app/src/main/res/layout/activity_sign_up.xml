@@ -58,7 +58,7 @@
                     tools:layout_conversion_absoluteWidth="87dp" />
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/txt_username"
                     style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
@@ -74,6 +74,7 @@
                     android:textColor="#2196F3"
                     android:textColorHint="#4F5AAA"
                     android:textSize="15sp"
+                    android:text="buiminhhoat"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +84,7 @@
                     tools:layout_conversion_absoluteWidth="166dp" />
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/txt_email"
                     style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
@@ -98,16 +99,17 @@
                     android:textColor="#2196F3"
                     android:textColorHint="#4F5AAA"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="@+id/username"
+                    android:text="buiminhhoat"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_username"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/username"
-                    app:layout_constraintTop_toBottomOf="@+id/username"
+                    app:layout_constraintStart_toStartOf="@+id/txt_username"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_username"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
                     tools:layout_conversion_absoluteHeight="64dp"
                     tools:layout_conversion_absoluteWidth="166dp" />
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/txt_password"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
@@ -122,16 +124,17 @@
                     android:textColor="#2196F3"
                     android:textColorHint="#4F5AAA"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="@+id/email"
-                    app:layout_constraintStart_toStartOf="@+id/email"
-                    app:layout_constraintTop_toBottomOf="@+id/email"
+                    android:text="buiminhhoat"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_email"
+                    app:layout_constraintStart_toStartOf="@+id/txt_email"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_email"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
                     tools:layout_conversion_absoluteHeight="64dp"
                     tools:layout_conversion_absoluteWidth="164dp" />
 
 
                 <EditText
-                    android:id="@+id/confirm_password"
+                    android:id="@+id/txt_confirm_password"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"
@@ -146,10 +149,11 @@
                     android:textColor="#2196F3"
                     android:textColorHint="#4F5AAA"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="@+id/password"
+                    android:text="buiminhhoat"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_password"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/password"
-                    app:layout_constraintTop_toBottomOf="@+id/password"
+                    app:layout_constraintStart_toStartOf="@+id/txt_password"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_password"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
                     tools:layout_conversion_absoluteHeight="64dp"
                     tools:layout_conversion_absoluteWidth="164dp" />
@@ -166,9 +170,9 @@
                     android:textFontWeight="950"
                     android:textSize="17sp"
                     app:backgroundTint="@color/green"
-                    app:layout_constraintEnd_toEndOf="@+id/confirm_password"
-                    app:layout_constraintStart_toStartOf="@+id/confirm_password"
-                    app:layout_constraintTop_toBottomOf="@+id/confirm_password"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_confirm_password"
+                    app:layout_constraintStart_toStartOf="@+id/txt_confirm_password"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_confirm_password"
                     tools:ignore="TouchTargetSizeCheck"
                     tools:layout_conversion_absoluteHeight="48dp"
                     tools:layout_conversion_absoluteWidth="322dp" />
