@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class SignIn extends AppCompatActivity {
 
     ImageButton btn_login_google;
     CallbackManager callbackManager;
+    TextView tv_createNewOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +94,18 @@ public class SignIn extends AppCompatActivity {
         btn_login_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.btn_login_google:
-                        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                        startActivityForResult(signInIntent, RC_SIGN_IN);
-                        break;
-                }
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
+
+        tv_createNewOne = findViewById(R.id.tv_createNewOne);
+        tv_createNewOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignIn.this, SignUp.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -159,5 +167,12 @@ public class SignIn extends AppCompatActivity {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
 //            updateUI(null);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SignIn.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

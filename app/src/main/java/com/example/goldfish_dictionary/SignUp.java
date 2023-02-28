@@ -1,10 +1,7 @@
 package com.example.goldfish_dictionary;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SignUp extends Activity {
+public class SignUp extends AppCompatActivity {
     Connection connection = null;
     EditText txt_username = null;
     EditText txt_email = null;
@@ -59,10 +56,17 @@ public class SignUp extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(SignUp.this, SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SignUp.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
     void createAccount() throws Exception {
         String username = txt_username.getText().toString().trim();
         String email = txt_email.getText().toString().trim();
