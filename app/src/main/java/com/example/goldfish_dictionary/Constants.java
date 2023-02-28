@@ -3,7 +3,7 @@ package com.example.goldfish_dictionary;
 import java.net.InetAddress;
 
 public class Constants {
-    public static String IP = "buiminhhoat.com";
+    public static String IP = "goldfish-dictionary.buiminhhoat.com";
     public static String PORT = "3306";
     public static String DATABASE = "goldfish_dictionary";
     public static String DATABASE_URL = "jdbc:mysql://" + IP + ":" + PORT + "/" + DATABASE;
