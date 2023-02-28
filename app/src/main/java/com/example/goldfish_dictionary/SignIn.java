@@ -116,7 +116,6 @@ public class SignIn extends AppCompatActivity {
                     String name = object.getString("name");
                     String email = object.getString("email");
                     String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                    //Sử dụng thông tin lấy được
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

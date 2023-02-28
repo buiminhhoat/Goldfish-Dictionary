@@ -1,6 +1,7 @@
 package com.example.goldfish_dictionary;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -26,6 +28,7 @@ public class SignUp extends Activity {
 
     Button btn_sign_up = null;
 
+    TextView tv_signup = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +44,21 @@ public class SignUp extends Activity {
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    case R.id.btn_sign_up:
-                        try {
-                            createAccount();
-                            Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
-                        } catch (Exception exception) {
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                        break;
+                try {
+                    createAccount();
+                    Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
+                } catch (Exception exception) {
+                    Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        tv_signup = findViewById(R.id.tv_signup);
+        tv_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, SignIn.class);
+                startActivity(intent);
             }
         });
     }
