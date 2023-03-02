@@ -5,10 +5,14 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,21 +36,34 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
+    Connection connection = null;
+    EditText txt_username = null;
+    EditText txt_password = null;
     ImageButton btn_login_facebook;
 
     ImageButton btn_login_google;
     CallbackManager callbackManager;
     TextView tv_createNewOne;
 
+    Button btn_sign_in;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        connection = ConnectToMySQL.getConnection();
+        txt_username = findViewById(R.id.txt_username);
+        txt_password = findViewById(R.id.txt_password);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -103,6 +120,68 @@ public class SignIn extends AppCompatActivity {
                 finish();
             }
         });
+
+        btn_sign_in = findViewById(R.id.btn_sign_in);
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    boolean sucessLogin = loginAccount();
+                    if (sucessLogin) {
+                        Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    private boolean loginAccount() throws Exception {
+        String username = txt_username.getText().toString().trim();
+        String password = txt_password.getText().toString().trim();
+
+        if (TextUtils.isEmpty(username)) {
+            throw new Exception("Enter username address!");
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            throw new Exception("Enter password!");
+        }
+
+        if (password.length() < 6) {
+            throw new Exception("Password too short, enter minimum 6 characters!");
+        }
+
+        // create a Statement from the connection
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            throw new Exception("Unable to connect to database!");
+        }
+
+        String query = "SELECT * " + "FROM user WHERE username = " + "\"" + username + "\""
+                + " AND passwordHash = " + "\"" + password + "\";";
+        ResultSet resultSet    = connection.createStatement().executeQuery(query);
+        return resultSet.next();
+//        while (resultSet.next()) {
+//            if (resultSet.getString("username").equals(email)) {
+//                throw new Exception("Username already exists");
+//            }
+//        }
+//
+//        resultSet    = connection.createStatement().executeQuery("SELECT email " + "FROM user");
+//        while (resultSet.next()) {
+//            if (resultSet.getString("email").equals(email)) {
+//                throw new Exception("Email already exists");
+//            }
+//        }
+//        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
+//                + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
     }
 
     private void getUserProfileFacebook(AccessToken accessToken) {
