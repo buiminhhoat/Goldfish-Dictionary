@@ -16,6 +16,8 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        initializationDatabase();
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -25,5 +27,19 @@ public class Welcome extends AppCompatActivity {
                 finish();
             }
         }, 2000);
+    }
+
+    private void initializationDatabase() {
+        DatabaseHelper dataBaseHelper;
+        dataBaseHelper = new DatabaseHelper(Welcome.this, "en_vi.db");
+        dataBaseHelper.createDatabase();
+        /*
+        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
+        dataBaseHelper.createDatabase();
+        dataBaseHelper = new DatabaseHelper(Welcome.this, "fr_vi.db");
+        dataBaseHelper.createDatabase();
+        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_fr.db");
+        dataBaseHelper.createDatabase();
+        */
     }
 }
