@@ -1,6 +1,7 @@
 package com.goldfish_dictionary;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static String TAG = "DatabaseHelper";
@@ -97,5 +99,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public ArrayList getAllVocabulary() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM vocabulary", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Vocabulary vocabulary = new Vocabulary();
+            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
+            vocabulary.word = cursor.getString(cursor.getColumnIndex("ipa"));
+            vocabulary.word = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabularyArrayList.add(vocabulary);
+            cursor.moveToNext();
+        }
+        return vocabularyArrayList;
     }
 }

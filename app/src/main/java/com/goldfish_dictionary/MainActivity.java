@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dataBaseHelper;
         dataBaseHelper = new DatabaseHelper(MainActivity.this, "en_vi.db");
         dataBaseHelper.createDatabase();
+        System.out.println(dataBaseHelper.getAllVocabulary().size());
         /*
         dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
         dataBaseHelper.createDatabase();
