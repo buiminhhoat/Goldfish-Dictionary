@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.goldfish_dictionary.R;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,15 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dataBaseHelper;
         dataBaseHelper = new DatabaseHelper(MainActivity.this, "en_vi.db");
         dataBaseHelper.createDatabase();
-        System.out.println(dataBaseHelper.getAllVocabulary().size());
+        ArrayList<Vocabulary> vocabularyArrayList = dataBaseHelper.getFilterVocabulary("cat", 5);
+
+/*
+        System.out.println(vocabularyArrayList.size());
+        for (int i = 0; i < vocabularyArrayList.size(); ++i) {
+            System.out.println(vocabularyArrayList.get(i).word + " " + vocabularyArrayList.get(i).ipa);
+        }
+        */
+
         /*
         dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
         dataBaseHelper.createDatabase();

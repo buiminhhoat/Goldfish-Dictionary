@@ -109,8 +109,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
-            vocabulary.word = cursor.getString(cursor.getColumnIndex("ipa"));
-            vocabulary.word = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
+            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabularyArrayList.add(vocabulary);
+            cursor.moveToNext();
+        }
+        return vocabularyArrayList;
+    }
+
+    public ArrayList getFilterVocabulary(String word, int limit) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
+        String query = "SELECT * FROM vocabulary WHERE word LIKE " + "\"" + word + "%\" " + "LIMIT " + limit;
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Vocabulary vocabulary = new Vocabulary();
+            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
+            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
+            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
             vocabularyArrayList.add(vocabulary);
             cursor.moveToNext();
         }
