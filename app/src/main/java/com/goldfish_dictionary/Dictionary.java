@@ -1,7 +1,9 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.goldfish_dictionary.R;
 
 public class Dictionary extends Activity {
     @Override

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.goldfish_dictionary'
+    namespace 'com.goldfish_dictionary'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.goldfish_dictionary"
+        applicationId "com.goldfish_dictionary"
         minSdk 29
         targetSdk 33
         versionCode 1

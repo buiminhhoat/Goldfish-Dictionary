@@ -1,10 +1,12 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.goldfish_dictionary.R;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.goldfish_dictionary.R;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

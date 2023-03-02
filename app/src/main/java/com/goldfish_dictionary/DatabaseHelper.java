@@ -1,4 +1,4 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,6 +1,6 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
-import static com.example.goldfish_dictionary.Constants.*;
+import static com.goldfish_dictionary.Constants.*;
 
 import android.os.StrictMode;
 

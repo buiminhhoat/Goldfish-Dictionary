@@ -1,8 +1,10 @@
-package com.example.goldfish_dictionary;
+package com.goldfish_dictionary;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.goldfish_dictionary.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
