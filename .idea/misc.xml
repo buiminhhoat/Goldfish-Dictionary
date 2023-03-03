@@ -16,16 +16,18 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_main_activity.xml" value="0.1605" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/icon_password.xml" value="0.2105" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/icon_person.xml" value="0.1635" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/recycler_view_main.xml" value="0.177" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/search_bar.xml" value="0.197" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/search_bar_main.xml" value="0.153" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/sign_in.xml" value="0.1605" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/text_field.xml" value="0.1065" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/welcome.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_dictionary.xml" value="0.2" />
-        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_sign_in.xml" value="0.18" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_welcome.xml" value="0.15" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/list.xml" value="0.203125" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/mipmap-anydpi-v26/ic_app.xml" value="0.1415" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/mipmap-anydpi-v26/ic_app_round.xml" value="0.1415" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/mipmap-anydpi-v26/ic_arrow1.xml" value="0.153" />

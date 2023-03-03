@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static String TAG = "DatabaseHelper";
@@ -117,9 +118,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return vocabularyArrayList;
     }
 
-    public ArrayList getFilterVocabulary(String word, int limit) {
+    public List<Vocabulary> getFilterVocabulary(String word, int limit) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
+//        ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
+        List<Vocabulary> vocabularyList = new ArrayList<>();
         String query = "SELECT * FROM vocabulary WHERE word LIKE " + "\"" + word + "%\" " + "LIMIT " + limit;
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
         cursor.moveToFirst();
@@ -128,9 +130,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
-            vocabularyArrayList.add(vocabulary);
+            vocabularyList.add(vocabulary);
             cursor.moveToNext();
         }
-        return vocabularyArrayList;
+        return vocabularyList;
     }
 }

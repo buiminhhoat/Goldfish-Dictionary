@@ -23,7 +23,7 @@
         tools:layout_conversion_absoluteWidth="87dp" />
 
     <android.widget.SearchView
-        android:id="@+id/SearchView"
+        android:id="@+id/action_search"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
