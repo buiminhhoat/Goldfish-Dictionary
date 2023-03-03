@@ -1,8 +1,13 @@
 package com.goldfish_dictionary;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
         searchBar = findViewById(R.id.action_search);
 
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                    recyclerWords.setAdapter(null);
+                } else {
+                    recyclerWords.setAdapter(vocabularyAdapter);
+                }
+            }
+
+        });
+
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -50,7 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void initializationDatabase() {
