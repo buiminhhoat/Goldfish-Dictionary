@@ -138,7 +138,7 @@
             app:srcCompat="@drawable/ic_main" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editText_input"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_marginTop="200dp"
@@ -157,7 +157,7 @@
         </EditText>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView_output"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:layout_marginStart="30dp"
@@ -177,7 +177,7 @@
             android:background="@drawable/btn_translate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2">
+            app:layout_constraintTop_toBottomOf="@+id/editText_input">
 
             <ImageView
                 android:id="@+id/imageView7"

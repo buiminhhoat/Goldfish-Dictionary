@@ -24,8 +24,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -48,4 +48,8 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'mysql:mysql-connector-java:5.1.6'
+
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+
 }
