@@ -11,7 +11,6 @@
         android:id="@+id/txt_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="sans-serif"
         android:text="Word"
@@ -19,15 +18,18 @@
         android:textFontWeight="950"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintStart_toEndOf="@+id/imageView11" />
+        app:layout_constraintStart_toEndOf="@+id/imageview11" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/imageview11"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:src="@drawable/ic_detail1"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_detail1" />
+        app:layout_constraintVertical_bias="0.37"
+        tools:layout_conversion_absoluteHeight="140dp"
+        tools:layout_conversion_absoluteWidth="140dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -37,6 +39,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/box_word"
         android:padding="25dp"
+        android:paddingStart="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

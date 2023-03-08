@@ -61,30 +61,33 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="20dp"
+                android:src="@drawable/ic_arrow_down"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_down" />
+                />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_arrow_down"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_down" />
+                />
 
             <ImageView
                 android:id="@+id/imageView10"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:src="@drawable/ic_arrow_translate"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_translate" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,9 +136,10 @@
             android:layout_height="136dp"
             android:layout_marginTop="-20dp"
             android:layout_marginEnd="-20dp"
+            android:src="@drawable/ic_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_main" />
+            />
 
         <EditText
             android:id="@+id/editText_input"
@@ -146,9 +150,13 @@
             android:background="@drawable/box_translate_1"
             android:gravity="top"
             android:hint="Nhập văn bản"
-            android:padding="15dp"
             android:textColor="#25FF89"
             android:textColorHint="#515AA0"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="30dp"
+            android:paddingRight="20dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -164,6 +172,11 @@
             android:layout_marginTop="-20dp"
             android:background="@drawable/box_translate_2"
             android:textColor="#25FF89"
+            android:paddingTop="30dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:paddingRight="20dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,11 +196,12 @@
                 android:id="@+id/imageView7"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:src="@drawable/ic_arrow_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_arrow_1" />
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -196,9 +210,10 @@
             android:layout_height="42dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
+            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
