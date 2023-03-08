@@ -308,7 +308,7 @@
         app:layout_constraintEnd_toEndOf="@+id/action_search"
         app:layout_constraintStart_toStartOf="@+id/action_search"
         app:layout_constraintTop_toBottomOf="@+id/action_search"
-        tools:listitem="@layout/list" />
+        tools:listitem="@layout/recyclerview_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu"

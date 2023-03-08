@@ -1,10 +1,14 @@
 package com.goldfish_dictionary;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,14 +20,16 @@ import java.util.List;
 public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
-    public VocabularyAdapter(DatabaseHelper databaseHelper) {
+    private MainActivity mainActivity;
+    public VocabularyAdapter(DatabaseHelper databaseHelper, MainActivity mainActivity) {
         this.databaseHelper = databaseHelper;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
     @Override
     public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         return new VocabularyViewHolder(view);
     }
 
@@ -33,6 +39,20 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         if (vocabulary == null) return;
         holder.latin.setText(vocabulary.getWord());
         holder.api.setText(vocabulary.getIpa());
+
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                if (isLongClick) {
+                    System.out.println(vocabulary.getWord() + "long");
+                }
+                else {
+                    System.out.println(vocabulary.getWord() + "click");
+                    Intent intent = new Intent(mainActivity, Word.class);
+                    mainActivity.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -63,7 +83,9 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         };
     }
 
-    public class VocabularyViewHolder extends RecyclerView.ViewHolder {
+    public class VocabularyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
+        private ItemClickListener itemClickListener;
+        public RelativeLayout item;
         private TextView latin;
         private TextView api;
 
@@ -71,6 +93,25 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
             super(convertView);
             latin = (TextView) convertView.findViewById(R.id.word);
             api   = (TextView) convertView.findViewById(R.id.ipa);
+            item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
+            convertView.setOnClickListener(this);
+            convertView.setOnLongClickListener(this);
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener)
+        {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),true);
+            return true;
         }
     }
 }

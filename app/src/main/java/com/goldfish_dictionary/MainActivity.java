@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper);
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this);
         recyclerWords.setAdapter(vocabularyAdapter);
 
 //        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
