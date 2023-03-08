@@ -29,13 +29,13 @@ public class Dictionary extends Activity {
     private void changeTitle() {
         TextView txt_dictionary = findViewById(R.id.txt_dictionary);
         switch (typeTranslate) {
-            case "VI_EN":
+            case "vi_en":
                 txt_dictionary.setText("Từ điển Việt - Anh");
                 break;
-            case "FR_VI":
+            case "fr_vi":
                 txt_dictionary.setText("Từ điển Pháp - Việt");
                 break;
-            case "VI_FR":
+            case "vi_fr":
                 txt_dictionary.setText("Từ điển Việt - Pháp");
                 break;
         }

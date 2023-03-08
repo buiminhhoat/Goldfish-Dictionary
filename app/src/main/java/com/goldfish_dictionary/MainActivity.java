@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "VI_EN");
+                intent.putExtra("TYPE", "vi_en");
                 startActivity(intent);
             }
         });
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "FR_VI");
+                intent.putExtra("TYPE", "fr_vi");
                 startActivity(intent);
             }
         });
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "VI_FR");
+                intent.putExtra("TYPE", "vi_fr");
                 startActivity(intent);
             }
         });
