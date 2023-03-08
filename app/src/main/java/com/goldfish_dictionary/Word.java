@@ -1,12 +1,16 @@
 package com.goldfish_dictionary;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
@@ -14,6 +18,7 @@ import androidx.core.app.NotificationCompat;
 import java.util.Date;
 
 public class Word extends Activity {
+    private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Goldfish Dictionary";
     private String word;
     private Intent intent;
     private DatabaseHelper dataBaseHelper;
@@ -32,14 +37,18 @@ public class Word extends Activity {
         tv_word.setText(word);
 
         TextView tv_ipa = findViewById(R.id.txt_ipa);
-        tv_ipa.setText(dataBaseHelper.getVocabulary(word).getIpa());
+        String ipa = dataBaseHelper.getVocabulary(word).getIpa();
+        tv_ipa.setText(ipa);
 
         TextView tv_meaning = findViewById(R.id.txt_meaning);
-        tv_meaning.setText(dataBaseHelper.getVocabulary(word).getMeaning());
+        String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
+        tv_meaning.setText(meaning);
 
         createNotificationChannel();
-        createNotification("Goldfish Dictionary", word);
+//        createNotification("Goldfish Dictionary", word);
 
+        scheduleNotification(getNotification(word + " [" + ipa + "]",
+                meaning), 5);
     }
 
     private void initializationDatabase() {
@@ -61,7 +70,7 @@ public class Word extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Goldfish Dictionary";
             String description = "Goldfish Dictionary";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("Goldfish Dictionary", name, importance);
             channel.setDescription(description);
             // Register the channel with the system. You can't change the importance
@@ -80,5 +89,27 @@ public class Word extends Activity {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify((int) new Date().getTime(), notification);
+    }
+
+    private void scheduleNotification(Notification notification, int secondsDelay) {
+        Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long futureInMillis = SystemClock.elapsedRealtime() + secondsDelay * 1000L;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String contentTitle, String contentText) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, DEFAULT_NOTIFICATION_CHANNEL_ID);
+        builder.setContentTitle(contentTitle);
+        builder.setContentText(contentText);
+        builder.setSmallIcon(R.drawable.icon);
+        builder.setPriority(NotificationManager.IMPORTANCE_MAX);
+        builder.setAutoCancel(true);
+        builder.setChannelId("Goldfish Dictionary");
+        return builder.build();
     }
 }
