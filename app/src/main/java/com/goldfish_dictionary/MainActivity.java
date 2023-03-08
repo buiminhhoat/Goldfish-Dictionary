@@ -1,16 +1,16 @@
 package com.goldfish_dictionary;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerWords;
     private EditText searchBar;
     private DatabaseHelper dataBaseHelper;
+    private ConstraintLayout btn_vi_en;
+    private ConstraintLayout btn_fr_vi;
+    private ConstraintLayout btn_vi_fr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,40 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        clickBtnDictionary();
+    }
+
+    private void clickBtnDictionary() {
+        btn_vi_en = findViewById(R.id.btn_vi_en);
+        btn_vi_en.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Dictionary.class);
+                intent.putExtra("TYPE", "VI_EN");
+                startActivity(intent);
+            }
+        });
+
+        btn_fr_vi = findViewById(R.id.btn_fr_vi);
+        btn_fr_vi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Dictionary.class);
+                intent.putExtra("TYPE", "FR_VI");
+                startActivity(intent);
+            }
+        });
+
+        btn_vi_fr = findViewById(R.id.btn_vi_fr);
+        btn_vi_fr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Dictionary.class);
+                intent.putExtra("TYPE", "VI_FR");
+                startActivity(intent);
             }
         });
     }
