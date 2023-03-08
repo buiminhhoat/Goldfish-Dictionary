@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +20,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoldfishDictionary"
         tools:targetApi="31">
+
+        <activity
+            android:name="com.goldfish_dictionary.Welcome"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.goldfish_dictionary.Word"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="com.goldfish_dictionary.MainActivity"
@@ -29,16 +53,6 @@
 
         <activity
             android:name="com.goldfish_dictionary.Translate"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.goldfish_dictionary.Word"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,15 +81,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.goldfish_dictionary.Welcome"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name="com.goldfish_dictionary.Dictionary"
