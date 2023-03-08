@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/word"
+        android:id="@+id/txt_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -17,7 +17,7 @@
         android:text="Word"
         android:textColor="@color/white"
         android:textFontWeight="950"
-        android:textSize="43sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintStart_toEndOf="@+id/imageView11" />
 
@@ -33,23 +33,23 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="30dp"
-        android:padding="25dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/box_word"
+        android:padding="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/word_ipa"
+            android:id="@+id/txt_ipa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="/wɜːd/, /wɜːrd/"
             android:textColor="#01726F"
             android:textFontWeight="500"
-            android:textSize="25sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,22 +60,22 @@
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_ipa">
+            app:layout_constraintTop_toBottomOf="@+id/txt_ipa">
 
             <TextView
                 android:id="@+id/txt_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Loại từ"
+                android:text="Dịch nghĩa"
                 android:textColor="#01726F"
                 android:textFontWeight="850"
-                android:textSize="25sp"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_type_n"
+                android:id="@+id/txt_meaning"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -83,7 +83,7 @@
                 android:text="Nghĩa"
                 android:textColor="#01726F"
                 android:textFontWeight="500"
-                android:textSize="25sp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_type" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,7 +97,7 @@
             android:text="Từ đồng nghĩa"
             android:textColor="#01726F"
             android:textFontWeight="850"
-            android:textSize="25sp"
+            android:textSize="19sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout9" />
 
@@ -105,13 +105,13 @@
             android:id="@+id/list_synonym"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="sans-serif"
-            android:text="word, conversation, talk, profit, interest, chat, discussion, confab"
+            android:text="please connect network"
             android:textColor="#01726F"
             android:textFontWeight="500"
-            android:textSize="25sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/synonym" />
@@ -125,7 +125,7 @@
             android:text="Từ trái nghĩa"
             android:textColor="#01726F"
             android:textFontWeight="850"
-            android:textSize="25sp"
+            android:textSize="19sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_synonym" />
 
@@ -133,13 +133,13 @@
             android:id="@+id/list_antonym"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:fontFamily="sans-serif"
-            android:text="silence, quiet, breach, break, question"
+            android:text="please connect network"
             android:textColor="#01726F"
             android:textFontWeight="500"
-            android:textSize="25sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/antonym" />

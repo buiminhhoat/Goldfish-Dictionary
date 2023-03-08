@@ -3,6 +3,7 @@ package com.goldfish_dictionary;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
                 else {
                     System.out.println(vocabulary.getWord() + "click");
                     Intent intent = new Intent(mainActivity, Word.class);
+                    intent.putExtra("WORD", vocabulary.getWord());
                     mainActivity.startActivity(intent);
                 }
             }

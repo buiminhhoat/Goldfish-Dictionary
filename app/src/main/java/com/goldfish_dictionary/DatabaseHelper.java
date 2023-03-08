@@ -135,4 +135,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return vocabularyList;
     }
+
+    public Vocabulary getVocabulary(String word) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String query = "SELECT * FROM vocabulary WHERE word LIKE " + "\"" + word + "\" ";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Vocabulary vocabulary = new Vocabulary();
+            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
+            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
+            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            return vocabulary;
+        }
+        return null;
+    }
 }
