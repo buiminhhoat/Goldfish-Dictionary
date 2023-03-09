@@ -10,13 +10,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.os.SystemClock;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Word extends Activity {
     private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Goldfish Dictionary";
@@ -24,16 +30,25 @@ public class Word extends Activity {
     private String typeTranslate;
     private Intent intent;
     private DatabaseHelper dataBaseHelper;
+    private TextView list_synonym;
+    private TextView list_antonym;
+
+    static OkHttpClient client = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
         this.typeTranslate = intent.getStringExtra("TYPE");
 
+        client = new OkHttpClient();
         initializationDatabase();
 
 
@@ -48,6 +63,20 @@ public class Word extends Activity {
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         tv_meaning.setText(meaning);
 
+        list_synonym = findViewById(R.id.list_synonym);
+        list_antonym = findViewById(R.id.list_antonym);
+
+        try {
+            list_synonym.setText(sendGET("https://api.datamuse.com/words?ml=" + word));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            list_antonym.setText(sendGET("https://api.datamuse.com/words?rel_ant=" + word));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         createNotificationChannel();
 //        createNotification("Goldfish Dictionary", word);
 
@@ -113,5 +142,20 @@ public class Word extends Activity {
         builder.setAutoCancel(true);
         builder.setChannelId("Goldfish Dictionary");
         return builder.build();
+    }
+
+    public static String sendGET(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        String res = "";
+        try (Response response = client.newCall(request).execute()) {
+            res = response.body().string();
+        }
+        catch (Exception exception) {
+            System.out.println(exception);
+        }
+        return res;
     }
 }
