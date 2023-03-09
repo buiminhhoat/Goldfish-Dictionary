@@ -16,6 +16,11 @@ import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
@@ -67,13 +72,27 @@ public class Word extends Activity {
         list_antonym = findViewById(R.id.list_antonym);
 
         try {
-            list_synonym.setText(sendGET("https://api.datamuse.com/words?ml=" + word));
-        } catch (IOException e) {
+            String jsonSynonym = sendGET("https://api.datamuse.com/words?ml=" + word);
+            JSONTokener tokener = new JSONTokener(jsonSynonym);
+            JSONArray finalResult = new JSONArray(tokener);
+
+            String synonyms = "";
+            for (int i = 0; i < finalResult.length(); ++i) {
+                JSONObject jsonObject = (JSONObject) finalResult.get(i);
+                String synonym = (String) jsonObject.get("word");
+                synonyms += synonym;
+                if (i != finalResult.length() - 1) {
+                    synonyms += ", ";
+                }
+            }
+            list_synonym.setText(synonyms);
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            list_antonym.setText(sendGET("https://api.datamuse.com/words?rel_ant=" + word));
+            String json_antonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
+            list_antonym.setText(json_antonym);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
