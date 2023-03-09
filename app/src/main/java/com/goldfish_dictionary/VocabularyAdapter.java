@@ -13,16 +13,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
-    private MainActivity mainActivity;
-    public VocabularyAdapter(DatabaseHelper databaseHelper, MainActivity mainActivity) {
+    private AppCompatActivity mainActivity;
+    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity) {
         this.databaseHelper = databaseHelper;
         this.mainActivity = mainActivity;
     }
@@ -39,7 +41,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         Vocabulary vocabulary = vocabularyList.get(position);
         if (vocabulary == null) return;
         holder.latin.setText(vocabulary.getWord());
-        holder.api.setText(vocabulary.getIpa());
+        if (Objects.equals(vocabulary.getIpa(), "")) {
+            holder.detail.setText(vocabulary.getMeaning().split("\n")[0]);
+        }
+        else {
+            holder.detail.setText(vocabulary.getIpa());
+        }
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
@@ -89,12 +96,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         private ItemClickListener itemClickListener;
         public RelativeLayout item;
         private TextView latin;
-        private TextView api;
+        private TextView detail;
 
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
             latin = (TextView) convertView.findViewById(R.id.word);
-            api   = (TextView) convertView.findViewById(R.id.ipa);
+            detail   = (TextView) convertView.findViewById(R.id.ipa);
             item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
             convertView.setOnClickListener(this);
             convertView.setOnLongClickListener(this);

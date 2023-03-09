@@ -3,15 +3,28 @@ package com.goldfish_dictionary;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.goldfish_dictionary.R;
 
 import org.w3c.dom.Text;
 
-public class Dictionary extends Activity {
+public class Dictionary extends AppCompatActivity {
     private String typeTranslate;
     private DatabaseHelper dataBaseHelper;
+
+    private VocabularyAdapter vocabularyAdapter;
+    private RecyclerView recyclerWords;
+    private EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +37,48 @@ public class Dictionary extends Activity {
 
         initializationDatabase();
         changeTitle();
+
+        recyclerWords = findViewById(R.id.recycler_voca);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerWords.setLayoutManager(linearLayoutManager);
+
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this);
+        recyclerWords.setAdapter(vocabularyAdapter);
+
+//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+//        recyclerWords.addItemDecoration(itemDecoration);
+
+        searchBar = findViewById(R.id.action_search);
+
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                    recyclerWords.setAdapter(null);
+                } else {
+                    recyclerWords.setAdapter(vocabularyAdapter);
+                }
+            }
+
+        });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vocabularyAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void changeTitle() {
@@ -42,18 +97,11 @@ public class Dictionary extends Activity {
     }
 
     private void initializationDatabase() {
-//        switch (typeTranslate) {
-//            case "VI_EN":
-//                dataBaseHelper = new DatabaseHelper(Dictionary.this, "vi_en.db");
-//                break;
-//            case "FR_VI":
-//                dataBaseHelper = new DatabaseHelper(Dictionary.this, "fr_vi.db");
-//                break;
-//            case "VI_FR":
-//                dataBaseHelper = new DatabaseHelper(Dictionary.this, "vi_fr.db");
-//                break;
-//        }
-        dataBaseHelper = new DatabaseHelper(Dictionary.this, "vi_en.db");
-        dataBaseHelper.createDatabase();
+        dataBaseHelper = new DatabaseHelper(Dictionary.this, typeTranslate + ".db");
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
