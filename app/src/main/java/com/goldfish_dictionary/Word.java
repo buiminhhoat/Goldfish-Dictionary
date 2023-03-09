@@ -16,10 +16,12 @@ import android.widget.TextView;
 import androidx.core.app.NotificationCompat;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Word extends Activity {
     private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Goldfish Dictionary";
     private String word;
+    private String typeTranslate;
     private Intent intent;
     private DatabaseHelper dataBaseHelper;
 
@@ -28,10 +30,12 @@ public class Word extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
 
-        initializationDatabase();
-
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
+        this.typeTranslate = intent.getStringExtra("TYPE");
+
+        initializationDatabase();
+
 
         TextView tv_word = findViewById(R.id.txt_word);
         tv_word.setText(word);
@@ -47,21 +51,19 @@ public class Word extends Activity {
         createNotificationChannel();
 //        createNotification("Goldfish Dictionary", word);
 
-        scheduleNotification(getNotification(word + " [" + ipa + "]",
-                meaning), 5);
+        if (Objects.equals(ipa, "")) {
+            scheduleNotification(getNotification(word,
+                    meaning), 5);
+        }
+        else {
+            scheduleNotification(getNotification(word + " [" + ipa + "]",
+                    meaning), 5);
+        }
     }
 
     private void initializationDatabase() {
-        dataBaseHelper = new DatabaseHelper(Word.this, "en_vi.db");
+        dataBaseHelper = new DatabaseHelper(Word.this, typeTranslate + ".db");
         dataBaseHelper.createDatabase();
-        /*
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
-        dataBaseHelper.createDatabase();
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "fr_vi.db");
-        dataBaseHelper.createDatabase();
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_fr.db");
-        dataBaseHelper.createDatabase();
-        */
     }
 
     public void createNotificationChannel() {

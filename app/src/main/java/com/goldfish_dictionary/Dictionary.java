@@ -42,7 +42,7 @@ public class Dictionary extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this);
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, typeTranslate);
         recyclerWords.setAdapter(vocabularyAdapter);
 
 //        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);

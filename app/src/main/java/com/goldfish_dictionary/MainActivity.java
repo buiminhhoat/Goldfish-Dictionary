@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_vi_en;
     private ConstraintLayout btn_fr_vi;
     private ConstraintLayout btn_vi_fr;
+    private String typeTranslate = "en_vi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this);
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, typeTranslate);
         recyclerWords.setAdapter(vocabularyAdapter);
 
 //        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 

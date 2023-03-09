@@ -24,9 +24,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
     private AppCompatActivity mainActivity;
-    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity) {
+
+    private String typeTranslate;
+    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String typeTranslate) {
         this.databaseHelper = databaseHelper;
         this.mainActivity = mainActivity;
+        this.typeTranslate = typeTranslate;
     }
 
     @NonNull
@@ -58,6 +61,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
                     System.out.println(vocabulary.getWord() + "click");
                     Intent intent = new Intent(mainActivity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
+                    intent.putExtra("TYPE", typeTranslate);
                     mainActivity.startActivity(intent);
                 }
             }
