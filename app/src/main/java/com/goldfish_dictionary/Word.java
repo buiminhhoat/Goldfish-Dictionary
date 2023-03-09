@@ -8,6 +8,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -63,7 +65,6 @@ public class Word extends Activity {
         client = new OkHttpClient();
         initializationDatabase();
 
-
         TextView tv_word = findViewById(R.id.txt_word);
         tv_word.setText(word);
 
@@ -75,27 +76,34 @@ public class Word extends Activity {
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         tv_meaning.setText(meaning);
 
-        list_synonym = findViewById(R.id.list_synonym);
-        list_antonym = findViewById(R.id.list_antonym);
+        setSynonyms();
+        setAntonyms();
 
-        try {
-            String jsonSynonym = sendGET("https://api.datamuse.com/words?ml=" + word);
-            JSONTokener tokener = new JSONTokener(jsonSynonym);
-            JSONArray finalResult = new JSONArray(tokener);
+        createNotificationChannel();
+//        createNotification("Goldfish Dictionary", word);
 
-            String synonyms = "- ";
-            for (int i = 0; i < finalResult.length(); ++i) {
-                JSONObject jsonObject = (JSONObject) finalResult.get(i);
-                synonyms += (String) jsonObject.get("word");
-                if (i != finalResult.length() - 1) {
-                    synonyms += ", ";
-                }
-            }
-            list_synonym.setText(synonyms);
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
+        if (Objects.equals(ipa, "")) {
+            scheduleNotification(getNotification(word,
+                    meaning), 15);
+        }
+        else {
+            scheduleNotification(getNotification(word + " [" + ipa + "]",
+                    meaning), 15);
         }
 
+        try {
+            pronounce(word);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setAntonyms() {
+        list_antonym = findViewById(R.id.list_antonym);
         try {
             String jsonAntonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
             JSONTokener tokener = new JSONTokener(jsonAntonym);
@@ -113,26 +121,25 @@ public class Word extends Activity {
         } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        createNotificationChannel();
-//        createNotification("Goldfish Dictionary", word);
-
-        if (Objects.equals(ipa, "")) {
-            scheduleNotification(getNotification(word,
-                    meaning), 5);
-        }
-        else {
-            scheduleNotification(getNotification(word + " [" + ipa + "]",
-                    meaning), 5);
-        }
-
+    private void setSynonyms() {
+        list_synonym = findViewById(R.id.list_synonym);
         try {
-            pronounce(word);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+            String jsonSynonym = sendGET("https://api.datamuse.com/words?ml=" + word);
+            JSONTokener tokener = new JSONTokener(jsonSynonym);
+            JSONArray finalResult = new JSONArray(tokener);
+
+            String synonyms = "- ";
+            for (int i = 0; i < finalResult.length(); ++i) {
+                JSONObject jsonObject = (JSONObject) finalResult.get(i);
+                synonyms += (String) jsonObject.get("word");
+                if (i != finalResult.length() - 1) {
+                    synonyms += ", ";
+                }
+            }
+            list_synonym.setText(synonyms);
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
     }
@@ -249,11 +256,24 @@ public class Word extends Activity {
         }
         return url;
     }
+
     public void pronounce(String word) throws IOException, JSONException, InterruptedException {
         String id = createTTSJob(word);
         System.out.println("id = " + id);
         Thread.sleep(3000);
         String url = getJobStatus(id);
         System.out.println("url = " + url);
+
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
     }
 }
