@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
@@ -25,8 +26,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Word extends Activity {
@@ -37,8 +40,12 @@ public class Word extends Activity {
     private DatabaseHelper dataBaseHelper;
     private TextView list_synonym;
     private TextView list_antonym;
+    private Button btn_speak;
 
     static OkHttpClient client = null;
+
+    public Word() throws IOException {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +113,7 @@ public class Word extends Activity {
         } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
+
         createNotificationChannel();
 //        createNotification("Goldfish Dictionary", word);
 
@@ -116,6 +124,16 @@ public class Word extends Activity {
         else {
             scheduleNotification(getNotification(word + " [" + ipa + "]",
                     meaning), 5);
+        }
+
+        try {
+            pronounce(word);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -186,5 +204,56 @@ public class Word extends Activity {
             System.out.println(exception);
         }
         return res;
+    }
+
+    public String createTTSJob(String word) throws JSONException, IOException {
+        OkHttpClient client = new OkHttpClient();
+        MediaType mediaType = MediaType.parse("application/json");
+        String value = "{\r\"text\": \"" + word + "\"\r}";
+        RequestBody body = RequestBody.create(mediaType, value);
+        Request request = new Request.Builder()
+                .url("https://large-text-to-speech.p.rapidapi.com/tts")
+                .post(body)
+                .addHeader("content-type", "application/json")
+                .addHeader("X-RapidAPI-Key", "3456b2c895msh3e1a281afb1cd7ap1b9c2djsn204d1936446b")
+                .addHeader("X-RapidAPI-Host", "large-text-to-speech.p.rapidapi.com")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        JSONTokener tokener = new JSONTokener(response.body().string());
+        JSONObject jsonObject = new JSONObject(tokener);
+        String id = String.valueOf(jsonObject.get("id"));
+        return id;
+    }
+
+    public String getJobStatus(String id) throws IOException, JSONException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://large-text-to-speech.p.rapidapi.com/tts?id=" + id)
+                .get()
+                .addHeader("X-RapidAPI-Key", "3456b2c895msh3e1a281afb1cd7ap1b9c2djsn204d1936446b")
+                .addHeader("X-RapidAPI-Host", "large-text-to-speech.p.rapidapi.com")
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String getBody = response.body().string();
+
+        System.out.println(getBody);
+        JSONTokener tokener = new JSONTokener(getBody);
+        JSONObject jsonObject = new JSONObject(tokener);
+        System.out.println(String.valueOf(jsonObject.get("status")));
+        String url = "";
+        if (jsonObject.has("url")) {
+            url = String.valueOf(jsonObject.get("url"));
+        }
+        return url;
+    }
+    public void pronounce(String word) throws IOException, JSONException, InterruptedException {
+        String id = createTTSJob(word);
+        System.out.println("id = " + id);
+        Thread.sleep(3000);
+        String url = getJobStatus(id);
+        System.out.println("url = " + url);
     }
 }
