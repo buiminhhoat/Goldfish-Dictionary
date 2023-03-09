@@ -79,8 +79,7 @@ public class Word extends Activity {
             String synonyms = "";
             for (int i = 0; i < finalResult.length(); ++i) {
                 JSONObject jsonObject = (JSONObject) finalResult.get(i);
-                String synonym = (String) jsonObject.get("word");
-                synonyms += synonym;
+                synonyms += (String) jsonObject.get("word");
                 if (i != finalResult.length() - 1) {
                     synonyms += ", ";
                 }
