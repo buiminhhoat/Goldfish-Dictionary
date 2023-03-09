@@ -76,7 +76,7 @@ public class Word extends Activity {
             JSONTokener tokener = new JSONTokener(jsonSynonym);
             JSONArray finalResult = new JSONArray(tokener);
 
-            String synonyms = "";
+            String synonyms = "- ";
             for (int i = 0; i < finalResult.length(); ++i) {
                 JSONObject jsonObject = (JSONObject) finalResult.get(i);
                 synonyms += (String) jsonObject.get("word");
@@ -90,9 +90,20 @@ public class Word extends Activity {
         }
 
         try {
-            String json_antonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
-            list_antonym.setText(json_antonym);
-        } catch (IOException e) {
+            String jsonAntonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
+            JSONTokener tokener = new JSONTokener(jsonAntonym);
+            JSONArray finalResult = new JSONArray(tokener);
+
+            String antonyms = "- ";
+            for (int i = 0; i < finalResult.length(); ++i) {
+                JSONObject jsonObject = (JSONObject) finalResult.get(i);
+                antonyms += (String) jsonObject.get("word");
+                if (i != finalResult.length() - 1) {
+                    antonyms += ", ";
+                }
+            }
+            list_antonym.setText(antonyms);
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
         createNotificationChannel();
