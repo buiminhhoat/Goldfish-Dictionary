@@ -12,6 +12,7 @@ import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.widget.Button;
@@ -38,7 +39,6 @@ public class Word extends Activity {
     private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Goldfish Dictionary";
     private String word;
     private String typeTranslate;
-    private Intent intent;
     private DatabaseHelper dataBaseHelper;
     private TextView list_synonym;
     private TextView list_antonym;
@@ -76,8 +76,12 @@ public class Word extends Activity {
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         tv_meaning.setText(meaning);
 
-        setSynonyms();
-        setAntonyms();
+
+        list_synonym = findViewById(R.id.list_synonym);
+        list_antonym = findViewById(R.id.list_antonym);
+        list_synonym.setText("Loading...");
+        list_antonym.setText("Loading...");
+        setSynonymsAndAntonyms();
 
         createNotificationChannel();
 //        createNotification("Goldfish Dictionary", word);
@@ -91,58 +95,79 @@ public class Word extends Activity {
                     meaning), 15);
         }
 
-        Pronounce pronounce = new Pronounce();
-        try {
-            pronounce.pronounce(word);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        Pronounce pronounce = new Pronounce();
+//        try {
+//            pronounce.pronounce(word);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
-    private void setAntonyms() {
-        list_antonym = findViewById(R.id.list_antonym);
-        try {
-            String jsonAntonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
-            JSONTokener tokener = new JSONTokener(jsonAntonym);
-            JSONArray finalResult = new JSONArray(tokener);
+    private void setSynonymsAndAntonyms (){
+        Handler handler = new Handler();
+        Thread thread = new Thread(){
+            private String getSynonyms() {
+                try {
+                    String jsonSynonym = sendGET("https://api.datamuse.com/words?ml=" + word);
+                    JSONTokener tokener = new JSONTokener(jsonSynonym);
+                    JSONArray finalResult = new JSONArray(tokener);
 
-            String antonyms = "- ";
-            for (int i = 0; i < finalResult.length(); ++i) {
-                JSONObject jsonObject = (JSONObject) finalResult.get(i);
-                antonyms += (String) jsonObject.get("word");
-                if (i != finalResult.length() - 1) {
-                    antonyms += ", ";
+                    String synonyms = "- ";
+                    for (int i = 0; i < finalResult.length(); ++i) {
+                        JSONObject jsonObject = (JSONObject) finalResult.get(i);
+                        synonyms += (String) jsonObject.get("word");
+                        if (i != finalResult.length() - 1) {
+                            synonyms += ", ";
+                        }
+                    }
+                    if (synonyms.equals("- ")) {
+                        return "No synonyms found!";
+                    }
+                    return synonyms;
+                } catch (IOException | JSONException e) {
+                    throw new RuntimeException(e);
                 }
             }
-            list_antonym.setText(antonyms);
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    private void setSynonyms() {
-        list_synonym = findViewById(R.id.list_synonym);
-        try {
-            String jsonSynonym = sendGET("https://api.datamuse.com/words?ml=" + word);
-            JSONTokener tokener = new JSONTokener(jsonSynonym);
-            JSONArray finalResult = new JSONArray(tokener);
+            private String getAntonyms() {
+                try {
+                    String jsonAntonym = sendGET("https://api.datamuse.com/words?rel_ant=" + word);
+                    JSONTokener tokener = new JSONTokener(jsonAntonym);
+                    JSONArray finalResult = new JSONArray(tokener);
 
-            String synonyms = "- ";
-            for (int i = 0; i < finalResult.length(); ++i) {
-                JSONObject jsonObject = (JSONObject) finalResult.get(i);
-                synonyms += (String) jsonObject.get("word");
-                if (i != finalResult.length() - 1) {
-                    synonyms += ", ";
+                    String antonyms = "- ";
+                    for (int i = 0; i < finalResult.length(); ++i) {
+                        JSONObject jsonObject = (JSONObject) finalResult.get(i);
+                        antonyms += (String) jsonObject.get("word");
+                        if (i != finalResult.length() - 1) {
+                            antonyms += ", ";
+                        }
+                    }
+                    if (antonyms.equals("- ")) {
+                        return "No antonyms found!";
+                    }
+                    return antonyms;
+                } catch (IOException | JSONException e) {
+                    throw new RuntimeException(e);
                 }
             }
-            list_synonym.setText(synonyms);
-        } catch (IOException | JSONException e) {
-            throw new RuntimeException(e);
-        }
+
+            public void run() {
+                String synonyms = getSynonyms();
+                String antonyms = getAntonyms();
+                handler.post(new Runnable() {
+                    public void run() {
+                        list_synonym.setText(synonyms);
+                        list_antonym.setText(antonyms);
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 
     private void initializationDatabase() {
