@@ -26,10 +26,14 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     private AppCompatActivity mainActivity;
 
     private String typeTranslate;
+    private String table;
+    private boolean show;
     public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String typeTranslate, String table, boolean show) {
         this.databaseHelper = databaseHelper;
         this.mainActivity = mainActivity;
         this.typeTranslate = typeTranslate;
+        this.table = table;
+        this.show = show;
         if (show) this.vocabularyList = databaseHelper.getAllVocabulary(table);
     }
 
@@ -82,8 +86,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
                 List<Vocabulary> vocabularyFilterList = new ArrayList<>();
-                if (!strSearch.isEmpty())
-                    vocabularyFilterList = databaseHelper.getFilterVocabulary(strSearch, 5);
+                if (!strSearch.isEmpty()) {
+                    vocabularyFilterList = databaseHelper.getFilterVocabulary(table, strSearch, 5);
+                }
+                else {
+                    if (show) vocabularyFilterList = databaseHelper.getAllVocabulary(table);
+                }
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = vocabularyFilterList;
                 return filterResults;

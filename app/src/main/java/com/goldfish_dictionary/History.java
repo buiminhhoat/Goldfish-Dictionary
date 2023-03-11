@@ -19,6 +19,7 @@ public class History extends AppCompatActivity {
 
     private VocabularyAdapter vocabularyAdapter;
     private RecyclerView recyclerWords;
+    private EditText searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,51 @@ public class History extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         initializationDatabase();
+        eventRecyclerWord();
+        eventSearchBar();
+    }
 
+    private void eventRecyclerWord() {
         recyclerWords = findViewById(R.id.recycler_history);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
         vocabularyAdapter = new VocabularyAdapter(clientDataBaseHelper, this, "", "search_history", true);
         recyclerWords.setAdapter(vocabularyAdapter);
+    }
 
+    private void eventSearchBar() {
+        searchBar = findViewById(R.id.search_history);
+
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                    recyclerWords.setAdapter(null);
+                } else {
+                    recyclerWords.setAdapter(vocabularyAdapter);
+                }
+            }
+
+        });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                vocabularyAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     public void hideKeyboard(View view) {

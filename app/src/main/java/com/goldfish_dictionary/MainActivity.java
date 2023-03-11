@@ -32,17 +32,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializationDatabase();
+        eventRecyclerWord();
+        eventSearchBar();
+        clickBtnDictionary();
+        clickBtnSearchHistory();
+    }
 
+    private void eventRecyclerWord() {
         recyclerWords = findViewById(R.id.recycler_voca);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
         vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, typeTranslate, "vocabulary", false);
         recyclerWords.setAdapter(vocabularyAdapter);
+    }
 
-//        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-//        recyclerWords.addItemDecoration(itemDecoration);
-
+    private void eventSearchBar() {
         searchBar = findViewById(R.id.action_search);
 
         searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -74,11 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        clickBtnDictionary();
-        clickBtnSearchHistory();
     }
-
     private void clickBtnDictionary() {
         btn_vi_en = findViewById(R.id.btn_vi_en);
         btn_vi_en.setOnClickListener(new View.OnClickListener() {

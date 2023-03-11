@@ -121,11 +121,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return vocabularyArrayList;
     }
 
-    public List<Vocabulary> getFilterVocabulary(String word, int limit) {
+    public List<Vocabulary> getFilterVocabulary(String table, String word, int limit) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 //        ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
         List<Vocabulary> vocabularyList = new ArrayList<>();
-        String query = "SELECT * FROM vocabulary WHERE word LIKE " + "\"" + word + "%\" " + "LIMIT " + limit;
+        String query = "SELECT * FROM " + table + " WHERE word LIKE " + "\"" + word + "%\" " + "LIMIT " + limit;
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
