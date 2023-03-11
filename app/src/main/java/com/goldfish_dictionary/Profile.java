@@ -49,7 +49,6 @@ public class Profile extends Activity {
         last_name_profile.setHint(info.lastName);
         first_name_profile.setHint(info.firstName);
         email_profile.setHint(info.email);
-
     }
 
     private void initializationDatabase() {
