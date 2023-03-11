@@ -25,7 +25,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/search_save_vocabulary"
+        android:background="@drawable/search_history"
         android:clickable="true"
         android:drawableLeft="@drawable/ic_user"
         android:drawablePadding="20dp"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="@+id/search_save_vocabulary"
         app:layout_constraintStart_toStartOf="@+id/search_save_vocabulary"
         app:layout_constraintTop_toBottomOf="@+id/search_save_vocabulary"
-        tools:listitem="@layout/save_vocabulary_item" />
+        tools:listitem="@layout/saved_vocabulary_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"

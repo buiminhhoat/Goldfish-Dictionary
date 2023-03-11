@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_vi_en;
     private ConstraintLayout btn_fr_vi;
     private ConstraintLayout btn_vi_fr;
+    private Button btn_search_history;
     private String typeTranslate = "en_vi";
 
     @Override
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         clickBtnDictionary();
+        clickBtnSearchHistory();
     }
 
     private void clickBtnDictionary() {
@@ -108,6 +111,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void clickBtnSearchHistory() {
+        btn_search_history = findViewById(R.id.btn_search_history);
+        btn_search_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, History.class);
+                startActivity(intent);
+            }
+        });
+    }
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

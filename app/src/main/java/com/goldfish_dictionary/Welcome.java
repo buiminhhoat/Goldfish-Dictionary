@@ -28,7 +28,7 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 2000);
+        }, 1000);
     }
 
     private void initializationDatabase() {

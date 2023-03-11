@@ -201,7 +201,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_search_history"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="1dp"
