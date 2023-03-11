@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#202442"
+    android:background="@drawable/bg_history"
     android:clickable="true"
     android:focusableInTouchMode="true"
     >
@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -32,9 +32,10 @@
         android:focusableInTouchMode="true"
         android:hint="Tìm kiếm từ đã tra"
         android:padding="12dp"
-        android:textColor="#2196F3"
-        android:textColorHint="#4F5AAA"
+        android:textColor="#79FFE7"
+        android:textColorHint="#FFFFFF"
         android:textSize="15sp"
+        android:textFontWeight="700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
@@ -43,11 +44,13 @@
         android:id="@+id/recycler_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
         app:layout_constraintEnd_toEndOf="@+id/search_history"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/search_history"
         app:layout_constraintTop_toBottomOf="@+id/search_history"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/history_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -40,7 +40,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     @NonNull
     @Override
     public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        View view;
+        if (table == "search_history") {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        }
         return new VocabularyViewHolder(view);
     }
 
@@ -113,9 +118,16 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
 
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
-            latin = (TextView) convertView.findViewById(R.id.word);
-            detail   = (TextView) convertView.findViewById(R.id.ipa);
-            item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
+
+            if (table == "search_history") {
+                latin = (TextView) convertView.findViewById(R.id.word_history);
+                detail   = (TextView) convertView.findViewById(R.id.ipa_history);
+                item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+            } else {
+                latin = (TextView) convertView.findViewById(R.id.word);
+                detail   = (TextView) convertView.findViewById(R.id.ipa);
+                item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
+            }
             convertView.setOnClickListener(this);
             convertView.setOnLongClickListener(this);
         }
