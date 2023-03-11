@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_vi_en;
     private ConstraintLayout btn_fr_vi;
     private ConstraintLayout btn_vi_fr;
+    private ImageView btn_profile;
     private Button btn_search_history;
     private Button btn_saved_vocabulary;
     private String typeTranslate = "en_vi";
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         initializationDatabase();
         eventRecyclerWord();
         eventSearchBar();
+        clickBtnProfile();
         clickBtnDictionary();
         clickBtnSearchHistory();
         clickBtnSavedVocabulary();
@@ -82,6 +85,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void clickBtnProfile() {
+        btn_profile = findViewById(R.id.btn_profile);
+        btn_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void clickBtnDictionary() {
         btn_vi_en = findViewById(R.id.btn_vi_en);
         btn_vi_en.setOnClickListener(new View.OnClickListener() {
