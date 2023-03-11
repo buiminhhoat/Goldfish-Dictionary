@@ -134,7 +134,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_saved_vocabulary"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginTop="13dp"

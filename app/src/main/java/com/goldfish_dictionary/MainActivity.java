@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_fr_vi;
     private ConstraintLayout btn_vi_fr;
     private Button btn_search_history;
+    private Button btn_saved_vocabulary;
     private String typeTranslate = "en_vi";
 
     @Override
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         eventSearchBar();
         clickBtnDictionary();
         clickBtnSearchHistory();
+        clickBtnSavedVocabulary();
     }
 
     private void eventRecyclerWord() {
@@ -118,6 +120,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, History.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void clickBtnSavedVocabulary() {
+        btn_saved_vocabulary = findViewById(R.id.btn_saved_vocabulary);
+        btn_saved_vocabulary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SavedVocabulary.class);
                 startActivity(intent);
             }
         });
