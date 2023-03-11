@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -161,6 +162,12 @@ public class Word extends Activity {
                 String antonyms = getAntonyms();
                 handler.post(new Runnable() {
                     public void run() {
+//                        if (synonyms.equals("No synonyms found!")) {
+//                            list_synonym.setTextColor(Color.rgb(254, 169, 31));
+//                        }
+//                        if (antonyms.equals("No antonyms found!")) {
+//                            list_antonym.setTextColor(Color.rgb(254, 169, 31));
+//                        }
                         list_synonym.setText(synonyms);
                         list_antonym.setText(antonyms);
                     }

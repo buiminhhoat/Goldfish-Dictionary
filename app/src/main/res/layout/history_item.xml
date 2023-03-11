@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:id="@+id/relativeLayout3"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <CheckBox
+            android:id="@+id/cb_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text=" "
+            app:buttonIconTint="@color/green"
+            app:buttonTint="@color/green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/word_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Word"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/cb_history"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ipa_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif"
+            android:text="/ipa/"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textFontWeight="700"
+            app:layout_constraintStart_toStartOf="@+id/word_history"
+            app:layout_constraintTop_toBottomOf="@+id/word_history"
+            tools:layout_conversion_absoluteHeight="20dp"
+            tools:layout_conversion_absoluteWidth="105dp" />
+
+        <TextView
+            android:id="@+id/meaning_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif"
+            android:text="Meaning"
+            android:textColor="#A4A4A4"
+            android:textSize="15sp"
+            android:textFontWeight="700"
+            app:layout_constraintStart_toStartOf="@+id/ipa_history"
+            app:layout_constraintTop_toBottomOf="@+id/ipa_history"
+            tools:layout_conversion_absoluteHeight="20dp"
+            tools:layout_conversion_absoluteWidth="105dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
