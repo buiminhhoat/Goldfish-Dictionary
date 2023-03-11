@@ -104,10 +104,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList getAllVocabulary() {
+    public ArrayList getAllVocabulary(String table) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM vocabulary", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + table, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();

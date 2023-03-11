@@ -25,11 +25,13 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        initializationDatabase();
+
         recyclerWords = findViewById(R.id.recycler_history);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(clientDataBaseHelper, this, "");
+        vocabularyAdapter = new VocabularyAdapter(clientDataBaseHelper, this, "", "search_history", true);
         recyclerWords.setAdapter(vocabularyAdapter);
 
     }

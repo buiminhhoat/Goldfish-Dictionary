@@ -26,10 +26,11 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     private AppCompatActivity mainActivity;
 
     private String typeTranslate;
-    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String typeTranslate) {
+    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String typeTranslate, String table, boolean show) {
         this.databaseHelper = databaseHelper;
         this.mainActivity = mainActivity;
         this.typeTranslate = typeTranslate;
+        if (show) this.vocabularyList = databaseHelper.getAllVocabulary(table);
     }
 
     @NonNull
