@@ -60,7 +60,6 @@ public class Dictionary extends AppCompatActivity {
                     recyclerWords.setAdapter(vocabularyAdapter);
                 }
             }
-
         });
 
         searchBar.addTextChangedListener(new TextWatcher() {

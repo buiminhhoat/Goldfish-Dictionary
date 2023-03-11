@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
@@ -41,6 +43,7 @@ public class Word extends Activity {
     private String word;
     private String typeTranslate;
     private DatabaseHelper dataBaseHelper;
+    private DatabaseHelper clientDataBaseHelper;
     private TextView list_synonym;
     private TextView list_antonym;
     private Button btn_speak;
@@ -59,16 +62,18 @@ public class Word extends Activity {
 
         StrictMode.setThreadPolicy(policy);
 
+
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
         this.typeTranslate = intent.getStringExtra("TYPE");
 
-        client = new OkHttpClient();
         initializationDatabase();
+        client = new OkHttpClient();
 
         TextView tv_word = findViewById(R.id.txt_word);
         tv_word.setText(word);
 
+        String id = dataBaseHelper.getVocabulary(word).getId();
         TextView tv_ipa = findViewById(R.id.txt_ipa);
         String ipa = dataBaseHelper.getVocabulary(word).getIpa();
         tv_ipa.setText(ipa);
@@ -77,15 +82,15 @@ public class Word extends Activity {
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         tv_meaning.setText(meaning);
 
-
         list_synonym = findViewById(R.id.list_synonym);
         list_antonym = findViewById(R.id.list_antonym);
         list_synonym.setText("Loading...");
         list_antonym.setText("Loading...");
         setSynonymsAndAntonyms();
 
+        updateHistory();
+
         createNotificationChannel();
-//        createNotification("Goldfish Dictionary", word);
 
         if (Objects.equals(ipa, "")) {
             scheduleNotification(getNotification(word,
@@ -108,6 +113,21 @@ public class Word extends Activity {
 //        }
     }
 
+    private void updateHistory() {
+        String id = dataBaseHelper.getVocabulary(word).getId();
+        String ipa = dataBaseHelper.getVocabulary(word).getIpa();
+        String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
+        boolean is_synced = true;
+        boolean is_deleted = true;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        clientDataBaseHelper.deleteQuery("search_history", new String[]{"word"},
+                new String[]{word});
+        clientDataBaseHelper.addQuery("search_history",
+                new String[]{"id", "word", "ipa", "meaning", "database", "is_synced", "is_deleted", "date_search"},
+                new String[]{id, word, ipa, meaning, typeTranslate, String.valueOf(is_synced),
+                        String.valueOf(is_deleted), String.valueOf(dateTimeFormatter.format(now))});
+    }
     private void setSynonymsAndAntonyms (){
         Handler handler = new Handler();
         Thread thread = new Thread(){
@@ -180,6 +200,9 @@ public class Word extends Activity {
     private void initializationDatabase() {
         dataBaseHelper = new DatabaseHelper(Word.this, typeTranslate + ".db");
         dataBaseHelper.createDatabase();
+
+        clientDataBaseHelper = new DatabaseHelper(this, "goldfish_dictionary_client.db");
+        clientDataBaseHelper.createDatabase();
     }
 
     public void createNotificationChannel() {

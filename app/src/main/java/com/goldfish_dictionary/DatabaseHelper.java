@@ -1,8 +1,10 @@
 package com.goldfish_dictionary;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -109,6 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
+            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
@@ -127,6 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
+            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
@@ -143,11 +147,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
+            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
             return vocabulary;
         }
         return null;
+    }
+
+    public void addQuery(String table, String[] key, String[] value) throws SQLiteException {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        for (int i = 0; i < key.length; ++i) {
+            contentValues.put(key[i], value[i]);
+        }
+        database.insert(table, null, contentValues);
+        database.close();
+    }
+
+    public void updateQuery(String table, String[] key, String[] value, String[] key_update, String [] value_update) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        for (int i = 0; i < key.length; ++i) {
+            contentValues.put(key[i], value[i]);
+        }
+
+        String whereClause = "";
+        for (int i = 0; i < key_update.length; ++i) {
+            whereClause += key_update[i] + "?";
+        }
+        database.update(table, contentValues, whereClause, value_update);
+        database.close();
+    }
+
+    // below is the method for deleting our course.
+    public void deleteQuery(String table, String[] key_delete, String [] value_delete) {
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        String whereClause = "";
+        for (int i = 0; i < key_delete.length; ++i) {
+            whereClause += key_delete[i] + "=?";
+        }
+        database.delete(table, whereClause, value_delete);
+        database.close();
     }
 }

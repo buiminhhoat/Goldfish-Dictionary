@@ -15,14 +15,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class History extends AppCompatActivity {
+    private DatabaseHelper clientDataBaseHelper;
+
+    private VocabularyAdapter vocabularyAdapter;
+    private RecyclerView recyclerWords;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        recyclerWords = findViewById(R.id.recycler_history);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerWords.setLayoutManager(linearLayoutManager);
+
+        vocabularyAdapter = new VocabularyAdapter(clientDataBaseHelper, this, "");
+        recyclerWords.setAdapter(vocabularyAdapter);
+
     }
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void initializationDatabase() {
+        clientDataBaseHelper = new DatabaseHelper(this, "goldfish_dictionary_client.db");
+        clientDataBaseHelper.createDatabase();
     }
 }

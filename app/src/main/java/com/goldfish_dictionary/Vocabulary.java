@@ -1,6 +1,7 @@
 package com.goldfish_dictionary;
 
 public class Vocabulary {
+    String id;
     String word;
     String ipa;
     String meaning;
@@ -13,6 +14,21 @@ public class Vocabulary {
         this.word = word;
         this.ipa = ipa;
         this.meaning = meaning;
+    }
+
+    public Vocabulary(String id, String word, String ipa, String meaning) {
+        this.id = id;
+        this.word = word;
+        this.ipa = ipa;
+        this.meaning = meaning;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getWord() {
@@ -38,4 +54,5 @@ public class Vocabulary {
     public void setMeaning(String meaning) {
         this.meaning = meaning;
     }
+
 }
