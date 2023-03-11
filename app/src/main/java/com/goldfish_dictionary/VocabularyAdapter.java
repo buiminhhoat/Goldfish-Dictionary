@@ -41,9 +41,12 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     @Override
     public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (table == "search_history") {
+        if (table.equals("search_history")) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
-        } else {
+        } else if (table.equals("saved_vocabulary")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_vocabulary_item, parent, false);
+        } else
+        {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         }
         return new VocabularyViewHolder(view);
@@ -119,10 +122,14 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
 
-            if (table == "search_history") {
+            if (table.equals("search_history")) {
                 latin = (TextView) convertView.findViewById(R.id.word_history);
                 detail   = (TextView) convertView.findViewById(R.id.ipa_history);
                 item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+            } else if (table.equals("saved_vocabulary")) {
+                latin = (TextView) convertView.findViewById(R.id.word_saved_vocabulary);
+                detail   = (TextView) convertView.findViewById(R.id.ipa_saved_vocabulary);
+                item  = (RelativeLayout) convertView.findViewById(R.id.saved_vocabulary_item);
             } else {
                 latin = (TextView) convertView.findViewById(R.id.word);
                 detail   = (TextView) convertView.findViewById(R.id.ipa);

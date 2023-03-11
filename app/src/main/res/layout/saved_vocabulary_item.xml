@@ -1,73 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
-    android:id="@+id/relativeLayout3"
+    android:id="@+id/saved_vocabulary_item"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <CheckBox
-            android:id="@+id/cb_save_vocabulary"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout10"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text=" "
-            app:buttonIconTint="@color/green"
-            app:buttonTint="@color/green"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView11"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/word_saved_vocabulary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Word"
+                android:textColor="@color/white"
+                android:textFontWeight="800"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ipa_saved_vocabulary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif"
+                android:text="/ipa/"
+                android:textColor="@color/white"
+                android:textFontWeight="600"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/word_saved_vocabulary"
+                app:layout_constraintTop_toBottomOf="@+id/word_saved_vocabulary"
+                tools:layout_conversion_absoluteHeight="20dp"
+                tools:layout_conversion_absoluteWidth="105dp" />
+
+            <TextView
+                android:id="@+id/meaning_saved_vocabulary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="sans-serif"
+                android:text="Meaning"
+                android:textColor="#93B4AC"
+                android:textFontWeight="600"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ipa_saved_vocabulary"
+                app:layout_constraintTop_toBottomOf="@+id/ipa_saved_vocabulary"
+                tools:layout_conversion_absoluteHeight="20dp"
+                tools:layout_conversion_absoluteWidth="105dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete_trash" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#25484D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
-        <TextView
-            android:id="@+id/word_save_vocabulary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif"
-            android:text="Word"
-            android:textColor="@color/white"
-            android:textFontWeight="700"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/cb_save_vocabulary"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/ipa_save_vocabulary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif"
-            android:text="/ipa/"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textFontWeight="700"
-            app:layout_constraintStart_toStartOf="@+id/word_save_vocabulary"
-            app:layout_constraintTop_toBottomOf="@+id/word_save_vocabulary"
-            tools:layout_conversion_absoluteHeight="20dp"
-            tools:layout_conversion_absoluteWidth="105dp" />
-
-        <TextView
-            android:id="@+id/meaning_save_vocabulary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif"
-            android:text="Meaning"
-            android:textColor="#A4A4A4"
-            android:textSize="15sp"
-            android:textFontWeight="700"
-            app:layout_constraintStart_toStartOf="@+id/ipa_save_vocabulary"
-            app:layout_constraintTop_toBottomOf="@+id/ipa_save_vocabulary"
-            tools:layout_conversion_absoluteHeight="20dp"
-            tools:layout_conversion_absoluteWidth="105dp" />
-
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
