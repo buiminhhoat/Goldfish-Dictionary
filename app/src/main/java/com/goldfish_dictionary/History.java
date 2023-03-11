@@ -1,7 +1,8 @@
 package com.goldfish_dictionary;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,10 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.sql.Connection;
 
 public class History extends AppCompatActivity {
     private DatabaseHelper clientDataBaseHelper;
@@ -21,13 +22,18 @@ public class History extends AppCompatActivity {
     private VocabularyAdapter vocabularyAdapter;
     private RecyclerView recyclerWords;
     private EditText searchBar;
+    Connection connection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-
         initializationDatabase();
+        try {
+            syncServer();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         eventRecyclerWord();
         eventSearchBar();
     }
@@ -84,5 +90,33 @@ public class History extends AppCompatActivity {
     private void initializationDatabase() {
         clientDataBaseHelper = new DatabaseHelper(this, "goldfish_dictionary_client.db");
         clientDataBaseHelper.createDatabase();
+    }
+
+    private void syncServer() throws Exception {
+        connection = ConnectToMySQL.getConnection();
+        if (connection == null) return;
+//        Statement statement = null;
+//        try {
+//            statement = connection.createStatement();
+//        } catch (SQLException e) {
+//            throw new Exception("recycler_saved_vocabularyo connect to database!");
+//        }
+//        if (statement == null) return;
+
+        SQLiteDatabase sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
+        String user_id = clientDataBaseHelper.getUserId();
+
+        String query = "SELECT * FROM search_history WHERE is_synced = \"false\"";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String word_id = cursor.getString(cursor.getColumnIndex("id"));
+            String nameDatabase = cursor.getString(cursor.getColumnIndex("nameDatabase"));
+            String date_search = cursor.getString(cursor.getColumnIndex("date_search"));
+            ConnectToMySQL.insert("search_history",
+                    new String[] {"user_id", "id", "nameDatabase", "date_search"},
+                    new String[] {user_id, word_id, nameDatabase, date_search});
+            cursor.moveToNext();
+        }
     }
 }

@@ -117,17 +117,18 @@ public class Word extends Activity {
         String id = dataBaseHelper.getVocabulary(word).getId();
         String ipa = dataBaseHelper.getVocabulary(word).getIpa();
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
-        boolean is_synced = true;
-        boolean is_deleted = true;
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        boolean is_synced = false;
+        boolean is_deleted = false;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         clientDataBaseHelper.deleteQuery("search_history", new String[]{"word"},
                 new String[]{word});
         clientDataBaseHelper.addQuery("search_history",
-                new String[]{"id", "word", "ipa", "meaning", "database", "is_synced", "is_deleted", "date_search"},
+                new String[]{"id", "word", "ipa", "meaning", "nameDatabase", "is_synced", "is_deleted", "date_search"},
                 new String[]{id, word, ipa, meaning, typeTranslate, String.valueOf(is_synced),
                         String.valueOf(is_deleted), String.valueOf(dateTimeFormatter.format(now))});
     }
+
     private void setSynonymsAndAntonyms (){
         Handler handler = new Handler();
         Thread thread = new Thread(){
@@ -150,7 +151,7 @@ public class Word extends Activity {
                     }
                     return synonyms;
                 } catch (IOException | JSONException e) {
-                    throw new RuntimeException(e);
+                    return "Unable to connect to database!";
                 }
             }
 
@@ -173,7 +174,7 @@ public class Word extends Activity {
                     }
                     return antonyms;
                 } catch (IOException | JSONException e) {
-                    throw new RuntimeException(e);
+                    return "Unable to connect to database!";
                 }
             }
 

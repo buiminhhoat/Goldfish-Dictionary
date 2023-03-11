@@ -193,4 +193,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.delete(table, whereClause, value_delete);
         database.close();
     }
+
+    public String getUserId() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String query = "SELECT * FROM user";
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            return cursor.getString(cursor.getColumnIndex("user_id"));
+        }
+        return null;
+    }
 }

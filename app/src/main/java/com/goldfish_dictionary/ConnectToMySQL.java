@@ -6,6 +6,8 @@ import android.os.StrictMode;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public final class ConnectToMySQL {
     private static Connection connection = null;
@@ -26,5 +28,33 @@ public final class ConnectToMySQL {
             }
         }
         return connection;
+    }
+
+    public static void insert(String table, String [] key, String [] value) throws SQLException {
+//        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
+//                + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
+        Statement statement = connection.createStatement();
+        String queryInsert = "INSERT INTO " + table;
+        String keyString = "(";
+        for (int i = 0; i < key.length; ++i) {
+            if (i + 1 < key.length) {
+                keyString += key[i].toString() + ", ";
+            }
+            else {
+                keyString += key[i].toString() + ") ";
+            }
+        }
+        queryInsert += keyString;
+        String valueString = "VALUES (";
+        for (int i = 0; i < value.length; ++i) {
+            if (i + 1 < value.length) {
+                valueString += "\"" + value[i] + "\",";
+            }
+            else {
+                valueString += "\"" + value[i] + "\")";
+            }
+        }
+        queryInsert += valueString;
+        statement.executeUpdate(queryInsert);
     }
 }
