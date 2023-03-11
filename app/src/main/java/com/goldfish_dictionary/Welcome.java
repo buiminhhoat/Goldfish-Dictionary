@@ -28,20 +28,18 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 1000);
+        }, 2000);
     }
 
     private void initializationDatabase() {
         DatabaseHelper dataBaseHelper;
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "en_vi.db");
-        dataBaseHelper.createDatabase();
-        /*
         dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
         dataBaseHelper.createDatabase();
         dataBaseHelper = new DatabaseHelper(Welcome.this, "fr_vi.db");
         dataBaseHelper.createDatabase();
         dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_fr.db");
         dataBaseHelper.createDatabase();
-        */
+        dataBaseHelper = new DatabaseHelper(Welcome.this, "en_vi.db");
+        dataBaseHelper.createDatabase();
     }
 }

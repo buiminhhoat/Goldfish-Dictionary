@@ -97,6 +97,7 @@ public class Dictionary extends AppCompatActivity {
 
     private void initializationDatabase() {
         dataBaseHelper = new DatabaseHelper(Dictionary.this, typeTranslate + ".db");
+        dataBaseHelper.createDatabase();
     }
 
     public void hideKeyboard(View view) {

@@ -141,15 +141,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializationDatabase() {
+        dataBaseHelper = new DatabaseHelper(MainActivity.this, "vi_en.db");
+        dataBaseHelper.createDatabase();
+        dataBaseHelper = new DatabaseHelper(MainActivity.this, "fr_vi.db");
+        dataBaseHelper.createDatabase();
+        dataBaseHelper = new DatabaseHelper(MainActivity.this, "vi_fr.db");
+        dataBaseHelper.createDatabase();
+
         dataBaseHelper = new DatabaseHelper(MainActivity.this, "en_vi.db");
         dataBaseHelper.createDatabase();
-        /*
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_en.db");
-        dataBaseHelper.createDatabase();
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "fr_vi.db");
-        dataBaseHelper.createDatabase();
-        dataBaseHelper = new DatabaseHelper(Welcome.this, "vi_fr.db");
-        dataBaseHelper.createDatabase();
-        */
     }
 }
