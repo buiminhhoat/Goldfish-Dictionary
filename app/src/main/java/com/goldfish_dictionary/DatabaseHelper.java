@@ -104,6 +104,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList getAllProfile(String table) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ArrayList<User> users = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + table, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            User user = new User();
+            user.user_id = cursor.getInt(cursor.getColumnIndex("user_id"));
+            user.username = cursor.getString(cursor.getColumnIndex("username"));
+            user.firstName = cursor.getString(cursor.getColumnIndex("firstName"));
+            user.lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+            user.email = cursor.getString(cursor.getColumnIndex("email"));
+            user.passwordHash = cursor.getString(cursor.getColumnIndex("passwordHash"));
+            users.add(user);
+            cursor.moveToNext();
+        }
+        return users;
+    }
+
     public ArrayList getAllVocabulary(String table) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
