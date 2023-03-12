@@ -109,7 +109,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "INSERT INTO user(user_id, username, firstName, lastName, email, passwordHash) " +
                 "VALUES ("+ user_id + ", \""+ username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + email + "\", \"" + passwordHash + "\");";
 
-        System.out.println("query:" + query);
         sqLiteDatabase.execSQL(query);
     }
 

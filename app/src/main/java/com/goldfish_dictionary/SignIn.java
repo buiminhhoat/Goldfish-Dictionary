@@ -172,12 +172,12 @@ public class SignIn extends AppCompatActivity {
         if (!res) {
             return false;
         }
-        System.out.println(resultSet.getInt("user_id"));
-        System.out.println(resultSet.getString("username"));
-        System.out.println(resultSet.getString("firstName"));
-        System.out.println(resultSet.getString("lastName"));
-        System.out.println(resultSet.getString("email"));
-        System.out.println(resultSet.getString("passwordHash"));
+//        System.out.println(resultSet.getInt("user_id"));
+//        System.out.println(resultSet.getString("username"));
+//        System.out.println(resultSet.getString("firstName"));
+//        System.out.println(resultSet.getString("lastName"));
+//        System.out.println(resultSet.getString("email"));
+//        System.out.println(resultSet.getString("passwordHash"));
         if (databaseHelper.isEmpty("user")) {
             databaseHelper.insertTableUser(resultSet.getInt("user_id"),
                                         resultSet.getString("username"),

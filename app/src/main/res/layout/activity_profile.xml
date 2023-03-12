@@ -36,6 +36,7 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:hint="Last Name"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/username_profile" />
 
@@ -47,6 +48,7 @@
             android:inputType="textPersonName"
             android:minHeight="48dp"
             android:hint="First Name"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/last_name_profile" />
 
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="E-mail"
+            android:text=""
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +72,7 @@
             android:inputType="textPassword"
             android:minHeight="48dp"
             android:hint="PW"
+            android:text=""
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_profile" />
 
@@ -78,13 +82,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="C PW"
+            android:text=""
             android:inputType="textPassword"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_profile" />
 
         <Button
-            android:id="@+id/button_profile"
+            android:id="@+id/btn_save_modified"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button"
@@ -97,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Log Out"
-            app:layout_constraintStart_toEndOf="@+id/button_profile"
+            app:layout_constraintStart_toEndOf="@+id/btn_save_modified"
             app:layout_constraintTop_toBottomOf="@+id/confirm_password_profile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

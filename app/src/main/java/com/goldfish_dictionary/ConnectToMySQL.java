@@ -30,6 +30,25 @@ public final class ConnectToMySQL {
         return connection;
     }
 
+    public static void update(String table, String key_id, int id, String [] key, String [] value) throws SQLException {
+        if (key.length != value.length) {
+            throw new RuntimeException("Error update MySQL");
+        }
+        Statement statement = connection.createStatement();
+        String queryUpdate = "UPDATE " + table + " SET ";
+
+        for (int i = 0; i < key.length; ++i) {
+            queryUpdate += key[i].toString() + " = \"" + value[i].toString() + "\"";
+            if (i + 1 < key.length) {
+                queryUpdate += ",";
+            }
+            queryUpdate += " ";
+        }
+        queryUpdate += "WHERE " + key_id + " = " + id;
+        System.out.println("queryUpdate: " + queryUpdate);
+        statement.executeUpdate(queryUpdate);
+    }
+
     public static void insert(String table, String [] key, String [] value) throws SQLException {
 //        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
 //                + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
