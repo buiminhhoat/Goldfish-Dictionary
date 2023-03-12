@@ -77,9 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="C PW"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:hint="C PW"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password_profile" />
 
@@ -89,6 +89,15 @@
             android:layout_height="wrap_content"
             android:text="Button"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_profile" />
+
+        <Button
+            android:id="@+id/btn_log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="Log Out"
+            app:layout_constraintStart_toEndOf="@+id/button_profile"
             app:layout_constraintTop_toBottomOf="@+id/confirm_password_profile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

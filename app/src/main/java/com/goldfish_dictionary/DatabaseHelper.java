@@ -104,6 +104,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void clearTable(String table) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String query = "DELETE FROM " + table;
+        sqLiteDatabase.execSQL(query);
+    }
+
     public ArrayList getAllProfile(String table) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<User> users = new ArrayList<>();

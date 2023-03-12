@@ -3,6 +3,7 @@ package com.goldfish_dictionary;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class Profile extends Activity {
     private EditText password_profile;
     private EditText confirm_password_profile;
     private Button button_profile;
+    private Button btn_log_out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,25 @@ public class Profile extends Activity {
         last_name_profile.setHint(info.lastName);
         first_name_profile.setHint(info.firstName);
         email_profile.setHint(info.email);
+
+        clickBtnLogOut();
+    }
+
+    private void clickBtnLogOut() {
+        btn_log_out = findViewById(R.id.btn_log_out);
+        btn_log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<User> users1 = databaseHelper.getAllProfile("user");
+                System.out.println(users1.size());
+
+                databaseHelper.clearTable("user");
+                List<User> users = databaseHelper.getAllProfile("user");
+                System.out.println(users.size());
+                Intent intent = new Intent(Profile.this, SignIn.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initializationDatabase() {
