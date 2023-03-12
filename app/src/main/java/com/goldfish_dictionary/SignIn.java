@@ -44,6 +44,7 @@ import java.util.Arrays;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
+    DatabaseHelper databaseHelper;
     Connection connection = null;
     EditText txt_username = null;
     EditText txt_password = null;
@@ -57,9 +58,9 @@ public class SignIn extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        databaseHelper = new DatabaseHelper(SignIn.this, "goldfish_dictionary_client.db");
 
         connection = ConnectToMySQL.getConnection();
         txt_username = findViewById(R.id.txt_username);
@@ -166,8 +167,26 @@ public class SignIn extends AppCompatActivity {
 
         String query = "SELECT * " + "FROM user WHERE username = " + "\"" + username + "\""
                 + " AND passwordHash = " + "\"" + password + "\";";
-        ResultSet resultSet    = connection.createStatement().executeQuery(query);
-        return resultSet.next();
+        ResultSet resultSet = connection.createStatement().executeQuery(query);
+        boolean res = resultSet.next();
+        if (!res) {
+            return false;
+        }
+        System.out.println(resultSet.getInt("user_id"));
+        System.out.println(resultSet.getString("username"));
+        System.out.println(resultSet.getString("firstName"));
+        System.out.println(resultSet.getString("lastName"));
+        System.out.println(resultSet.getString("email"));
+        System.out.println(resultSet.getString("passwordHash"));
+        if (databaseHelper.isEmpty("user")) {
+            databaseHelper.insertTableUser(resultSet.getInt("user_id"),
+                                        resultSet.getString("username"),
+                                        resultSet.getString("firstName"),
+                                        resultSet.getString("lastName"),
+                                        resultSet.getString("email"),
+                                        resultSet.getString("passwordHash"));
+        }
+        return true;
 //        while (resultSet.next()) {
 //            if (resultSet.getString("username").equals(email)) {
 //                throw new Exception("Username already exists");

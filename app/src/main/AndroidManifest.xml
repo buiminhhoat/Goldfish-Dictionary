@@ -42,6 +42,16 @@
         </activity>
 
         <activity
+            android:name="com.goldfish_dictionary.SignIn"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="com.goldfish_dictionary.Profile"
             android:exported="true">
             <intent-filter>
@@ -93,16 +103,6 @@
 
         <activity
             android:name="com.goldfish_dictionary.Translate"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.goldfish_dictionary.SignIn"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

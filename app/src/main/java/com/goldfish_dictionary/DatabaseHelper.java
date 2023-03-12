@@ -104,10 +104,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void insertTableUser(long user_id, String username, String firstName, String lastName, String email, String passwordHash) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String query = "INSERT INTO user(user_id, username, firstName, lastName, email, passwordHash) " +
+                "VALUES ("+ user_id + ", \""+ username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + email + "\", \"" + passwordHash + "\");";
+
+        System.out.println("query:" + query);
+        sqLiteDatabase.execSQL(query);
+    }
+
     public void clearTable(String table) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String query = "DELETE FROM " + table;
         sqLiteDatabase.execSQL(query);
+    }
+
+    public boolean isEmpty(String table) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        ArrayList<User> users = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + table, null);
+        cursor.moveToFirst();
+        return cursor.isAfterLast();
     }
 
     public ArrayList getAllProfile(String table) {

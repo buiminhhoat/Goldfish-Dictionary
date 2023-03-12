@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Profile extends Activity {
     private DatabaseHelper databaseHelper;
@@ -39,7 +40,6 @@ public class Profile extends Activity {
         if (users.size() > 1) {
             throw new RuntimeException("More than one user!");
         }
-
         User info = users.get(0);
 
         username_profile = findViewById(R.id.username_profile);
@@ -48,8 +48,18 @@ public class Profile extends Activity {
         email_profile = findViewById(R.id.email_profile);
 
         username_profile.setText(info.username);
-        last_name_profile.setHint(info.lastName);
-        first_name_profile.setHint(info.firstName);
+        if (info.firstName.equals("null")) {
+            first_name_profile.setHint("");
+        } else {
+            first_name_profile.setHint(info.firstName);
+        }
+
+        if (info.lastName.equals("null")) {
+            last_name_profile.setHint("");
+        } else {
+            last_name_profile.setHint(info.lastName);
+        }
+
         email_profile.setHint(info.email);
 
         clickBtnLogOut();
