@@ -14,7 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Array;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class History extends AppCompatActivity {
     private DatabaseHelper clientDataBaseHelper;
@@ -106,7 +109,27 @@ public class History extends AppCompatActivity {
         SQLiteDatabase sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
         String user_id = clientDataBaseHelper.getUserId();
 
+        String queryDelete = "SELECT * FROM search_history WHERE is_deleted = \"true\"";
+        Cursor cursorDelete = sqLiteDatabase.rawQuery(queryDelete,null);
+        cursorDelete.moveToFirst();
+
+        List<String> list = new ArrayList<>();
+        while (!cursorDelete.isAfterLast()) {
+            String word_id = cursorDelete.getString(cursorDelete.getColumnIndex("id"));
+            ConnectToMySQL.delete("search_history",
+                    new String[] {"id"},
+                    new String[] {word_id});
+            list.add(word_id);
+            cursorDelete.moveToNext();
+        }
+        for (int i = 0; i < list.size(); ++i) {
+            String word_id = list.get(i);
+            clientDataBaseHelper.deleteQuery("search_history",
+                    new String[] {"id"},
+                    new String[] {word_id});
+        }
         String query = "SELECT * FROM search_history WHERE is_synced = \"false\"";
+        sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
