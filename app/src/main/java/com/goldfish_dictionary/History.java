@@ -97,13 +97,6 @@ public class History extends AppCompatActivity {
     private void syncServer() throws Exception {
         connection = ConnectToMySQL.getConnection();
         if (connection == null) return;
-//        Statement statement = null;
-//        try {
-//            statement = connection.createStatement();
-//        } catch (SQLException e) {
-//            throw new Exception("recycler_saved_vocabularyo connect to database!");
-//        }
-//        if (statement == null) return;
 
         SQLiteDatabase sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
         String user_id = clientDataBaseHelper.getUserId();

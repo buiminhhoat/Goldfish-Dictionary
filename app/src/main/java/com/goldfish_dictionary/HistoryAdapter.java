@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,6 +62,17 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
             holder.detail.setText(vocabulary.getIpa());
         }
 
+        holder.imageViewTrash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("*");
+                databaseHelper.deleteQuery("search_history",
+                        new String[] {"word"},
+                        new String[] {vocabulary.getWord()});
+                vocabularyList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
@@ -115,6 +127,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         public RelativeLayout item;
         private TextView latin;
         private TextView detail;
+        private ImageView imageViewTrash;
 
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
@@ -123,6 +136,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 latin = (TextView) convertView.findViewById(R.id.word_history);
                 detail   = (TextView) convertView.findViewById(R.id.ipa_history);
                 item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+                imageViewTrash = item.findViewById(R.id.imageView_trash);
             } else if (table.equals("saved_vocabulary")) {
                 latin = (TextView) convertView.findViewById(R.id.word_saved_vocabulary);
                 detail   = (TextView) convertView.findViewById(R.id.ipa_saved_vocabulary);
