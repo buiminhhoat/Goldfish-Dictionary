@@ -45,6 +45,7 @@ public class Word extends Activity {
     private TextView list_synonym;
     private TextView list_antonym;
     private ImageView speaker;
+    private ImageView exit_word;
     private Pronounce pronounce;
 
     static OkHttpClient client = null;
@@ -99,6 +100,18 @@ public class Word extends Activity {
         }
 
         clickBtnSpeaker();
+        clickBtnExitWord();
+    }
+
+    private void clickBtnExitWord() {
+        exit_word = findViewById(R.id.exit_word);
+        exit_word.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Word.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void clickBtnSpeaker() {
