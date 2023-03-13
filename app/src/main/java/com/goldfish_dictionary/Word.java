@@ -36,7 +36,7 @@ import okhttp3.Response;
 public class Word extends Activity {
     private final static String DEFAULT_NOTIFICATION_CHANNEL_ID = "Goldfish Dictionary";
     private String word;
-    private String typeTranslate;
+    private String name_database;
     private DatabaseHelper dataBaseHelper;
     private DatabaseHelper clientDataBaseHelper;
     private TextView list_synonym;
@@ -60,7 +60,7 @@ public class Word extends Activity {
 
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
-        this.typeTranslate = intent.getStringExtra("TYPE");
+        this.name_database = intent.getStringExtra("TYPE");
 
         initializationDatabase();
         client = new OkHttpClient();
@@ -120,7 +120,7 @@ public class Word extends Activity {
                 new String[]{word});
         clientDataBaseHelper.addQuery("search_history",
                 new String[]{"word_id", "word", "ipa", "meaning", "name_database", "is_synced", "is_deleted", "date_search"},
-                new String[]{word_id, word, ipa, meaning, typeTranslate, String.valueOf(is_synced),
+                new String[]{word_id, word, ipa, meaning, name_database, String.valueOf(is_synced),
                         String.valueOf(is_deleted), String.valueOf(dateTimeFormatter.format(now))});
     }
 
@@ -194,7 +194,7 @@ public class Word extends Activity {
     }
 
     private void initializationDatabase() {
-        dataBaseHelper = new DatabaseHelper(Word.this, typeTranslate + ".db");
+        dataBaseHelper = new DatabaseHelper(Word.this, name_database);
         dataBaseHelper.createDatabase();
 
         clientDataBaseHelper = new DatabaseHelper(this, "goldfish_dictionary_client.db");

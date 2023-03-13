@@ -6,6 +6,8 @@ public class Vocabulary {
     String ipa;
     String meaning;
 
+    String name_database;
+
     public Vocabulary() {
 
     }
@@ -55,4 +57,11 @@ public class Vocabulary {
         this.meaning = meaning;
     }
 
+    public String getName_database() {
+        return name_database;
+    }
+
+    public void setName_database(String name_database) {
+        this.name_database = name_database;
+    }
 }
