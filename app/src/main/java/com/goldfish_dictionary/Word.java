@@ -44,7 +44,6 @@ public class Word extends Activity {
     private DatabaseHelper clientDataBaseHelper;
     private TextView list_synonym;
     private TextView list_antonym;
-    private Button btn_speak;
     private ImageView speaker;
     private Pronounce pronounce;
 

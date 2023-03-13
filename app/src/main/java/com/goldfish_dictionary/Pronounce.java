@@ -21,10 +21,10 @@ public class Pronounce {
 
     Pronounce(String word) throws JSONException, IOException, InterruptedException {
         String id = createTTSJob(word);
-        System.out.println("id = " + id);
+//        System.out.println("id = " + id);
         Thread.sleep(3000);
         pronounceUrl = getJobStatus(id);
-        System.out.println("url = " + pronounceUrl);
+//        System.out.println("url = " + pronounceUrl);
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
