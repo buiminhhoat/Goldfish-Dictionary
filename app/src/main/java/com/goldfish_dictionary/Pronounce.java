@@ -16,6 +16,26 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Pronounce {
+    private String pronounceUrl;
+    private MediaPlayer mediaPlayer;
+
+    Pronounce(String word) throws JSONException, IOException, InterruptedException {
+        String id = createTTSJob(word);
+//        System.out.println("id = " + id);
+        Thread.sleep(3000);
+        pronounceUrl = getJobStatus(id);
+//        System.out.println("url = " + pronounceUrl);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioAttributes(
+                new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
+                        .build()
+        );
+        mediaPlayer.setDataSource(pronounceUrl);
+        mediaPlayer.prepare();
+    }
+
     public String createTTSJob(String word) throws JSONException, IOException {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
@@ -60,23 +80,7 @@ public class Pronounce {
         return url;
     }
 
-    public void pronounce(String word) throws IOException, JSONException, InterruptedException {
-        String id = createTTSJob(word);
-        System.out.println("id = " + id);
-        Thread.sleep(3000);
-        String url = getJobStatus(id);
-        System.out.println("url = " + url);
-
-
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioAttributes(
-                new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .build()
-        );
-        mediaPlayer.setDataSource(url);
-        mediaPlayer.prepare();
+    public void pronounce(){
         mediaPlayer.start();
     }
 }
