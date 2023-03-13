@@ -1,9 +1,6 @@
 package com.goldfish_dictionary;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder> implements Filterable {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
     private AppCompatActivity mainActivity;
@@ -28,7 +25,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
     private String name_database;
     private String table;
     private boolean show;
-    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
+    public HistoryAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
         this.databaseHelper = databaseHelper;
         this.mainActivity = mainActivity;
         this.name_database = name_database;
@@ -68,13 +65,13 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
-                    System.out.println(vocabulary.getWord() + "long");
+                    System.out.println(vocabulary.getWord() + " long");
                 }
                 else {
-                    System.out.println(vocabulary.getWord() + "click");
+                    System.out.println(vocabulary.getWord() + " click");
                     Intent intent = new Intent(mainActivity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
-                    intent.putExtra("TYPE", name_database);
+                    intent.putExtra("TYPE", vocabulary.getName_database());
                     mainActivity.startActivity(intent);
                 }
             }

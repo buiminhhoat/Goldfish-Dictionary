@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btn_profile;
     private Button btn_search_history;
     private Button btn_saved_vocabulary;
-    private String typeTranslate = "en_vi";
+    private String name_database = "en_vi.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, typeTranslate, "vocabulary", false);
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, name_database, "vocabulary", false);
         recyclerWords.setAdapter(vocabularyAdapter);
     }
 

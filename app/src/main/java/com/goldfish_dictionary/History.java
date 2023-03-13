@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 public class History extends AppCompatActivity {
     private DatabaseHelper clientDataBaseHelper;
 
-    private VocabularyAdapter vocabularyAdapter;
+    private HistoryAdapter historyAdapter;
     private RecyclerView recyclerWords;
     private EditText searchBar;
     Connection connection = null;
@@ -47,8 +46,8 @@ public class History extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(clientDataBaseHelper, this, "", "search_history", true);
-        recyclerWords.setAdapter(vocabularyAdapter);
+        historyAdapter = new HistoryAdapter(clientDataBaseHelper, this, "", "search_history", true);
+        recyclerWords.setAdapter(historyAdapter);
     }
 
     private void eventSearchBar() {
@@ -61,7 +60,7 @@ public class History extends AppCompatActivity {
                     hideKeyboard(v);
                     recyclerWords.setAdapter(null);
                 } else {
-                    recyclerWords.setAdapter(vocabularyAdapter);
+                    recyclerWords.setAdapter(historyAdapter);
                 }
             }
 
@@ -75,7 +74,7 @@ public class History extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                vocabularyAdapter.getFilter().filter(charSequence);
+                historyAdapter.getFilter().filter(charSequence);
             }
 
             @Override

@@ -19,7 +19,7 @@ import com.goldfish_dictionary.R;
 import org.w3c.dom.Text;
 
 public class Dictionary extends AppCompatActivity {
-    private String typeTranslate;
+    private String name_database;
     private DatabaseHelper dataBaseHelper;
 
     private VocabularyAdapter vocabularyAdapter;
@@ -32,8 +32,8 @@ public class Dictionary extends AppCompatActivity {
         setContentView(R.layout.activity_dictionary);
 
         Intent intent = getIntent();
-        typeTranslate = intent.getStringExtra("TYPE");
-        System.out.println(typeTranslate);
+        name_database = intent.getStringExtra("TYPE");
+        System.out.println(name_database);
 
         initializationDatabase();
         changeTitle();
@@ -42,7 +42,7 @@ public class Dictionary extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, typeTranslate, "vocabulary", false);
+        vocabularyAdapter = new VocabularyAdapter(dataBaseHelper, this, name_database, "vocabulary", false);
         recyclerWords.setAdapter(vocabularyAdapter);
 
 //        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -82,7 +82,7 @@ public class Dictionary extends AppCompatActivity {
 
     private void changeTitle() {
         TextView txt_dictionary = findViewById(R.id.txt_dictionary);
-        switch (typeTranslate) {
+        switch (name_database) {
             case "vi_en":
                 txt_dictionary.setText("Từ điển Việt - Anh");
                 break;
@@ -96,7 +96,7 @@ public class Dictionary extends AppCompatActivity {
     }
 
     private void initializationDatabase() {
-        dataBaseHelper = new DatabaseHelper(Dictionary.this, typeTranslate + ".db");
+        dataBaseHelper = new DatabaseHelper(Dictionary.this, name_database);
         dataBaseHelper.createDatabase();
     }
 

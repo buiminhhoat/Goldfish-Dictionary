@@ -22,18 +22,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Tag just for the LogCat window
     //destination path (location) of our database on device
     private static String DATABASE_PATH = "";
-    //private static String DATABASE_NAME ="(students).sqlite";// Database name
-//    private static String DATABASE_NAME = "en_vi.db";
-    private String DATABASE_NAME = "";
+    //private static String name_database ="(students).sqlite";// Database name
+//    private static String name_database = "en_vi.db";
+    private String name_database = "";
     private SQLiteDatabase sqLiteDatabase;
     private final Context context;
 
-    public DatabaseHelper(Context context, String DATABASE_NAME) {
-        super(context, DATABASE_NAME, null, 1);// 1? its Database Version
+    public DatabaseHelper(Context context, String name_database) {
+        super(context, name_database, null, 1);// 1? its Database Version
         DATABASE_PATH = "/data/data/" + context.getPackageName() + "/databases/";
         Log.i(TAG, DATABASE_PATH);
         this.context = context;
-        this.DATABASE_NAME = DATABASE_NAME;
+        this.name_database = name_database;
     }
 
     public void createDatabase() {
@@ -52,9 +52,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Check that the database exists here: /data/data/your package/databases/DATABASE_NAME
+    // Check that the database exists here: /data/data/your package/databases/name_database
     private boolean checkDatabase() {
-        File databaseFile = new File(DATABASE_PATH + DATABASE_NAME);
+        File databaseFile = new File(DATABASE_PATH + name_database);
         //Log.v("databaseFile", databaseFile + "   "+ databaseFile.exists());
         return databaseFile.exists();
     }
@@ -62,8 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Copy the database from assets
     private void copyDatabase() throws IOException {
         try {
-            InputStream mInput = context.getAssets().open(DATABASE_NAME);
-            String outFileName = DATABASE_PATH + DATABASE_NAME;
+            InputStream mInput = context.getAssets().open(name_database);
+            String outFileName = DATABASE_PATH + name_database;
             new File(DATABASE_PATH).mkdirs();
             OutputStream outputStream = new FileOutputStream(outFileName);
             byte[] buffer = new byte[1024];
@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Open the database, so we can query it
     public boolean openDataBase() throws SQLException {
-        String path = DATABASE_PATH + DATABASE_NAME;
+        String path = DATABASE_PATH + name_database;
         sqLiteDatabase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         return sqLiteDatabase != null;
     }
@@ -156,6 +156,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            if (cursor.getColumnIndex("name_database") != -1) {
+                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+            }
+            else {
+                vocabulary.name_database = name_database;
+            }
             vocabularyArrayList.add(vocabulary);
             cursor.moveToNext();
         }
@@ -175,6 +181,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            if (cursor.getColumnIndex("name_database") != -1) {
+                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+            }
+            else {
+                vocabulary.name_database = name_database;
+            }
             vocabularyList.add(vocabulary);
             cursor.moveToNext();
         }
@@ -192,6 +204,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            if (cursor.getColumnIndex("name_database") != -1) {
+                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+            }
+            else {
+                vocabulary.name_database = name_database;
+            }
             return vocabulary;
         }
         return null;
