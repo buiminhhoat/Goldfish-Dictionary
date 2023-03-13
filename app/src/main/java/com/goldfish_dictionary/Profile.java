@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Profile extends Activity {
     private DatabaseHelper databaseHelper;
@@ -63,16 +61,16 @@ public class Profile extends Activity {
 
         username_profile.setText(info.username);
         email_profile.setHint(info.email);
-        if (info.firstName.equals("null")) {
+        if (info.first_name.equals("null")) {
             first_name_profile.setHint("");
         } else {
-            first_name_profile.setHint(info.firstName);
+            first_name_profile.setHint(info.first_name);
         }
 
-        if (info.lastName.equals("null")) {
+        if (info.last_name.equals("null")) {
             last_name_profile.setHint("");
         } else {
-            last_name_profile.setHint(info.lastName);
+            last_name_profile.setHint(info.last_name);
         }
     }
 
@@ -82,22 +80,21 @@ public class Profile extends Activity {
             @Override
             public void onClick(View view) {
                 String username = username_profile.getText().toString().trim();
-                String lastName = last_name_profile.getText().toString().trim();
-                String firstName = first_name_profile.getText().toString().trim();
+                String last_name = last_name_profile.getText().toString().trim();
+                String first_name = first_name_profile.getText().toString().trim();
                 String email = email_profile.getText().toString().trim();
-                String password = password_profile.getText().toString().trim();
+                String password_hash = password_profile.getText().toString().trim();
 
                 if (username.equals("")) username = info.username;
-                if (lastName.equals("")) lastName = info.lastName;
-                if (firstName.equals("")) firstName = info.firstName;
+                if (last_name.equals("")) last_name = info.last_name;
+                if (first_name.equals("")) first_name = info.first_name;
                 if (email.equals("")) email = info.email;
-                if (password.equals("")) password = info.passwordHash;
+                if (password_hash.equals("")) password_hash = info.password_hash;
 
                 if (username.equals(info.username) &&
-                    lastName.equals(info.lastName) &&
-                    firstName.equals(info.firstName) &&
-                    email.equals(info.email) &&
-                    password.equals(info.passwordHash)
+                    last_name.equals(info.last_name) &&
+                    first_name.equals(info.first_name) &&
+                    email.equals(info.email) && password_hash.equals(info.password_hash)
                     ) {
                     Toast.makeText(getApplicationContext(), "Nothing changes", Toast.LENGTH_SHORT).show();
                     return;
@@ -105,10 +102,10 @@ public class Profile extends Activity {
 
                 try {
                     ConnectToMySQL.update("user", "user_id", info.user_id,
-                            new String[] {"username", "firstName", "lastName", "email", "passwordHash"},
-                            new String[] {username, firstName, lastName, email, password});
+                            new String[] {"username", "first_name", "last_name", "email", "password_hash"},
+                            new String[] {username, first_name, last_name, email, password_hash});
                     databaseHelper.clearTable("user");
-                    databaseHelper.insertTableUser(info.user_id, username, firstName, lastName, email, password);
+                    databaseHelper.insertTableUser(info.user_id, username, first_name, last_name, email, password_hash);
                     loadInfo();
                 } catch (SQLException e) {
                     e.printStackTrace();

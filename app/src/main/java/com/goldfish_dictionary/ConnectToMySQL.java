@@ -50,7 +50,7 @@ public final class ConnectToMySQL {
     }
 
     public static void insert(String table, String [] key, String [] value) throws SQLException {
-//        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
+//        statement.executeUpdate("INSERT INTO user(username, email, password_hash) "
 //                + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
         Statement statement = connection.createStatement();
         String queryInsert = "INSERT INTO " + table;

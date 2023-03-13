@@ -115,9 +115,9 @@ public class History extends AppCompatActivity {
 
         List<String> list = new ArrayList<>();
         while (!cursorDelete.isAfterLast()) {
-            String word_id = cursorDelete.getString(cursorDelete.getColumnIndex("id"));
+            String word_id = cursorDelete.getString(cursorDelete.getColumnIndex("word_id"));
             ConnectToMySQL.delete("search_history",
-                    new String[] {"id"},
+                    new String[] {"word_id"},
                     new String[] {word_id});
             list.add(word_id);
             cursorDelete.moveToNext();
@@ -125,7 +125,7 @@ public class History extends AppCompatActivity {
         for (int i = 0; i < list.size(); ++i) {
             String word_id = list.get(i);
             clientDataBaseHelper.deleteQuery("search_history",
-                    new String[] {"id"},
+                    new String[] {"word_id"},
                     new String[] {word_id});
         }
         String query = "SELECT * FROM search_history WHERE is_synced = \"false\"";
@@ -133,12 +133,12 @@ public class History extends AppCompatActivity {
         Cursor cursor = sqLiteDatabase.rawQuery(query,null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            String word_id = cursor.getString(cursor.getColumnIndex("id"));
-            String nameDatabase = cursor.getString(cursor.getColumnIndex("nameDatabase"));
+            String word_id = cursor.getString(cursor.getColumnIndex("word_id"));
+            String name_database = cursor.getString(cursor.getColumnIndex("name_database"));
             String date_search = cursor.getString(cursor.getColumnIndex("date_search"));
             ConnectToMySQL.insert("search_history",
-                    new String[] {"user_id", "id", "nameDatabase", "date_search"},
-                    new String[] {user_id, word_id, nameDatabase, date_search});
+                    new String[] {"user_id", "word_id", "name_database", "date_search"},
+                    new String[] {user_id, word_id, name_database, date_search});
             cursor.moveToNext();
         }
     }

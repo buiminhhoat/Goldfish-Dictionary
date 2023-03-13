@@ -1,7 +1,7 @@
 package com.goldfish_dictionary;
 
 public class Vocabulary {
-    String id;
+    String word_id;
     String word;
     String ipa;
     String meaning;
@@ -17,18 +17,18 @@ public class Vocabulary {
     }
 
     public Vocabulary(String id, String word, String ipa, String meaning) {
-        this.id = id;
+        this.word_id = id;
         this.word = word;
         this.ipa = ipa;
         this.meaning = meaning;
     }
 
-    public String getId() {
-        return id;
+    public String getWord_id() {
+        return word_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setWord_id(String word_id) {
+        this.word_id = word_id;
     }
 
     public String getWord() {

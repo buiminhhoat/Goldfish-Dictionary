@@ -119,7 +119,7 @@ public class SignUp extends AppCompatActivity {
                 throw new Exception("Email already exists");
             }
         }
-        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
+        statement.executeUpdate("INSERT INTO user(username, email, password_hash) "
                 + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
     }
 }

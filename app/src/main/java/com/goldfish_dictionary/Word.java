@@ -8,9 +8,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.AudioAttributes;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,10 +29,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Word extends Activity {
@@ -73,7 +68,7 @@ public class Word extends Activity {
         TextView tv_word = findViewById(R.id.txt_word);
         tv_word.setText(word);
 
-        String id = dataBaseHelper.getVocabulary(word).getId();
+        String id = dataBaseHelper.getVocabulary(word).getWord_id();
         TextView tv_ipa = findViewById(R.id.txt_ipa);
         String ipa = dataBaseHelper.getVocabulary(word).getIpa();
         tv_ipa.setText(ipa);
@@ -114,7 +109,7 @@ public class Word extends Activity {
     }
 
     private void updateHistory() {
-        String id = dataBaseHelper.getVocabulary(word).getId();
+        String word_id = dataBaseHelper.getVocabulary(word).getWord_id();
         String ipa = dataBaseHelper.getVocabulary(word).getIpa();
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         boolean is_synced = false;
@@ -124,8 +119,8 @@ public class Word extends Activity {
         clientDataBaseHelper.deleteQuery("search_history", new String[]{"word"},
                 new String[]{word});
         clientDataBaseHelper.addQuery("search_history",
-                new String[]{"id", "word", "ipa", "meaning", "nameDatabase", "is_synced", "is_deleted", "date_search"},
-                new String[]{id, word, ipa, meaning, typeTranslate, String.valueOf(is_synced),
+                new String[]{"word_id", "word", "ipa", "meaning", "name_database", "is_synced", "is_deleted", "date_search"},
+                new String[]{word_id, word, ipa, meaning, typeTranslate, String.valueOf(is_synced),
                         String.valueOf(is_deleted), String.valueOf(dateTimeFormatter.format(now))});
     }
 

@@ -104,10 +104,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertTableUser(long user_id, String username, String firstName, String lastName, String email, String passwordHash) {
+    public void insertTableUser(long user_id, String username, String first_name, String last_name, String email, String password_hash) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String query = "INSERT INTO user(user_id, username, firstName, lastName, email, passwordHash) " +
-                "VALUES ("+ user_id + ", \""+ username + "\", \"" + firstName + "\", \"" + lastName + "\", \"" + email + "\", \"" + passwordHash + "\");";
+        String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash) " +
+                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\");";
 
         sqLiteDatabase.execSQL(query);
     }
@@ -135,10 +135,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             User user = new User();
             user.user_id = cursor.getInt(cursor.getColumnIndex("user_id"));
             user.username = cursor.getString(cursor.getColumnIndex("username"));
-            user.firstName = cursor.getString(cursor.getColumnIndex("firstName"));
-            user.lastName = cursor.getString(cursor.getColumnIndex("lastName"));
+            user.first_name = cursor.getString(cursor.getColumnIndex("first_name"));
+            user.last_name = cursor.getString(cursor.getColumnIndex("last_name"));
             user.email = cursor.getString(cursor.getColumnIndex("email"));
-            user.passwordHash = cursor.getString(cursor.getColumnIndex("passwordHash"));
+            user.password_hash = cursor.getString(cursor.getColumnIndex("password_hash"));
             users.add(user);
             cursor.moveToNext();
         }
@@ -152,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
+            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
@@ -171,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
+            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
@@ -188,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.id = cursor.getString(cursor.getColumnIndex("id"));
+            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
             vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
             vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
             vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));

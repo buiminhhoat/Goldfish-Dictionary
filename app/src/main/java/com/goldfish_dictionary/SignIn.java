@@ -166,41 +166,22 @@ public class SignIn extends AppCompatActivity {
         }
 
         String query = "SELECT * " + "FROM user WHERE username = " + "\"" + username + "\""
-                + " AND passwordHash = " + "\"" + password + "\";";
+                + " AND password_hash = " + "\"" + password + "\";";
         ResultSet resultSet = connection.createStatement().executeQuery(query);
         boolean res = resultSet.next();
         if (!res) {
             return false;
         }
-//        System.out.println(resultSet.getInt("user_id"));
-//        System.out.println(resultSet.getString("username"));
-//        System.out.println(resultSet.getString("firstName"));
-//        System.out.println(resultSet.getString("lastName"));
-//        System.out.println(resultSet.getString("email"));
-//        System.out.println(resultSet.getString("passwordHash"));
+
         if (databaseHelper.isEmpty("user")) {
             databaseHelper.insertTableUser(resultSet.getInt("user_id"),
                                         resultSet.getString("username"),
-                                        resultSet.getString("firstName"),
-                                        resultSet.getString("lastName"),
+                                        resultSet.getString("first_name"),
+                                        resultSet.getString("last_name"),
                                         resultSet.getString("email"),
-                                        resultSet.getString("passwordHash"));
+                                        resultSet.getString("password_hash"));
         }
         return true;
-//        while (resultSet.next()) {
-//            if (resultSet.getString("username").equals(email)) {
-//                throw new Exception("Username already exists");
-//            }
-//        }
-//
-//        resultSet    = connection.createStatement().executeQuery("SELECT email " + "FROM user");
-//        while (resultSet.next()) {
-//            if (resultSet.getString("email").equals(email)) {
-//                throw new Exception("Email already exists");
-//            }
-//        }
-//        statement.executeUpdate("INSERT INTO user(username, email, passwordHash) "
-//                + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
     }
 
     private void getUserProfileFacebook(AccessToken accessToken) {
