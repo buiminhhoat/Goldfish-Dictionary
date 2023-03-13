@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.OkHttpClient;
@@ -42,6 +45,8 @@ public class Word extends Activity {
     private TextView list_synonym;
     private TextView list_antonym;
     private Button btn_speak;
+    private ImageView speaker;
+    private Pronounce pronounce;
 
     static OkHttpClient client = null;
 
@@ -54,9 +59,7 @@ public class Word extends Activity {
         setContentView(R.layout.activity_word);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy);
-
 
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
@@ -96,16 +99,41 @@ public class Word extends Activity {
                     meaning), 15);
         }
 
-//        Pronounce pronounce = new Pronounce();
-//        try {
-//            pronounce.pronounce(word);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (JSONException e) {
-//            throw new RuntimeException(e);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        clickBtnSpeaker();
+    }
+
+    private void clickBtnSpeaker() {
+        pronounce = null;
+        speaker = findViewById(R.id.speaker);
+        speaker.setImageResource(R.drawable.speaker_loading);
+        Handler handler = new Handler();
+        Thread thread = new Thread(){
+            public void run() {
+                try {
+                    pronounce = new Pronounce(word);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                handler.post(new Runnable() {
+                    public void run() {
+                        speaker.setImageResource(R.drawable.speaker);
+                    }
+                });
+            }
+        };
+        thread.start();
+        speaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (pronounce != null) {
+                    pronounce.pronounce();
+                }
+            }
+        });
     }
 
     private void updateHistory() {
