@@ -55,6 +55,7 @@ public class Profile extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
