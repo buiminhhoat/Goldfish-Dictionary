@@ -77,13 +77,13 @@ public class Profile extends Activity {
         username_profile.setText(info.username);
         email_profile.setHint(info.email);
         if (info.first_name.equals("null")) {
-            first_name_profile.setHint("");
+            first_name_profile.setHint("First name");
         } else {
             first_name_profile.setHint(info.first_name);
         }
 
         if (info.last_name.equals("null")) {
-            last_name_profile.setHint("");
+            last_name_profile.setHint("Last name");
         } else {
             last_name_profile.setHint(info.last_name);
         }
