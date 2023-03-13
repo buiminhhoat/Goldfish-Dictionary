@@ -9,24 +9,15 @@
     android:focusableInTouchMode="true"
     >
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView3"-->
-<!--        android:layout_width="509dp"-->
-<!--        android:layout_height="909dp"-->
-<!--        app:srcCompat="@drawable/nhap"-->
-<!--        tools:layout_editor_absoluteX="-44dp"-->
-<!--        tools:layout_editor_absoluteY="-50dp" />-->
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="736dp"
         android:layout_height="740dp"
         android:layout_marginTop="-309dp"
+        android:src="@drawable/bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg" />
-
-
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -56,11 +47,12 @@
                 android:id="@+id/book3"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:src="@drawable/ic_book3"
                 android:layout_marginStart="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_book3" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,10 +71,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
+                android:src="@drawable/arrow3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow3" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,10 +97,11 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="10dp"
+                android:src="@drawable/ic_book2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_book2" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,10 +120,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
+                android:src="@drawable/arrow2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow2" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,7 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/btn_main_activity"
             android:gravity="center"
@@ -171,10 +166,11 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="10dp"
+                android:src="@drawable/ic_book1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_book1" />
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,10 +189,11 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
+                android:src="@drawable/arrow1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrow1" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -224,11 +221,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2">
+            app:layout_constraintTop_toBottomOf="@+id/btn_search_history">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -270,7 +267,7 @@
                 app:layout_constraintTop_toTopOf="@+id/or" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Space
+        <FrameLayout
             android:id="@+id/space2"
             android:layout_width="8dp"
             android:layout_height="62dp"
@@ -294,8 +291,6 @@
         android:textColor="#2196F3"
         android:textColorHint="#4F5AAA"
         android:textSize="15sp"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -303,8 +298,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_voca"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/action_search"
         app:layout_constraintStart_toStartOf="@+id/action_search"
         app:layout_constraintTop_toBottomOf="@+id/action_search"
@@ -319,7 +315,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Space
+        <FrameLayout
             android:id="@+id/space3"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -340,7 +336,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:srcCompat="@drawable/ic_search" />
+                android:src="@drawable/ic_search" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -356,11 +352,12 @@
             android:id="@+id/btn_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/ic_profile1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/space3"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_user1" />
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -370,9 +367,10 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginBottom="-10dp"
+        android:src="@drawable/ic_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_main" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

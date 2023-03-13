@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,14 +16,15 @@ import java.util.List;
 
 public class Profile extends Activity {
     private DatabaseHelper databaseHelper;
+    private ImageView btn_search;
     private TextView username_profile;
     private EditText last_name_profile;
     private EditText first_name_profile;
     private EditText email_profile;
     private EditText password_profile;
     private EditText confirm_password_profile;
-    private Button btn_save_modified;
-    private Button btn_log_out;
+    private TextView btn_save_modified;
+    private TextView btn_log_out;
     private User info;
     private Connection connection = null;
 
@@ -38,10 +40,23 @@ public class Profile extends Activity {
         first_name_profile = findViewById(R.id.first_name_profile);
         email_profile = findViewById(R.id.email_profile);
         password_profile = findViewById(R.id.password_profile);
+        btn_search = findViewById(R.id.btn_search);
 
         loadInfo();
+        clickBtnSearch();
         clickBtnLogOut();
         clickBtnSaveModified();
+    }
+
+    private void clickBtnSearch() {
+        btn_search = findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadInfo() {

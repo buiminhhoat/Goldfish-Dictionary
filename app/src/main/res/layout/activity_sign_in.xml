@@ -153,7 +153,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/txt_username"
                     tools:ignore="TextContrastCheck,TouchTargetSizeCheck"
                     tools:layout_conversion_absoluteHeight="64dp"
-                    tools:layout_conversion_absoluteWidth="164dp" />
+                    tools:layout_conversion_absoluteWidth="164dp"
+                    />
 
 
                 <TextView
