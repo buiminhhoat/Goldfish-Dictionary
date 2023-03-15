@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
+import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -126,21 +129,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
     public void insertTableUser(long user_id, String username, String first_name, String last_name, String email, String password_hash, byte[] avatar_bitmap) {
+        if (avatar_bitmap == null) {
+            SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+            String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash, avatar_bitmap) " +
+                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\", null);";
+            sqLiteDatabase.execSQL(query);
+            return;
+        }
+
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-//        String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash, avatar_bitmap) " +
-//                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\", \"" + avatar_bitmap + "\");";
         String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash, avatar_bitmap) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\", ?);";
         SQLiteStatement statement = sqLiteDatabase.compileStatement(query);
         statement.clearBindings();
-        statement.bindLong(1, user_id);
-        statement.bindString(2, username);
-        statement.bindString(3, first_name);
-        statement.bindString(4, last_name);
-        statement.bindString(5, email);
-        statement.bindString(6, password_hash);
-        statement.bindBlob(7, avatar_bitmap);
-
+        statement.bindBlob(1, avatar_bitmap);
         statement.executeInsert();
     }
 

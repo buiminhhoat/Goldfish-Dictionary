@@ -1,5 +1,7 @@
 package com.goldfish_dictionary;
 
+import static com.goldfish_dictionary.Util.imageViewToByte;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -67,15 +69,6 @@ public class Profile extends Activity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             avatar_profile.setImageBitmap(photo);
         }
-    }
-
-    public byte[] imageViewToByte(ImageView imageView) {
-        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
-        Bitmap bmp = drawable.getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
     }
 
     private void clickAvatarProfile() {
