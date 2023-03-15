@@ -23,6 +23,21 @@ public final class ConnectToMySQL {
         return cm.getActiveNetworkInfo() != null;
     }
 
+    public static synchronized Connection getConnection() {
+        if (connection == null) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                connection = DriverManager.getConnection(DATABASE_URL, USER_NAME, PASSWORD);
+            }
+            catch (Exception e) {
+                String error = e.toString();
+            }
+        }
+        return connection;
+    }
+
     public static synchronized Connection getConnection(Context context) {
         if (isNetworkConnected(context) == false) return null;
         if (connection == null) {
@@ -91,7 +106,12 @@ public final class ConnectToMySQL {
             }
         }
         queryInsert += valueString;
-        statement.executeUpdate(queryInsert);
+        try {
+            statement.executeUpdate(queryInsert);
+        }
+        catch (Exception exception) {
+            return;
+        }
     }
 
     public static void delete(String table, String [] key, String [] value) throws SQLException {

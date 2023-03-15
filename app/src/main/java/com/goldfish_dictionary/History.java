@@ -39,24 +39,26 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         initializationDatabase();
+
         Handler handler = new Handler();
         Thread thread = new Thread(){
             public void run() {
-            try {
-                syncServer();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            handler.post(new Runnable() {
-                public void run() {
-                    eventRecyclerWord();
-                    eventSearchBar();
+                try {
+                    syncServer();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
-            });
+
+                handler.post(new Runnable() {
+                    public void run() {
+                        eventRecyclerWord();
+                        eventSearchBar();
+                    }
+                });
             }
         };
         thread.start();
+
         eventRecyclerWord();
         eventSearchBar();
     }
@@ -67,7 +69,8 @@ public class History extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
-        historyAdapter = new HistoryAdapter(clientDataBaseHelper, this, "", "search_history", true);
+        historyAdapter = new HistoryAdapter(clientDataBaseHelper, this,
+                "goldfish_dictionary_client.db", "search_history", true);
         recyclerWords.setAdapter(historyAdapter);
     }
 
