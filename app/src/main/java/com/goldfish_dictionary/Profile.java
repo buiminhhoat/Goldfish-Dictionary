@@ -156,7 +156,13 @@ public class Profile extends Activity {
                 String first_name = first_name_profile.getText().toString().trim();
                 String email = email_profile.getText().toString().trim();
                 String password_hash = password_profile.getText().toString().trim();
+                String confirm_password = confirm_password_profile.getText().toString().trim();
                 byte[] avatar = imageViewToByte(avatar_profile);
+
+                if (!password_hash.equals(confirm_password)) {
+                    Toast.makeText(getApplicationContext(), "Your password and confirmation password must match!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (username.equals("")) username = info.username;
                 if (last_name.equals("")) last_name = info.last_name;
