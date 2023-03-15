@@ -47,7 +47,7 @@ public class Profile extends Activity {
         map();
 
         initializationDatabase();
-        connection = ConnectToMySQL.getConnection();
+        connection = ConnectToMySQL.getConnection(this);
 
         loadInfo();
         clickBtnSearch();
@@ -140,9 +140,11 @@ public class Profile extends Activity {
             last_name_profile.setHint(info.last_name);
         }
 
-        byte[] avatar_byte = info.avatar_bitmap;
-        Bitmap bitmap = BitmapFactory.decodeByteArray(avatar_byte, 0, avatar_byte.length);
-        avatar_profile.setImageBitmap(bitmap);
+        if (info.avatar_bitmap != null) {
+            byte[] avatar_byte = info.avatar_bitmap;
+            Bitmap bitmap = BitmapFactory.decodeByteArray(avatar_byte, 0, avatar_byte.length);
+            avatar_profile.setImageBitmap(bitmap);
+        }
     }
 
     private void clickBtnSaveModified() {
