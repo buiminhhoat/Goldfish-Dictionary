@@ -34,7 +34,7 @@ public class Profile extends Activity {
         setContentView(R.layout.activity_profile);
         initializationDatabase();
 
-        connection = ConnectToMySQL.getConnection();
+        connection = ConnectToMySQL.getConnection(this);
         username_profile = findViewById(R.id.username_profile);
         last_name_profile = findViewById(R.id.last_name_profile);
         first_name_profile = findViewById(R.id.first_name_profile);

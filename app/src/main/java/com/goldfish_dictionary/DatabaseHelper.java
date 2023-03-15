@@ -263,4 +263,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return null;
     }
+
+    public String getVocabularyFromWordId(String word_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String query = "SELECT * FROM vocabulary WHERE word_id = " + word_id;
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            return cursor.getString(cursor.getColumnIndex("word"));
+        }
+        return null;
+    }
 }

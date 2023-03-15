@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,7 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +39,24 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         initializationDatabase();
-        try {
-            syncServer();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Handler handler = new Handler();
+        Thread thread = new Thread(){
+            public void run() {
+            try {
+                syncServer();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            handler.post(new Runnable() {
+                public void run() {
+                    eventRecyclerWord();
+                    eventSearchBar();
+                }
+            });
+            }
+        };
+        thread.start();
         eventRecyclerWord();
         eventSearchBar();
     }
@@ -95,7 +116,7 @@ public class History extends AppCompatActivity {
     }
 
     private void syncServer() throws Exception {
-        connection = ConnectToMySQL.getConnection();
+        connection = ConnectToMySQL.getConnection(this);
         if (connection == null) return;
 
         SQLiteDatabase sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
@@ -132,6 +153,34 @@ public class History extends AppCompatActivity {
                     new String[] {"user_id", "word_id", "name_database", "date_search"},
                     new String[] {user_id, word_id, name_database, date_search});
             cursor.moveToNext();
+        }
+
+        clientDataBaseHelper.clearTable("search_history");
+
+        Statement statement = connection.createStatement();
+        String querySelect = "SELECT * FROM search_history WHERE user_id = " + user_id;
+        ResultSet resultSet = statement.executeQuery(querySelect);
+        DatabaseHelper dataBaseHelper;
+        while (resultSet.next()) {
+            String word_id = resultSet.getString("word_id");
+            String name_database = resultSet.getString("name_database");
+            String date_search = resultSet.getString("date_search");
+            dataBaseHelper = new DatabaseHelper(History.this, name_database);
+            dataBaseHelper.createDatabase();
+
+            String word = dataBaseHelper.getVocabularyFromWordId(word_id);
+            String ipa = dataBaseHelper.getVocabulary(word).getIpa();
+            String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
+            boolean is_synced = true;
+            boolean is_deleted = false;
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            clientDataBaseHelper.deleteQuery("search_history", new String[]{"word"},
+                    new String[]{word});
+            clientDataBaseHelper.addQuery("search_history",
+                    new String[]{"word_id", "word", "ipa", "meaning", "name_database", "is_synced", "is_deleted", "date_search"},
+                    new String[]{word_id, word, ipa, meaning, name_database, String.valueOf(is_synced),
+                            String.valueOf(is_deleted), date_search});
         }
     }
 }

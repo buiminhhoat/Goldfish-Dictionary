@@ -62,7 +62,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         databaseHelper = new DatabaseHelper(SignIn.this, "goldfish_dictionary_client.db");
 
-        connection = ConnectToMySQL.getConnection();
+        connection = ConnectToMySQL.getConnection(this);
         txt_username = findViewById(R.id.txt_username);
         txt_password = findViewById(R.id.txt_password);
 
