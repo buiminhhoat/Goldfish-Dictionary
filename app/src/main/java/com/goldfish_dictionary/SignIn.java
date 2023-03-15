@@ -179,7 +179,9 @@ public class SignIn extends AppCompatActivity {
                                         resultSet.getString("first_name"),
                                         resultSet.getString("last_name"),
                                         resultSet.getString("email"),
-                                        resultSet.getString("password_hash"));
+                                        resultSet.getString("password_hash"),
+                                        null
+                                        );
         }
         return true;
     }

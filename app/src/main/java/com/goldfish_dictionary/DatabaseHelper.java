@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.io.File;
@@ -13,7 +15,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,12 +108,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertTableUser(long user_id, String username, String first_name, String last_name, String email, String password_hash) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash) " +
-                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\");";
+//    public void update(String table, String key_id, int id, String [] key, String [] value) throws SQLException {
+//        if (key.length != value.length) {
+//            throw new RuntimeException("Error update MySQL");
+//        }
+//        String query = "UPDATE " + table + " SET ";
+//        for (int i = 0; i < key.length; ++i) {
+//            query += key[i].toString() + " = \"" + value[i].toString() + "\"";
+//            if (i + 1 < key.length) {
+//                query += ",";
+//            }
+//            query += " ";
+//        }
+//        query += "WHERE " + key_id + " = " + id;
+//        System.out.println("queryUpdate: " + query);
+//        sqLiteDatabase.execSQL(query);
+//    }
 
-        sqLiteDatabase.execSQL(query);
+    public void insertTableUser(long user_id, String username, String first_name, String last_name, String email, String password_hash, byte[] avatar_bitmap) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+//        String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash, avatar_bitmap) " +
+//                "VALUES ("+ user_id + ", \""+ username + "\", \"" + first_name + "\", \"" + last_name + "\", \"" + email + "\", \"" + password_hash + "\", \"" + avatar_bitmap + "\");";
+        String query = "INSERT INTO user(user_id, username, first_name, last_name, email, password_hash, avatar_bitmap) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        SQLiteStatement statement = sqLiteDatabase.compileStatement(query);
+        statement.clearBindings();
+        statement.bindLong(1, user_id);
+        statement.bindString(2, username);
+        statement.bindString(3, first_name);
+        statement.bindString(4, last_name);
+        statement.bindString(5, email);
+        statement.bindString(6, password_hash);
+        statement.bindBlob(7, avatar_bitmap);
+
+        statement.executeInsert();
     }
 
     public void clearTable(String table) {
@@ -139,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             user.last_name = cursor.getString(cursor.getColumnIndex("last_name"));
             user.email = cursor.getString(cursor.getColumnIndex("email"));
             user.password_hash = cursor.getString(cursor.getColumnIndex("password_hash"));
+            user.avatar_bitmap = cursor.getBlob(cursor.getColumnIndex("avatar_bitmap"));
             users.add(user);
             cursor.moveToNext();
         }

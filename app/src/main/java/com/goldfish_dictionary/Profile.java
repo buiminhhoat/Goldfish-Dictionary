@@ -2,7 +2,11 @@ package com.goldfish_dictionary;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,46 +14,93 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.security.PrivateKey;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class Profile extends Activity {
-    private DatabaseHelper databaseHelper;
-    private ImageView btn_search;
     private TextView username_profile;
     private EditText last_name_profile;
     private EditText first_name_profile;
     private EditText email_profile;
     private EditText password_profile;
     private EditText confirm_password_profile;
+    private ImageView btn_search;
     private TextView btn_save_modified;
     private TextView btn_log_out;
+    private ImageView avatar_profile;
+
     private User info;
+    private DatabaseHelper databaseHelper;
     private Connection connection = null;
+
+    private final int CAMERA_REQUEST = 8888;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        initializationDatabase();
+        map();
 
+        initializationDatabase();
         connection = ConnectToMySQL.getConnection();
-        username_profile = findViewById(R.id.username_profile);
-        last_name_profile = findViewById(R.id.last_name_profile);
-        first_name_profile = findViewById(R.id.first_name_profile);
-        email_profile = findViewById(R.id.email_profile);
-        password_profile = findViewById(R.id.password_profile);
-        btn_search = findViewById(R.id.btn_search);
 
         loadInfo();
         clickBtnSearch();
         clickBtnLogOut();
         clickBtnSaveModified();
+        clickAvatarProfile();
+    }
+
+    private void camera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            avatar_profile.setImageBitmap(photo);
+        }
+    }
+
+    public byte[] imageViewToByte(ImageView imageView) {
+        BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bmp = drawable.getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
+    private void clickAvatarProfile() {
+        avatar_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                camera();
+            }
+        });
+    }
+
+    private void map() {
+        username_profile = findViewById(R.id.username_profile);
+        last_name_profile = findViewById(R.id.last_name_profile);
+        first_name_profile = findViewById(R.id.first_name_profile);
+        email_profile = findViewById(R.id.email_profile);
+        password_profile = findViewById(R.id.password_profile);
+        confirm_password_profile = findViewById(R.id.confirm_password_profile);
+        btn_search = findViewById(R.id.btn_search);
+        btn_save_modified = findViewById(R.id.btn_save_modified);
+        btn_log_out = findViewById(R.id.btn_log_out);
+        avatar_profile = findViewById(R.id.avatar_profile);
     }
 
     private void clickBtnSearch() {
-        btn_search = findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,10 +139,13 @@ public class Profile extends Activity {
         } else {
             last_name_profile.setHint(info.last_name);
         }
+
+        byte[] avatar_byte = info.avatar_bitmap;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(avatar_byte, 0, avatar_byte.length);
+        avatar_profile.setImageBitmap(bitmap);
     }
 
     private void clickBtnSaveModified() {
-        btn_save_modified = findViewById(R.id.btn_save_modified);
         btn_save_modified.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +154,7 @@ public class Profile extends Activity {
                 String first_name = first_name_profile.getText().toString().trim();
                 String email = email_profile.getText().toString().trim();
                 String password_hash = password_profile.getText().toString().trim();
+                byte[] avatar = imageViewToByte(avatar_profile);
 
                 if (username.equals("")) username = info.username;
                 if (last_name.equals("")) last_name = info.last_name;
@@ -108,33 +163,38 @@ public class Profile extends Activity {
                 if (password_hash.equals("")) password_hash = info.password_hash;
 
                 if (username.equals(info.username) &&
-                    last_name.equals(info.last_name) &&
-                    first_name.equals(info.first_name) &&
-                    email.equals(info.email) && password_hash.equals(info.password_hash)
+                        last_name.equals(info.last_name) &&
+                        first_name.equals(info.first_name) &&
+                        email.equals(info.email) &&
+                        password_hash.equals(info.password_hash) &&
+                        Arrays.equals(avatar, info.avatar_bitmap)
                     ) {
                     Toast.makeText(getApplicationContext(), "Nothing changes", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 try {
-                    ConnectToMySQL.update("user", "user_id", info.user_id,
-                            new String[] {"username", "first_name", "last_name", "email", "password_hash"},
-                            new String[] {username, first_name, last_name, email, password_hash});
+//                    ConnectToMySQL.update("user", "user_id", info.user_id,
+//                            new String[] {"username", "first_name", "last_name", "email", "password_hash"},
+//                            new String[] {username, first_name, last_name, email, password_hash});
                     databaseHelper.clearTable("user");
-                    databaseHelper.insertTableUser(info.user_id, username, first_name, last_name, email, password_hash);
+                    databaseHelper.insertTableUser(info.user_id,
+                                                    username,
+                                                    first_name,
+                                                    last_name,
+                                                    email,
+                                                    password_hash,
+                                                    imageViewToByte(avatar_profile));
                     loadInfo();
-                } catch (SQLException e) {
+                    Toast.makeText(getApplicationContext(), "Profile change successful", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                Toast.makeText(getApplicationContext(), "Profile change successful", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
     private void clickBtnLogOut() {
-        btn_log_out = findViewById(R.id.btn_log_out);
         btn_log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +213,5 @@ public class Profile extends Activity {
     private void initializationDatabase() {
         databaseHelper = new DatabaseHelper(Profile.this, "goldfish_dictionary_client.db");
         databaseHelper.createDatabase();
-
     }
-
 }
