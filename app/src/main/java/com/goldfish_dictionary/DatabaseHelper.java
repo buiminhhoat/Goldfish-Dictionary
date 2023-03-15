@@ -185,6 +185,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Vocabulary> vocabularyArrayList = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + table, null);
         cursor.moveToFirst();
+        if (cursor.getColumnIndex("is_deleted") != -1) {
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + table
+                    + " WHERE is_deleted = \"false\"", null);
+            cursor.moveToFirst();
+        }
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
             vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
@@ -270,7 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String whereClause = "";
         for (int i = 0; i < key_update.length; ++i) {
-            whereClause += key_update[i] + "?";
+            whereClause += key_update[i] + " = ?";
         }
         database.update(table, contentValues, whereClause, value_update);
         database.close();
@@ -282,7 +287,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String whereClause = "";
         for (int i = 0; i < key_delete.length; ++i) {
-            whereClause += key_delete[i] + "=?";
+            whereClause += key_delete[i] + " = ?";
         }
         database.delete(table, whereClause, value_delete);
         database.close();

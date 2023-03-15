@@ -14,6 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,6 +73,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 databaseHelper.deleteQuery("search_history",
                         new String[] {"word"},
                         new String[] {vocabulary.getWord()});
+                databaseHelper.addQuery("search_history",
+                        new String[] {"word_id", "is_deleted"},
+                        new String[] {vocabulary.getWord_id(), "true"});
                 vocabularyList.remove(position);
                 notifyDataSetChanged();
             }
