@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -172,6 +173,12 @@ public class SignIn extends AppCompatActivity {
             return false;
         }
 
+
+        Blob blob = resultSet.getBlob("avatar_bitmap");
+        byte[] avatar = null;
+        if (blob != null) {
+            avatar = blob.getBytes(1, (int) blob.length());
+        }
         if (databaseHelper.isEmpty("user")) {
             databaseHelper.insertTableUser(resultSet.getInt("user_id"),
                                         resultSet.getString("username"),
@@ -179,7 +186,7 @@ public class SignIn extends AppCompatActivity {
                                         resultSet.getString("last_name"),
                                         resultSet.getString("email"),
                                         resultSet.getString("password_hash"),
-                                        null
+                                        avatar
                                         );
         }
         return true;

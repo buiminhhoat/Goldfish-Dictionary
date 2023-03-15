@@ -8,6 +8,7 @@ import android.os.StrictMode;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -38,11 +39,11 @@ public final class ConnectToMySQL {
         return connection;
     }
 
-    public static void update(String table, String key_id, int id, String [] key, String [] value) throws SQLException {
+    public static void update(String table, String key_id, int id, byte[] avatar_bitmap, String [] key, String [] value) throws SQLException {
         if (key.length != value.length) {
             throw new RuntimeException("Error update MySQL");
         }
-        Statement statement = connection.createStatement();
+
         String queryUpdate = "UPDATE " + table + " SET ";
 
         for (int i = 0; i < key.length; ++i) {
@@ -52,9 +53,17 @@ public final class ConnectToMySQL {
             }
             queryUpdate += " ";
         }
+
+        if (key.length > 0) {
+            queryUpdate += ", ";
+        }
+        queryUpdate += "avatar_bitmap = ? ";
         queryUpdate += "WHERE " + key_id + " = " + id;
         System.out.println("queryUpdate: " + queryUpdate);
-        statement.executeUpdate(queryUpdate);
+
+        PreparedStatement statement = connection.prepareStatement(queryUpdate);
+        statement.setBytes(1, avatar_bitmap);
+        statement.executeUpdate();
     }
 
     public static void insert(String table, String [] key, String [] value) throws SQLException {

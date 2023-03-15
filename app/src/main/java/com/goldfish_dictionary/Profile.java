@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.security.PrivateKey;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -58,8 +62,53 @@ public class Profile extends Activity {
         clickAvatarProfile();
     }
 
+
+    private static final String TEMP_PHOTO_FILE = "temporary_holder.jpg";
+    private File getTempFile() {
+
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+            File file = new File(Environment.getExternalStorageDirectory(),TEMP_PHOTO_FILE);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {}
+
+            return file;
+        } else {
+
+            return null;
+        }
+    }
+
+    private Uri getTempUri() {
+        return Uri.fromFile(getTempFile());
+    }
+
     private void camera() {
+//        Intent cameraIntent = new Intent(Intent.ACTION_PICK,
+//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        cameraIntent.setType("image/*");
+//        cameraIntent.putExtra("crop", "true");
+//        cameraIntent.putExtra("return-data", true);
+//        cameraIntent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        Intent cameraIntent = new Intent(
+//                Intent.ACTION_PICK,
+//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                cameraIntent.setType("image/*");
+//                cameraIntent.putExtra("crop", "true");
+//                cameraIntent.putExtra("outputX", 150);
+//                cameraIntent.putExtra("outputY", 150);
+//                cameraIntent.putExtra("aspectX", 1);
+//                cameraIntent.putExtra("aspectY", 1);
+//                cameraIntent.putExtra("scale", true);
+//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+//                cameraIntent.putExtra("outputFormat",
+//                Bitmap.CompressFormat.JPEG.toString());
+////        Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+//
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
     }
 
@@ -67,9 +116,23 @@ public class Profile extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            avatar_profile.setImageBitmap(photo);
+            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
         }
+//        super.onActivityResult(requestCode, resultCode, data);
+
+//        switch (requestCode) {
+//            case CAMERA_REQUEST:
+//                if (resultCode == RESULT_OK) {
+//                    if (data!=null) {
+//                        Bundle extras = data.getExtras();
+//                        Bitmap photo = extras.getParcelable("data");
+////                        avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
+//                        avatar_profile.setImageBitmap(photo);
+//                    }
+//                }
+//        }
     }
+
 
     private void clickAvatarProfile() {
         avatar_profile.setOnClickListener(new View.OnClickListener() {
@@ -175,9 +238,9 @@ public class Profile extends Activity {
                 }
 
                 try {
-//                    ConnectToMySQL.update("user", "user_id", info.user_id,
-//                            new String[] {"username", "first_name", "last_name", "email", "password_hash"},
-//                            new String[] {username, first_name, last_name, email, password_hash});
+                    ConnectToMySQL.update("user", "user_id", info.user_id, imageViewToByte(avatar_profile),
+                            new String[] {"username", "first_name", "last_name", "email", "password_hash"},
+                            new String[] {username, first_name, last_name, email, password_hash});
                     databaseHelper.clearTable("user");
                     databaseHelper.insertTableUser(info.user_id,
                                                     username,
