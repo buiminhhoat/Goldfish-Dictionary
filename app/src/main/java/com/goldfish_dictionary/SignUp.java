@@ -34,7 +34,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        connection = ConnectToMySQL.getConnection();
+        connection = ConnectToMySQL.getConnection(this);
         txt_username = findViewById(R.id.txt_username);
         txt_email = findViewById(R.id.txt_email);
         txt_password = findViewById(R.id.txt_password);

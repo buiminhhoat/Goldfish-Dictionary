@@ -2,6 +2,8 @@ package com.goldfish_dictionary;
 
 import static com.goldfish_dictionary.Constants.*;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.StrictMode;
 
 import java.sql.Connection;
@@ -15,7 +17,13 @@ public final class ConnectToMySQL {
 
     }
 
-    public static synchronized Connection getConnection() {
+    private static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    public static synchronized Connection getConnection(Context context) {
+        if (isNetworkConnected(context) == false) return null;
         if (connection == null) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
