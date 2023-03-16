@@ -28,6 +28,8 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile extends Activity {
     private TextView username_profile;
     private EditText last_name_profile;
@@ -38,7 +40,7 @@ public class Profile extends Activity {
     private ImageView btn_search;
     private TextView btn_save_modified;
     private TextView btn_log_out;
-    private ImageView avatar_profile;
+    private CircleImageView avatar_profile;
 
     private User info;
     private DatabaseHelper databaseHelper;
