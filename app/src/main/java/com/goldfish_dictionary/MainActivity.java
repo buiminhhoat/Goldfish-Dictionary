@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "vi_en");
+                intent.putExtra("NAME_DATABASE", "vi_en.db");
                 startActivity(intent);
             }
         });
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "fr_vi");
+                intent.putExtra("NAME_DATABASE", "fr_vi.db");
                 startActivity(intent);
             }
         });
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Dictionary.class);
-                intent.putExtra("TYPE", "vi_fr");
+                intent.putExtra("NAME_DATABASE", "vi_fr.db");
                 startActivity(intent);
             }
         });
