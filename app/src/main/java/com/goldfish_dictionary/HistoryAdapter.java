@@ -41,7 +41,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
 
     @NonNull
     @Override
-    public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewNAME_DATABASE) {
+    public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (table.equals("search_history")) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
