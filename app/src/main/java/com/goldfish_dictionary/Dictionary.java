@@ -32,7 +32,7 @@ public class Dictionary extends AppCompatActivity {
         setContentView(R.layout.activity_dictionary);
 
         Intent intent = getIntent();
-        name_database = intent.getStringExtra("TYPE");
+        name_database = intent.getStringExtra("NAME_DATABASE");
         System.out.println(name_database);
 
         initializationDatabase();
@@ -83,13 +83,13 @@ public class Dictionary extends AppCompatActivity {
     private void changeTitle() {
         TextView txt_dictionary = findViewById(R.id.txt_dictionary);
         switch (name_database) {
-            case "vi_en":
+            case "vi_en.db":
                 txt_dictionary.setText("Từ điển Việt - Anh");
                 break;
-            case "fr_vi":
+            case "fr_vi.db":
                 txt_dictionary.setText("Từ điển Pháp - Việt");
                 break;
-            case "vi_fr":
+            case "vi_fr.db":
                 txt_dictionary.setText("Từ điển Việt - Pháp");
                 break;
         }

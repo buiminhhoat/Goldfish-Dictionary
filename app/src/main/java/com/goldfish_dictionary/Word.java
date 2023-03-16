@@ -63,7 +63,7 @@ public class Word extends Activity {
 
         Intent intent = getIntent();
         this.word = intent.getStringExtra("WORD");
-        this.name_database = intent.getStringExtra("TYPE");
+        this.name_database = intent.getStringExtra("NAME_DATABASE");
 
         initializationDatabase();
         client = new OkHttpClient();
