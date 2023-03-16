@@ -4,8 +4,11 @@ import static com.goldfish_dictionary.Util.imageViewToByte;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -14,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
+import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
@@ -55,41 +64,99 @@ public class Profile extends Activity {
         clickAvatarProfile();
     }
 
-    private void camera() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-    }
+//    private void camera() {
+//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+//    }
+//
+//    private void gallery() {
+//        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+//                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//        galleryIntent.setType("image/*");
+//        galleryIntent.putExtra("crop", "true");
+//        galleryIntent.putExtra("scale", true);
+//        galleryIntent.putExtra("outputX", 256);
+//        galleryIntent.putExtra("outputY", 256);
+//        galleryIntent.putExtra("aspectX", 1);
+//        galleryIntent.putExtra("aspectY", 1);
+//        galleryIntent.putExtra("return-data", true);
+//
+//        startActivityForResult(galleryIntent, GALLERY_REQUEST);
+//    }
 
-    private void gallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        galleryIntent.setType("image/*");
-        galleryIntent.putExtra("crop", "true");
-        galleryIntent.putExtra("scale", true);
-        galleryIntent.putExtra("outputX", 256);
-        galleryIntent.putExtra("outputY", 256);
-        galleryIntent.putExtra("aspectX", 1);
-        galleryIntent.putExtra("aspectY", 1);
-        galleryIntent.putExtra("return-data", true);
-
-        startActivityForResult(galleryIntent, GALLERY_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+//            Bitmap photo = (Bitmap) data.getExtras().get("data");
+//            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
+//        }
+//    }
 
     private void clickAvatarProfile() {
         avatar_profile.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                gallery();
+                boolean pick = true;
+                if (pick) {
+                    if(!checkCameraPermission()) {
+                        requestCameraPermission();
+                    } else {
+                        PickImage();
+                    }
+                } else {
+                    if(!checkStoragePermission()) {
+                        requestStoragePermission();
+                    } else {
+                        PickImage();
+                    }
+                }
             }
         });
+    }
+
+    private void PickImage() {
+        CropImage.activity().start(this);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestStoragePermission() {
+        requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void requestCameraPermission() {
+        requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+    }
+
+    private boolean checkStoragePermission() {
+        boolean res2 = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return res2;
+    }
+
+    private boolean checkCameraPermission() {
+        boolean res1 = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        boolean res2 = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return res1 && res2;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(resultUri);
+                    Bitmap photo = BitmapFactory.decodeStream(inputStream);
+                    avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 
     private void map() {
