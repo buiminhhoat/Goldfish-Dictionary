@@ -41,7 +41,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
 
     @NonNull
     @Override
-    public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewNAME_DATABASE) {
         View view;
         if (table.equals("search_history")) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
@@ -90,7 +90,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                     System.out.println(vocabulary.getWord() + " click");
                     Intent intent = new Intent(mainActivity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
-                    intent.putExtra("TYPE", vocabulary.getName_database());
+                    intent.putExtra("NAME_DATABASE", vocabulary.getName_database());
                     mainActivity.startActivity(intent);
                 }
             }

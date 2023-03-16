@@ -74,7 +74,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
                     System.out.println(vocabulary.getWord() + "click");
                     Intent intent = new Intent(mainActivity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
-                    intent.putExtra("TYPE", name_database);
+                    intent.putExtra("NAME_DATABASE", name_database);
                     mainActivity.startActivity(intent);
                 }
             }
