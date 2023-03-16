@@ -6,25 +6,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.security.PrivateKey;
-import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +37,7 @@ public class Profile extends Activity {
     private Connection connection = null;
 
     private final int CAMERA_REQUEST = 8888;
+    private final int GALLERY_REQUEST = 8888;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,54 +55,24 @@ public class Profile extends Activity {
         clickAvatarProfile();
     }
 
-
-    private static final String TEMP_PHOTO_FILE = "temporary_holder.jpg";
-    private File getTempFile() {
-
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-
-            File file = new File(Environment.getExternalStorageDirectory(),TEMP_PHOTO_FILE);
-            try {
-                file.createNewFile();
-            } catch (IOException e) {}
-
-            return file;
-        } else {
-
-            return null;
-        }
-    }
-
-    private Uri getTempUri() {
-        return Uri.fromFile(getTempFile());
-    }
-
     private void camera() {
-//        Intent cameraIntent = new Intent(Intent.ACTION_PICK,
-//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        cameraIntent.setType("image/*");
-//        cameraIntent.putExtra("crop", "true");
-//        cameraIntent.putExtra("return-data", true);
-//        cameraIntent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
-//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        Intent cameraIntent = new Intent(
-//                Intent.ACTION_PICK,
-//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                cameraIntent.setType("image/*");
-//                cameraIntent.putExtra("crop", "true");
-//                cameraIntent.putExtra("outputX", 150);
-//                cameraIntent.putExtra("outputY", 150);
-//                cameraIntent.putExtra("aspectX", 1);
-//                cameraIntent.putExtra("aspectY", 1);
-//                cameraIntent.putExtra("scale", true);
-//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
-//                cameraIntent.putExtra("outputFormat",
-//                Bitmap.CompressFormat.JPEG.toString());
-////        Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-//
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    private void gallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        galleryIntent.setType("image/*");
+        galleryIntent.putExtra("crop", "true");
+        galleryIntent.putExtra("scale", true);
+        galleryIntent.putExtra("outputX", 256);
+        galleryIntent.putExtra("outputY", 256);
+        galleryIntent.putExtra("aspectX", 1);
+        galleryIntent.putExtra("aspectY", 1);
+        galleryIntent.putExtra("return-data", true);
+
+        startActivityForResult(galleryIntent, GALLERY_REQUEST);
     }
 
     @Override
@@ -120,27 +81,13 @@ public class Profile extends Activity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
         }
-//        super.onActivityResult(requestCode, resultCode, data);
-
-//        switch (requestCode) {
-//            case CAMERA_REQUEST:
-//                if (resultCode == RESULT_OK) {
-//                    if (data!=null) {
-//                        Bundle extras = data.getExtras();
-//                        Bitmap photo = extras.getParcelable("data");
-////                        avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
-//                        avatar_profile.setImageBitmap(photo);
-//                    }
-//                }
-//        }
     }
-
 
     private void clickAvatarProfile() {
         avatar_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                camera();
+                gallery();
             }
         });
     }
