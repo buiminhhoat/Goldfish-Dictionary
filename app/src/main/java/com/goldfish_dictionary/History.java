@@ -82,10 +82,8 @@ public class History extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
-                    recyclerWords.setAdapter(null);
-                } else {
-                    recyclerWords.setAdapter(historyAdapter);
                 }
+                recyclerWords.setAdapter(historyAdapter);
             }
 
         });

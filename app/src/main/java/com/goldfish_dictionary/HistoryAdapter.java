@@ -1,5 +1,7 @@
 package com.goldfish_dictionary;
 
+import static com.goldfish_dictionary.Util.previewText;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         Vocabulary vocabulary = vocabularyList.get(position);
         if (vocabulary == null) return;
         holder.latin.setText(vocabulary.getWord());
+        holder.meaning.setText(previewText(vocabulary.getMeaning(), 70));
         if (Objects.equals(vocabulary.getIpa(), "")) {
             holder.detail.setText(vocabulary.getMeaning().split("\n")[0]);
         }
@@ -134,6 +137,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         public RelativeLayout item;
         private TextView latin;
         private TextView detail;
+        private TextView meaning;
         private ImageView imageViewTrash;
 
         public VocabularyViewHolder(@NonNull View convertView) {
@@ -143,10 +147,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 latin = (TextView) convertView.findViewById(R.id.word_history);
                 detail   = (TextView) convertView.findViewById(R.id.ipa_history);
                 item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+                meaning = (TextView) convertView.findViewById(R.id.meaning_history);
                 imageViewTrash = item.findViewById(R.id.imageView_trash);
             } else if (table.equals("saved_vocabulary")) {
                 latin = (TextView) convertView.findViewById(R.id.word_saved_vocabulary);
                 detail   = (TextView) convertView.findViewById(R.id.ipa_saved_vocabulary);
+                meaning = (TextView) convertView.findViewById(R.id.meaning_saved_vocabulary);
                 item  = (RelativeLayout) convertView.findViewById(R.id.saved_vocabulary_item);
             } else {
                 latin = (TextView) convertView.findViewById(R.id.word);

@@ -17,4 +17,19 @@ public class Util {
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
+
+    public static String previewText(String text, int limit) {
+        if (text == null) {
+            throw new NullPointerException();
+        }
+        if (limit < 0) {
+            throw new IllegalArgumentException();
+        }
+        if (text.equals("")) return "";
+        if (limit == 0) return "...";
+
+        String res = text.replaceAll("\n", " ").replaceAll("\\s\\s+", " ").trim();
+        if (res.length() <= limit) return res;
+        return res.substring(0, limit) + "..." ;
+    }
 }

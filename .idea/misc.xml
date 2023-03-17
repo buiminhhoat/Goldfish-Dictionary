@@ -40,7 +40,7 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/text_field.xml" value="0.1065" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/welcome.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_dictionary.xml" value="0.2" />
-        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_history.xml" value="0.33" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_history.xml" value="0.25" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_save_vocabulary.xml" value="0.20416666666666666" />
@@ -50,7 +50,7 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_translate.xml" value="0.33" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_welcome.xml" value="0.15" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_word.xml" value="0.22" />
-        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/history_item.xml" value="0.5" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/history_item.xml" value="0.33" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/list.xml" value="0.203125" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/recyclerview_item.xml" value="0.20416666666666666" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/save_vocabulary_item.xml" value="0.20416666666666666" />
