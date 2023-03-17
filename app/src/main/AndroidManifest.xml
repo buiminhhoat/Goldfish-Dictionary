@@ -45,7 +45,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +57,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.SignIn"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,7 +69,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.Profile"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,7 +81,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.History"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -85,7 +93,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.SavedVocabulary"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -95,7 +105,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.Welcome"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -105,7 +117,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.Word"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -115,7 +129,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.Translate"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -125,7 +141,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.SignUp"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -135,7 +153,9 @@
 
         <activity
             android:name="com.goldfish_dictionary.Dictionary"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
