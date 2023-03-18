@@ -16,13 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,14 +25,14 @@ import java.util.Objects;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
-    private AppCompatActivity mainActivity;
+    private AppCompatActivity activity;
 
     private String name_database;
     private String table;
     private boolean show;
     public HistoryAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
         this.databaseHelper = databaseHelper;
-        this.mainActivity = mainActivity;
+        this.activity = mainActivity;
         this.name_database = name_database;
         this.table = table;
         this.show = show;
@@ -80,7 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 String name_database = vocabulary.getName_database();
                 Thread thread = new Thread(){
                     public void run() {
-                        Connection connection = ConnectToMySQL.getConnection(mainActivity);
+                        Connection connection = ConnectToMySQL.getConnection(activity);
                         if (connection != null) {
                             try {
                                 ConnectToMySQL.delete("search_history",
@@ -92,9 +87,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                         }
                     }
                 };
+                thread.start();
                 vocabularyList.remove(position);
                 notifyDataSetChanged();
-                thread.start();
             }
         });
         holder.setItemClickListener(new ItemClickListener() {
@@ -105,10 +100,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 }
                 else {
                     System.out.println(vocabulary.getWord() + " click");
-                    Intent intent = new Intent(mainActivity, Word.class);
+                    Intent intent = new Intent(activity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
                     intent.putExtra("NAME_DATABASE", vocabulary.getName_database());
-                    mainActivity.startActivity(intent);
+                    activity.startActivity(intent);
                 }
             }
         });

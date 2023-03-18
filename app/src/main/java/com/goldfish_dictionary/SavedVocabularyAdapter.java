@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,14 +25,14 @@ import java.util.Objects;
 public class SavedVocabularyAdapter extends RecyclerView.Adapter<SavedVocabularyAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
-    private AppCompatActivity mainActivity;
+    private AppCompatActivity activity;
 
     private String name_database;
     private String table;
     private boolean show;
     public SavedVocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
         this.databaseHelper = databaseHelper;
-        this.mainActivity = mainActivity;
+        this.activity = mainActivity;
         this.name_database = name_database;
         this.table = table;
         this.show = show;
@@ -67,6 +69,23 @@ public class SavedVocabularyAdapter extends RecyclerView.Adapter<SavedVocabulary
                 databaseHelper.addQuery("saved_vocabulary",
                         new String[] {"word_id", "is_deleted"},
                         new String[] {vocabulary.getWord_id(), "true"});
+                String word_id = vocabulary.getWord_id();
+                String name_database = vocabulary.getName_database();
+                Thread thread = new Thread(){
+                    public void run() {
+                        Connection connection = ConnectToMySQL.getConnection(activity);
+                        if (connection != null) {
+                            try {
+                                ConnectToMySQL.delete("saved_vocabulary",
+                                        new String[] {"word_id", "name_database"},
+                                        new String[] {word_id, name_database});
+                            } catch (SQLException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    }
+                };
+                thread.start();
                 vocabularyList.remove(position);
                 notifyDataSetChanged();
             }
@@ -79,10 +98,10 @@ public class SavedVocabularyAdapter extends RecyclerView.Adapter<SavedVocabulary
                 }
                 else {
                     System.out.println(vocabulary.getWord() + " click");
-                    Intent intent = new Intent(mainActivity, Word.class);
+                    Intent intent = new Intent(activity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
                     intent.putExtra("NAME_DATABASE", vocabulary.getName_database());
-                    mainActivity.startActivity(intent);
+                    activity.startActivity(intent);
                 }
             }
         });
