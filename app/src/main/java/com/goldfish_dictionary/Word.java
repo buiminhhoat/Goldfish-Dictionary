@@ -46,6 +46,7 @@ public class Word extends Activity {
     private TextView list_antonym;
     private ImageView speaker;
     private ImageView exit_word;
+    private ImageView imageview_savedvocabulary;
     private Pronounce pronounce;
 
     static OkHttpClient client = null;
@@ -69,19 +70,19 @@ public class Word extends Activity {
         client = new OkHttpClient();
 
         TextView tv_word = findViewById(R.id.txt_word);
-        tv_word.setText(word);
-
-        String id = dataBaseHelper.getVocabulary(word).getWord_id();
         TextView tv_ipa = findViewById(R.id.txt_ipa);
+        TextView tv_meaning = findViewById(R.id.txt_meaning);
+        list_synonym = findViewById(R.id.list_synonym);
+        list_antonym = findViewById(R.id.list_antonym);
+
+        tv_word.setText(word);
+        String id = dataBaseHelper.getVocabulary(word).getWord_id();
         String ipa = dataBaseHelper.getVocabulary(word).getIpa();
         tv_ipa.setText(ipa);
 
-        TextView tv_meaning = findViewById(R.id.txt_meaning);
         String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
         tv_meaning.setText(meaning);
 
-        list_synonym = findViewById(R.id.list_synonym);
-        list_antonym = findViewById(R.id.list_antonym);
         list_synonym.setText("Loading...");
         list_antonym.setText("Loading...");
         setSynonymsAndAntonyms();
@@ -101,6 +102,30 @@ public class Word extends Activity {
 
         clickBtnSpeaker();
         clickBtnExitWord();
+        clickImageViewSavedVocabulary();
+    }
+
+    private void clickImageViewSavedVocabulary() {
+        imageview_savedvocabulary = findViewById(R.id.imageview_savedvocabulary);
+        imageview_savedvocabulary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String word_id = dataBaseHelper.getVocabulary(word).getWord_id();
+                String ipa = dataBaseHelper.getVocabulary(word).getIpa();
+                String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
+                boolean is_synced = false;
+                boolean is_deleted = false;
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                clientDataBaseHelper.deleteQuery("saved_vocabulary", new String[]{"word"},
+                        new String[]{word});
+                clientDataBaseHelper.addQuery("saved_vocabulary",
+                        new String[]{"word_id", "word", "ipa", "meaning", "name_database", "is_synced", "is_deleted", "date_saved"},
+                        new String[]{word_id, word, ipa, meaning, name_database, String.valueOf(is_synced),
+                                String.valueOf(is_deleted), String.valueOf(dateTimeFormatter.format(now))});
+            }
+        });
+
     }
 
     private void clickBtnExitWord() {

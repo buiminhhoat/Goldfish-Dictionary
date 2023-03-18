@@ -149,7 +149,7 @@ public class Profile extends Activity {
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(resultUri);
                     Bitmap photo = BitmapFactory.decodeStream(inputStream);
-                    avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
+                    avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 400, 400, false));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
