@@ -117,9 +117,15 @@ public final class ConnectToMySQL {
     public static void delete(String table, String [] key, String [] value) throws SQLException {
         String queryDelete = "DELETE FROM " + table + " WHERE ";
         for (int i = 0; i < key.length; ++i) {
-            queryDelete += key[i] + " = " + value[i];
+            if (i + 1 < key.length) {
+                queryDelete += key[i] + " = " + "\"" + value[i] + "\" AND ";
+            }
+            else {
+                queryDelete += key[i] + " = " + "\"" + value[i] + "\"";
+            }
         }
         queryDelete += ";";
+        System.out.println(queryDelete);
         Statement statement = connection.createStatement();
         statement.execute(queryDelete);
     }

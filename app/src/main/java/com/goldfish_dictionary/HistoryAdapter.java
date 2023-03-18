@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,14 +48,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
     @Override
     public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if (table.equals("search_history")) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
-        } else if (table.equals("saved_vocabulary")) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_vocabulary_item, parent, false);
-        } else
-        {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
-        }
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
         return new VocabularyViewHolder(view);
     }
 
@@ -79,8 +75,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
                 databaseHelper.addQuery("search_history",
                         new String[] {"word_id", "is_deleted"},
                         new String[] {vocabulary.getWord_id(), "true"});
+
+                String word_id = vocabulary.getWord_id();
+                String name_database = vocabulary.getName_database();
+                Thread thread = new Thread(){
+                    public void run() {
+                        Connection connection = ConnectToMySQL.getConnection(mainActivity);
+                        if (connection != null) {
+                            try {
+                                ConnectToMySQL.delete("search_history",
+                                        new String[] {"word_id", "name_database"},
+                                        new String[] {word_id, name_database});
+                            } catch (SQLException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    }
+                };
                 vocabularyList.remove(position);
                 notifyDataSetChanged();
+                thread.start();
             }
         });
         holder.setItemClickListener(new ItemClickListener() {
