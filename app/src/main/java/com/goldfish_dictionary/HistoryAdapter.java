@@ -143,22 +143,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
 
-            if (table.equals("search_history")) {
-                latin = (TextView) convertView.findViewById(R.id.word_history);
-                detail   = (TextView) convertView.findViewById(R.id.ipa_history);
-                item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
-                meaning = (TextView) convertView.findViewById(R.id.meaning_history);
-                imageViewTrash = item.findViewById(R.id.imageView_trash);
-            } else if (table.equals("saved_vocabulary")) {
-                latin = (TextView) convertView.findViewById(R.id.word_saved_vocabulary);
-                detail   = (TextView) convertView.findViewById(R.id.ipa_saved_vocabulary);
-                meaning = (TextView) convertView.findViewById(R.id.meaning_saved_vocabulary);
-                item  = (RelativeLayout) convertView.findViewById(R.id.saved_vocabulary_item);
-            } else {
-                latin = (TextView) convertView.findViewById(R.id.word);
-                detail   = (TextView) convertView.findViewById(R.id.ipa);
-                item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
-            }
+            latin = (TextView) convertView.findViewById(R.id.word_history);
+            detail   = (TextView) convertView.findViewById(R.id.ipa_history);
+            item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+            meaning = (TextView) convertView.findViewById(R.id.meaning_history);
+            imageViewTrash = item.findViewById(R.id.imageView_trash);
             convertView.setOnClickListener(this);
             convertView.setOnLongClickListener(this);
         }
