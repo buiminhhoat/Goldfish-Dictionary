@@ -18,7 +18,9 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/box_translate_7.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/box_word.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/btn_main_activity.xml" value="0.1555" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/btn_main_translate.xml" value="0.111" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/btn_save_modified.xml" value="0.158" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/btn_trans.xml" value="0.1415" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/btn_translate.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/button.xml" value="0.2105" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/frame_main_activity.xml" value="0.1605" />
@@ -26,6 +28,8 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/history_item.xml" value="0.1695" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_app_background.xml" value="0.163" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_detail1.xml" value="0.165" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_detail2.xml" value="0.1445" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_detail3.xml" value="0.1445" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1065" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/ic_main_activity.xml" value="0.1605" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/icon_password.xml" value="0.2105" />
@@ -41,7 +45,7 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/drawable/welcome.xml" value="0.2115" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_dictionary.xml" value="0.2" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_history.xml" value="0.18" />
-        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_save_vocabulary.xml" value="0.20416666666666666" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_saved_vocabulary.xml" value="0.20416666666666666" />
@@ -52,7 +56,7 @@
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/activity_word.xml" value="0.22" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/history_item.xml" value="0.33" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/list.xml" value="0.203125" />
-        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/recyclerview_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/recyclerview_item.xml" value="0.33" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/save_vocabulary_item.xml" value="0.20416666666666666" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/layout/saved_vocabulary_item.xml" value="0.20416666666666666" />
         <entry key="..\:/TheKIDends/IT/Android/Goldfish-Dictionary/app/src/main/res/mipmap-anydpi-v26/ic_app.xml" value="0.1415" />

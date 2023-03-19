@@ -41,6 +41,7 @@
         android:background="@drawable/box_word"
         android:padding="25dp"
         android:paddingStart="40dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
