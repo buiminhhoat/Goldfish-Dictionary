@@ -7,20 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
-import android.widget.ImageView;
 
-import java.io.ByteArrayOutputStream;
+import com.goldfish_dictionary.object.User;
+import com.goldfish_dictionary.object.Vocabulary;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,13 +164,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             User user = new User();
-            user.user_id = cursor.getInt(cursor.getColumnIndex("user_id"));
-            user.username = cursor.getString(cursor.getColumnIndex("username"));
-            user.first_name = cursor.getString(cursor.getColumnIndex("first_name"));
-            user.last_name = cursor.getString(cursor.getColumnIndex("last_name"));
-            user.email = cursor.getString(cursor.getColumnIndex("email"));
-            user.password_hash = cursor.getString(cursor.getColumnIndex("password_hash"));
-            user.avatar_bitmap = cursor.getBlob(cursor.getColumnIndex("avatar_bitmap"));
+            user.setUser_id(cursor.getInt(cursor.getColumnIndex("user_id")));
+            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            user.setFirst_name(cursor.getString(cursor.getColumnIndex("first_name")));
+            user.setLast_name(cursor.getString(cursor.getColumnIndex("last_name")));
+            user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
+            user.setPassword_hash(cursor.getString(cursor.getColumnIndex("password_hash")));
+            user.setAvatar_bitmap(cursor.getBlob(cursor.getColumnIndex("avatar_bitmap")));
             users.add(user);
             cursor.moveToNext();
         }
@@ -192,15 +189,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
-            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
-            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
-            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabulary.setWord_id(cursor.getString(cursor.getColumnIndex("word_id")));
+            vocabulary.setWord(cursor.getString(cursor.getColumnIndex("word")));
+            vocabulary.setIpa(cursor.getString(cursor.getColumnIndex("ipa")));
+            vocabulary.setMeaning(cursor.getString(cursor.getColumnIndex("meaning")));
             if (cursor.getColumnIndex("name_database") != -1) {
-                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+                vocabulary.setName_database(cursor.getString(cursor.getColumnIndex("name_database")));
             }
             else {
-                vocabulary.name_database = name_database;
+                vocabulary.setName_database(name_database);
             }
             vocabularyArrayList.add(vocabulary);
             cursor.moveToNext();
@@ -217,15 +214,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
-            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
-            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
-            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabulary.setWord_id(cursor.getString(cursor.getColumnIndex("word_id")));
+            vocabulary.setWord(cursor.getString(cursor.getColumnIndex("word")));
+            vocabulary.setIpa(cursor.getString(cursor.getColumnIndex("ipa")));
+            vocabulary.setMeaning(cursor.getString(cursor.getColumnIndex("meaning")));
             if (cursor.getColumnIndex("name_database") != -1) {
-                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+                vocabulary.setName_database(cursor.getString(cursor.getColumnIndex("name_database")));
             }
             else {
-                vocabulary.name_database = name_database;
+                vocabulary.setName_database(name_database);
             }
             vocabularyList.add(vocabulary);
             cursor.moveToNext();
@@ -240,15 +237,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Vocabulary vocabulary = new Vocabulary();
-            vocabulary.word_id = cursor.getString(cursor.getColumnIndex("word_id"));
-            vocabulary.word = cursor.getString(cursor.getColumnIndex("word"));
-            vocabulary.ipa = cursor.getString(cursor.getColumnIndex("ipa"));
-            vocabulary.meaning = cursor.getString(cursor.getColumnIndex("meaning"));
+            vocabulary.setWord_id(cursor.getString(cursor.getColumnIndex("word_id")));
+            vocabulary.setWord(cursor.getString(cursor.getColumnIndex("word")));
+            vocabulary.setIpa(cursor.getString(cursor.getColumnIndex("ipa")));
+            vocabulary.setMeaning(cursor.getString(cursor.getColumnIndex("meaning")));
             if (cursor.getColumnIndex("name_database") != -1) {
-                vocabulary.name_database = cursor.getString(cursor.getColumnIndex("name_database"));
+                vocabulary.setName_database(cursor.getString(cursor.getColumnIndex("name_database")));
             }
             else {
-                vocabulary.name_database = name_database;
+                vocabulary.setName_database(name_database);
             }
             return vocabulary;
         }

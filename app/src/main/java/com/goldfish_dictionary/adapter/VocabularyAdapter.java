@@ -1,6 +1,4 @@
-package com.goldfish_dictionary;
-
-import static com.goldfish_dictionary.Util.previewText;
+package com.goldfish_dictionary.recycler_view_adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,23 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.object.Vocabulary;
+import com.goldfish_dictionary.activity.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.VocabularyViewHolder> implements Filterable {
+public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder> implements Filterable {
     private final DatabaseHelper databaseHelper;
     private List<Vocabulary> vocabularyList = new ArrayList<>();
-    private AppCompatActivity activity;
+    private AppCompatActivity mainActivity;
 
     private String name_database;
     private String table;
     private boolean show;
-    public HistoryAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
+    public VocabularyAdapter(DatabaseHelper databaseHelper, AppCompatActivity mainActivity, String name_database, String table, boolean show) {
         this.databaseHelper = databaseHelper;
-        this.activity = mainActivity;
+        this.mainActivity = mainActivity;
         this.name_database = name_database;
         this.table = table;
         this.show = show;
@@ -43,7 +43,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
     @Override
     public VocabularyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
+        if (table.equals("search_history")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_item, parent, false);
+        } else if (table.equals("saved_vocabulary")) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.saved_vocabulary_item, parent, false);
+        } else
+        {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
+        }
         return new VocabularyViewHolder(view);
     }
 
@@ -52,7 +59,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         Vocabulary vocabulary = vocabularyList.get(position);
         if (vocabulary == null) return;
         holder.latin.setText(vocabulary.getWord());
-        holder.meaning.setText(previewText(vocabulary.getMeaning(), 70));
         if (Objects.equals(vocabulary.getIpa(), "")) {
             holder.detail.setText(vocabulary.getMeaning().split("\n")[0]);
         }
@@ -60,50 +66,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
             holder.detail.setText(vocabulary.getIpa());
         }
 
-        holder.imageViewTrash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("*");
-                databaseHelper.deleteQuery("search_history",
-                        new String[] {"word"},
-                        new String[] {vocabulary.getWord()});
-                databaseHelper.addQuery("search_history",
-                        new String[] {"word_id", "is_deleted"},
-                        new String[] {vocabulary.getWord_id(), "true"});
-
-                String word_id = vocabulary.getWord_id();
-                String name_database = vocabulary.getName_database();
-                Thread thread = new Thread(){
-                    public void run() {
-                        Connection connection = ConnectToMySQL.getConnection(activity);
-                        if (connection != null) {
-                            try {
-                                ConnectToMySQL.delete("search_history",
-                                        new String[] {"word_id", "name_database"},
-                                        new String[] {word_id, name_database});
-                            } catch (SQLException e) {
-                                System.out.println(e.getMessage());
-                            }
-                        }
-                    }
-                };
-                thread.start();
-                vocabularyList.remove(position);
-                notifyDataSetChanged();
-            }
-        });
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (isLongClick) {
-                    System.out.println(vocabulary.getWord() + " long");
+                    System.out.println(vocabulary.getWord() + "long");
                 }
                 else {
-                    System.out.println(vocabulary.getWord() + " click");
-                    Intent intent = new Intent(activity, Word.class);
+                    System.out.println(vocabulary.getWord() + "click");
+                    Intent intent = new Intent(mainActivity, Word.class);
                     intent.putExtra("WORD", vocabulary.getWord());
-                    intent.putExtra("NAME_DATABASE", vocabulary.getName_database());
-                    activity.startActivity(intent);
+                    intent.putExtra("NAME_DATABASE", name_database);
+                    mainActivity.startActivity(intent);
                 }
             }
         });
@@ -146,17 +120,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.Vocabula
         public RelativeLayout item;
         private TextView latin;
         private TextView detail;
-        private TextView meaning;
-        private ImageView imageViewTrash;
 
         public VocabularyViewHolder(@NonNull View convertView) {
             super(convertView);
 
-            latin = (TextView) convertView.findViewById(R.id.word_history);
-            detail   = (TextView) convertView.findViewById(R.id.ipa_history);
-            item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
-            meaning = (TextView) convertView.findViewById(R.id.meaning_history);
-            imageViewTrash = item.findViewById(R.id.imageView_trash);
+            if (table.equals("search_history")) {
+                latin = (TextView) convertView.findViewById(R.id.word_history);
+                detail   = (TextView) convertView.findViewById(R.id.ipa_history);
+                item  = (RelativeLayout) convertView.findViewById(R.id.history_item);
+            } else if (table.equals("saved_vocabulary")) {
+                latin = (TextView) convertView.findViewById(R.id.word_saved_vocabulary);
+                detail   = (TextView) convertView.findViewById(R.id.ipa_saved_vocabulary);
+                item  = (RelativeLayout) convertView.findViewById(R.id.saved_vocabulary_item);
+            } else {
+                latin = (TextView) convertView.findViewById(R.id.word);
+                detail   = (TextView) convertView.findViewById(R.id.ipa);
+                item  = (RelativeLayout) convertView.findViewById(R.id.recyclerview_item);
+            }
             convertView.setOnClickListener(this);
             convertView.setOnLongClickListener(this);
         }

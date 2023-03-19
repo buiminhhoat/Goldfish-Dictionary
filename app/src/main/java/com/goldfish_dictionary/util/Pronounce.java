@@ -19,7 +19,7 @@ public class Pronounce {
     private String pronounceUrl;
     private MediaPlayer mediaPlayer;
 
-    Pronounce(String word) throws JSONException, IOException, InterruptedException {
+    public Pronounce(String word) throws JSONException, IOException, InterruptedException {
         String id = createTTSJob(word);
 //        System.out.println("id = " + id);
         Thread.sleep(3000);

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.Explode;
+import android.transition.*;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,8 +16,10 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.Fade;
 
 public class MainActivity extends AppCompatActivity {
     private VocabularyAdapter vocabularyAdapter;
@@ -62,9 +67,19 @@ public class MainActivity extends AppCompatActivity {
         btn_translate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, Translate.class);
+//                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, view, "transition_name");
+//                startActivity(intent, options.toBundle());
+//
+//                startActivity(new Intent(MainActivity.this, Translate.class), ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+
+//                Transition explode = new Explode();
+//                explode.setDuration(1000);
+//                getWindow().setExitTransition(explode);
                 Intent intent = new Intent(MainActivity.this, Translate.class);
                 startActivity(intent);
-                finish();
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                finish();
             }
         });
     }

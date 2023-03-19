@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.recycler_view_adapter;
 
 import android.view.View;
 

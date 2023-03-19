@@ -1,9 +1,11 @@
 package com.goldfish_dictionary;
 
 import static com.goldfish_dictionary.Constants.languages;
+import static com.goldfish_dictionary.Constants.languages_ISO_639;
 import static java.net.URLEncoder.encode;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
@@ -39,9 +41,17 @@ public class Translate extends Activity {
     private PopupMenu popupLanguageInp;
     private PopupMenu popupLanguageOut;
     private ConstraintLayout btn_reverse;
+    private ImageView btn_exit_translate;
 
     EditText editText_input;
     TextView textView_output;
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finishAfterTransition();
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,23 +66,64 @@ public class Translate extends Activity {
 
         client = new OkHttpClient();
 
-        editText_input.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//        editText_input.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                String input = editText_input.getText().toString();
+//                if (input.equals("")) return;
+//                if (input.charAt(input.length() - 1) != '.') {
+//                    return;
+//                }
+//                String output = "\n";
+//                try {
+//                    String source = languages_ISO_639.get(languages.indexOf((String) language_inp.getText()));
+//                    String target = languages_ISO_639.get(languages.indexOf((String) language_out.getText()));
+//                    output = translate(source, target, List.of(input.split("\n")));
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                textView_output.setText(output);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+        setPopupMenu();
+        clickSelectLanguageInp();
+        clickSelectLanguageOut();
+        clickBtnReverse();
+        clickBtnExitTranslate();
+    }
 
+    private void clickBtnExitTranslate() {
+        btn_exit_translate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Translate.this, MainActivity.class);
+                startActivity(intent);
             }
+        });
+    }
 
+    private void clickBtnReverse() {
+        btn_reverse.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onClick(View view) {
                 String input = editText_input.getText().toString();
                 if (input.equals("")) return;
-                if (input.charAt(input.length() - 1) != '.') {
-                    return;
-                }
                 String output = "\n";
                 try {
-                    String source = "en";
-                    String target = "vi";
+                    String source = languages_ISO_639.get(languages.indexOf((String) language_inp.getText()));
+                    String target = languages_ISO_639.get(languages.indexOf((String) language_out.getText()));
                     output = translate(source, target, List.of(input.split("\n")));
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -80,27 +131,11 @@ public class Translate extends Activity {
                     throw new RuntimeException(e);
                 }
                 textView_output.setText(output);
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        setPopupMenu();
-        clickSelectLanguageInp();
-        clickSelectLanguageOut();
-        clickBtnReverse();
-    }
-
-    private void clickBtnReverse() {
-        btn_reverse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String tmp = (String) language_inp.getText();
-                language_inp.setText(language_out.getText());
-                language_out.setText(tmp);
-                editText_input.setText(textView_output.getText());
+//                String tmp = (String) language_inp.getText();
+//                language_inp.setText(language_out.getText());
+//                language_out.setText(tmp);
+//                editText_input.setText(textView_output.getText());
             }
         });
     }
@@ -161,6 +196,7 @@ public class Translate extends Activity {
         language_inp = findViewById(R.id.language_inp);
         language_out = findViewById(R.id.language_out);
         btn_reverse = findViewById(R.id.btn_reverse);
+        btn_exit_translate = findViewById(R.id.btn_exit_translate);
     }
 
     public static String translate(String source, String target, String input) throws IOException, JSONException {

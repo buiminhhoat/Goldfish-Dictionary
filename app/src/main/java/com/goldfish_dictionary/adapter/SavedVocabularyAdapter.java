@@ -1,6 +1,6 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.recycler_view_adapter;
 
-import static com.goldfish_dictionary.Util.previewText;
+import static com.goldfish_dictionary.util.Util.previewText;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,6 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.goldfish_dictionary.connect_database.ConnectToMySQL;
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.object.Vocabulary;
+import com.goldfish_dictionary.activity.Word;
 
 import java.sql.Connection;
 import java.sql.SQLException;

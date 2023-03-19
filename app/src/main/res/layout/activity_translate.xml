@@ -26,7 +26,7 @@
             android:textColor="#FFFFFF"
             android:textFontWeight="800"
             android:textSize="32sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/btn_exit_translate"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_absoluteHeight="34dp"
             tools:layout_conversion_absoluteWidth="87dp" />
@@ -181,7 +181,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/btn_exit_translate"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="20dp"
