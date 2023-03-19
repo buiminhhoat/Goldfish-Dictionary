@@ -5,10 +5,9 @@
 
             <item>
                 <shape android:shape="rectangle"  >
-                    <solid android:color="#17786C"/>
+                    <solid android:color="#FF865F"/>
                     <corners
-                        android:topLeftRadius="30dip"
-                        android:topRightRadius="30dip"
+                        android:radius="360dip"
                         />
                 </shape>
             </item>

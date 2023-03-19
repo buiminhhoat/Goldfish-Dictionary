@@ -5,8 +5,8 @@
             <item>
                 <shape android:shape="rectangle"  >
                     <stroke
-                        android:width="2.5dp"
-                        android:color="#25FF89"
+                        android:width="1dp"
+                        android:color="#17786C"
                         >
 
                     </stroke>

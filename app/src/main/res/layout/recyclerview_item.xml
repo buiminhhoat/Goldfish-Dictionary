@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,17 +9,29 @@
     android:background="#202442"
     >
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/recyclerview_item"
         >
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp
+"
+            android:background="@drawable/detail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,9 +60,10 @@
                             android:id="@+id/word"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="Hello"
-                            android:textColor="@color/black"
+                            android:fontFamily="sans-serif"
+                            android:text="Word"
+                            android:textFontWeight="500"
+                            android:textColor="#011849"
                             android:textSize="22sp" />
                     </LinearLayout>
 
@@ -57,8 +71,10 @@
                         android:id="@+id/ipa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hi, How Are you"
-                        android:textColor="#000000"
+                        android:fontFamily="sans-serif"
+                        android:textFontWeight="500"
+                        android:text="/ipa/"
+                        android:textColor="#011849"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -84,5 +100,5 @@
             </LinearLayout>
 
         </RelativeLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
