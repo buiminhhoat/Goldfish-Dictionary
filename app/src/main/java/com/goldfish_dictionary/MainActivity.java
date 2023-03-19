@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout btn_vi_en;
     private ConstraintLayout btn_fr_vi;
     private ConstraintLayout btn_vi_fr;
+    private ConstraintLayout btn_translate;
     private ImageView btn_profile;
     private Button btn_search_history;
     private Button btn_saved_vocabulary;
@@ -34,17 +35,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        map();
+
         initializationDatabase();
         eventRecyclerWord();
         eventSearchBar();
+        clickBtnTranslate();
         clickBtnProfile();
         clickBtnDictionary();
         clickBtnSearchHistory();
         clickBtnSavedVocabulary();
     }
 
-    private void eventRecyclerWord() {
+    private void map() {
+        btn_fr_vi = findViewById(R.id.btn_fr_vi);
+        searchBar = findViewById(R.id.action_search);
         recyclerWords = findViewById(R.id.recycler_voca);
+        btn_saved_vocabulary = findViewById(R.id.btn_saved_vocabulary);
+        btn_search_history = findViewById(R.id.btn_search_history);
+        btn_vi_en = findViewById(R.id.btn_vi_en);
+        btn_profile = findViewById(R.id.btn_profile);
+        btn_translate = findViewById(R.id.btn_translate);
+    }
+
+    private void clickBtnTranslate() {
+        btn_translate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Translate.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void eventRecyclerWord() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
@@ -53,8 +78,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void eventSearchBar() {
-        searchBar = findViewById(R.id.action_search);
-
         searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -86,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void clickBtnProfile() {
-        btn_profile = findViewById(R.id.btn_profile);
         btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickBtnDictionary() {
-        btn_vi_en = findViewById(R.id.btn_vi_en);
         btn_vi_en.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btn_fr_vi = findViewById(R.id.btn_fr_vi);
         btn_fr_vi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickBtnSearchHistory() {
-        btn_search_history = findViewById(R.id.btn_search_history);
+
         btn_search_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clickBtnSavedVocabulary() {
-        btn_saved_vocabulary = findViewById(R.id.btn_saved_vocabulary);
         btn_saved_vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

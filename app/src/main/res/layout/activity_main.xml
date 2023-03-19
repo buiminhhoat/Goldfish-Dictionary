@@ -319,7 +319,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btn_translate"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:background="@drawable/bg_main_translate">
@@ -357,7 +356,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraintLayout11"
+                            android:id="@+id/btn_translate"
                             android:layout_width="100dp"
                             android:layout_height="25dp"
                             android:layout_marginTop="10dp"
@@ -369,7 +368,6 @@
                             <ImageView
                                 android:layout_width="13dp"
                                 android:layout_height="13dp"
-
                                 android:src="@drawable/arrow4"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
