@@ -1,6 +1,6 @@
 package com.goldfish_dictionary.activity;
 
-import static com.goldfish_dictionary.util.Util.imageViewToByte;
+import static com.goldfish_dictionary.utilities.Util.imageViewToByte;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,8 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-import com.goldfish_dictionary.connect_database.ConnectToMySQL;
-import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.connection.ConnectToMySQL;
+import com.goldfish_dictionary.connection.DatabaseHelper;
 import com.goldfish_dictionary.R;
 import com.goldfish_dictionary.object.User;
 import com.theartofdev.edmodo.cropper.CropImage;

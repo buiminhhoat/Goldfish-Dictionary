@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
 
-import com.goldfish_dictionary.connect_database.DatabaseHelper;
-import com.goldfish_dictionary.app_notification.NotificationReceiver;
-import com.goldfish_dictionary.util.Pronounce;
+import com.goldfish_dictionary.connection.DatabaseHelper;
+import com.goldfish_dictionary.notification.NotificationReceiver;
+import com.goldfish_dictionary.utilities.Pronounce;
 import com.goldfish_dictionary.R;
 
 import org.json.JSONArray;

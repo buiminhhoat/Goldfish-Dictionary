@@ -1,7 +1,7 @@
 package com.goldfish_dictionary.activity;
 
-import static com.goldfish_dictionary.util.Constants.languages;
-import static com.goldfish_dictionary.util.Constants.languages_ISO_639;
+import static com.goldfish_dictionary.utilities.Constants.languages;
+import static com.goldfish_dictionary.utilities.Constants.languages_ISO_639;
 import static java.net.URLEncoder.encode;
 
 import android.app.Activity;

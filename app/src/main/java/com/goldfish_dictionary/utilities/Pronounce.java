@@ -1,4 +1,4 @@
-package com.goldfish_dictionary.util;
+package com.goldfish_dictionary.utilities;
 
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;

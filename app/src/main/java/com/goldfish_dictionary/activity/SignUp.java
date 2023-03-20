@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.goldfish_dictionary.connect_database.ConnectToMySQL;
+import com.goldfish_dictionary.connection.ConnectToMySQL;
 import com.goldfish_dictionary.R;
 
 import java.sql.Connection;

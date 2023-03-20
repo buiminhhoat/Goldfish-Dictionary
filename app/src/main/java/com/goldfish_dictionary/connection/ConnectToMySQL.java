@@ -1,6 +1,6 @@
-package com.goldfish_dictionary.connect_database;
+package com.goldfish_dictionary.connection;
 
-import static com.goldfish_dictionary.util.Constants.*;
+import static com.goldfish_dictionary.utilities.Constants.*;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

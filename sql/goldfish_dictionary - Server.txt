@@ -1,0 +1,49 @@
+DROP DATABASE goldfish_dictionary;
+
+CREATE DATABASE goldfish_dictionary CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE goldfish_dictionary;
+
+CREATE TABLE user
+(
+    user_id      bigint(20) AUTO_INCREMENT,
+    username     varchar(50),
+	first_name	 varchar(50),
+	last_name	 varchar(50),
+    email        varchar(100),
+    password_hash varchar(100),
+    avatar_bitmap LONGBLOB,
+    PRIMARY KEY (user_id, username, email)
+);
+
+CREATE TABLE saved_vocabulary
+(
+	user_id      bigint(20),
+	word_id		bigint(20),
+	name_database	varchar(100),
+	date_saved	DATETIME,
+	PRIMARY KEY (user_id, word_id, name_database)
+);
+
+CREATE TABLE search_history
+(
+	user_id      bigint(20),
+	word_id		bigint(20),
+	name_database	varchar(100),
+	date_search	DATETIME,
+	PRIMARY KEY (user_id, word_id, name_database)
+);
+
+
+CREATE USER 'goldfish_dictionary'@'127.0.0.1' IDENTIFIED BY 'goldfish_dictionary';
+GRANT ALL ON *.* TO 'goldfish_dictionary'@'127.0.0.1';
+
+CREATE USER 'goldfish_dictionary'@'%' IDENTIFIED BY 'goldfish_dictionary';
+GRANT ALL ON *.* TO 'goldfish_dictionary'@'%';
+
+flush privileges;
+
+CREATE USER 'buiminhhoat'@'%' IDENTIFIED BY 'buiminhhoat';
+GRANT ALL ON *.* TO 'buiminhhoat'@'%';
+
+flush privileges;

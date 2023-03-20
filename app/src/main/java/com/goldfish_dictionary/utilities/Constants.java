@@ -1,4 +1,4 @@
-package com.goldfish_dictionary.util;
+package com.goldfish_dictionary.utilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;

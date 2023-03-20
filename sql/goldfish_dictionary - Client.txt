@@ -1,0 +1,39 @@
+CREATE TABLE user
+(
+    user_id      bigint(20),
+    username     varchar(50),
+	first_name	 varchar(50),
+	last_name	 varchar(50),
+    email        varchar(100),
+    password_hash varchar(100),
+    avatar_server_url		 TEXT,
+	avatar_client_url		 TEXT,
+    PRIMARY KEY (user_id, username, email)
+);
+
+CREATE TABLE saved_vocabulary
+(
+	word_id		bigint(20),
+	word		TEXT,
+	ipa			TEXT,
+	meaning 	TEXT,
+	name_database	TEXT,
+	is_synced	boolean,
+	is_deleted	boolean,
+	date_saved	DATE
+);
+
+CREATE TABLE search_history
+(
+	word_id		bigint(20),
+	word		TEXT,
+	ipa			TEXT,
+	meaning 	TEXT,
+	name_database	TEXT,
+	is_synced	boolean,
+	is_deleted	boolean,
+	date_search	DATE
+);
+
+INSERT INTO user(user_id, username, first_name, last_name, email, password_hash)
+VALUES ("1", "buiminhhoat", "Hoạt", "Bùi Minh", "official.buiminhhoat@gmail.com", "buiminhhoat");

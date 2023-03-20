@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.connection.DatabaseHelper;
 import com.goldfish_dictionary.R;
 import com.goldfish_dictionary.object.Vocabulary;
 import com.goldfish_dictionary.activity.Word;

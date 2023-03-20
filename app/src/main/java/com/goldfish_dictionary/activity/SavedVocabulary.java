@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.goldfish_dictionary.R;
-import com.goldfish_dictionary.connect_database.ConnectToMySQL;
-import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.connection.ConnectToMySQL;
+import com.goldfish_dictionary.connection.DatabaseHelper;
 import com.goldfish_dictionary.adapter.SavedVocabularyAdapter;
 
 import java.sql.Connection;
