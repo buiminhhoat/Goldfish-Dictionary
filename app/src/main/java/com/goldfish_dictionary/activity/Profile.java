@@ -3,6 +3,7 @@ package com.goldfish_dictionary.activity;
 import static com.goldfish_dictionary.util.Util.imageViewToByte;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -58,42 +59,21 @@ public class Profile extends Activity {
         map();
 
         initializationDatabase();
-        connection = ConnectToMySQL.getConnection(this);
 
+        Context context = this;
+        Thread thread = new Thread(){
+            public void run() {
+                connection = ConnectToMySQL.getConnection(context);
+            }
+        };
+
+        thread.start();
         loadInfo();
         clickBtnSearch();
         clickBtnLogOut();
         clickBtnSaveModified();
         clickAvatarProfile();
     }
-
-//    private void camera() {
-//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-//    }
-//
-//    private void gallery() {
-//        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-//                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-//        galleryIntent.setType("image/*");
-//        galleryIntent.putExtra("crop", "true");
-//        galleryIntent.putExtra("scale", true);
-//        galleryIntent.putExtra("outputX", 256);
-//        galleryIntent.putExtra("outputY", 256);
-//        galleryIntent.putExtra("aspectX", 1);
-//        galleryIntent.putExtra("aspectY", 1);
-//        galleryIntent.putExtra("return-data", true);
-//
-//        startActivityForResult(galleryIntent, GALLERY_REQUEST);
-//    }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-//            Bitmap photo = (Bitmap) data.getExtras().get("data");
-//            avatar_profile.setImageBitmap(Bitmap.createScaledBitmap(photo, 200, 200, false));
-//        }
-//    }
 
     private void clickAvatarProfile() {
         avatar_profile.setOnClickListener(new View.OnClickListener() {
@@ -226,6 +206,13 @@ public class Profile extends Activity {
         btn_save_modified.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (connection == null) {
+                    Toast.makeText(getApplicationContext(), "Unable to connect to server!",
+                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please check your internet connection!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String username = username_profile.getText().toString().trim();
                 String last_name = last_name_profile.getText().toString().trim();
                 String first_name = first_name_profile.getText().toString().trim();
