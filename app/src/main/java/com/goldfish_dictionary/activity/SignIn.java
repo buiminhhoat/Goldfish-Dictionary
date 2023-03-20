@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import static android.content.ContentValues.TAG;
 
@@ -25,6 +25,9 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.goldfish_dictionary.connect_database.ConnectToMySQL;
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.object;
 
 public class User {
     private int user_id;

@@ -1,15 +1,13 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
-import static com.goldfish_dictionary.Constants.languages;
-import static com.goldfish_dictionary.Constants.languages_ISO_639;
+import static com.goldfish_dictionary.util.Constants.languages;
+import static com.goldfish_dictionary.util.Constants.languages_ISO_639;
 import static java.net.URLEncoder.encode;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.goldfish_dictionary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

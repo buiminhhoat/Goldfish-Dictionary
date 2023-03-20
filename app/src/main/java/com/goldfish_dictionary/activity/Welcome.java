@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
 import com.goldfish_dictionary.R;
 
 import java.util.Timer;

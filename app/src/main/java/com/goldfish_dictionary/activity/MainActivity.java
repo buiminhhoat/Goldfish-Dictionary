@@ -1,13 +1,10 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Explode;
-import android.transition.*;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -16,10 +13,12 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Fade;
+
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.adapter.VocabularyAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private VocabularyAdapter vocabularyAdapter;

@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
 import com.goldfish_dictionary.R;
-
-import org.w3c.dom.Text;
+import com.goldfish_dictionary.adapter.VocabularyAdapter;
 
 public class Dictionary extends AppCompatActivity {
     private String name_database;

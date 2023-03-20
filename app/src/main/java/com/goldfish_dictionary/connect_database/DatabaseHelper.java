@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.connect_database;
 
 import android.content.ContentValues;
 import android.content.Context;

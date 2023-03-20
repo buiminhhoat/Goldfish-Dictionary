@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -14,11 +14,15 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
+
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.app_notification.NotificationReceiver;
+import com.goldfish_dictionary.util.Pronounce;
+import com.goldfish_dictionary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +33,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import okhttp3.OkHttpClient;

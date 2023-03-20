@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.app_notification;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

@@ -1,15 +1,13 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.object;
 
 public class Vocabulary {
-    String word_id;
-    String word;
-    String ipa;
-    String meaning;
-
-    String name_database;
+    private String word_id;
+    private String word;
+    private String ipa;
+    private String meaning;
+    private String name_database;
 
     public Vocabulary() {
-
     }
 
     public Vocabulary(String word, String ipa, String meaning) {

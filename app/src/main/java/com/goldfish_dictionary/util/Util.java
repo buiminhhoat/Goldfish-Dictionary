@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.util;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

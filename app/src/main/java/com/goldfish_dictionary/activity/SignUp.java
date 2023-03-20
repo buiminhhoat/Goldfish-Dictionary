@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.goldfish_dictionary.connect_database.ConnectToMySQL;
 import com.goldfish_dictionary.R;
 
 import java.sql.Connection;

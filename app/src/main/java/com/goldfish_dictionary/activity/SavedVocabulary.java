@@ -1,4 +1,4 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -15,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.goldfish_dictionary.recycler_view_adapter.SavedVocabularyAdapter;
+import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.connect_database.ConnectToMySQL;
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.adapter.SavedVocabularyAdapter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

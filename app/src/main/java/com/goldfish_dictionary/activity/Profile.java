@@ -1,6 +1,6 @@
-package com.goldfish_dictionary;
+package com.goldfish_dictionary.activity;
 
-import static com.goldfish_dictionary.Util.imageViewToByte;
+import static com.goldfish_dictionary.util.Util.imageViewToByte;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,10 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 
+import com.goldfish_dictionary.connect_database.ConnectToMySQL;
+import com.goldfish_dictionary.connect_database.DatabaseHelper;
+import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.object.User;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.InputStream;
@@ -200,22 +201,22 @@ public class Profile extends Activity {
 
         info = users.get(0);
 
-        username_profile.setText(info.username);
-        email_profile.setHint(info.email);
-        if (info.first_name.equals("null")) {
+        username_profile.setText(info.getUsername());
+        email_profile.setHint(info.getEmail());
+        if (info.getFirst_name().equals("null")) {
             first_name_profile.setHint("First name");
         } else {
-            first_name_profile.setHint(info.first_name);
+            first_name_profile.setHint(info.getFirst_name());
         }
 
-        if (info.last_name.equals("null")) {
+        if (info.getLast_name().equals("null")) {
             last_name_profile.setHint("Last name");
         } else {
-            last_name_profile.setHint(info.last_name);
+            last_name_profile.setHint(info.getLast_name());
         }
 
-        if (info.avatar_bitmap != null) {
-            byte[] avatar_byte = info.avatar_bitmap;
+        if (info.getAvatar_bitmap() != null) {
+            byte[] avatar_byte = info.getAvatar_bitmap();
             Bitmap bitmap = BitmapFactory.decodeByteArray(avatar_byte, 0, avatar_byte.length);
             avatar_profile.setImageBitmap(bitmap);
         }
@@ -238,29 +239,29 @@ public class Profile extends Activity {
                     return;
                 }
 
-                if (username.equals("")) username = info.username;
-                if (last_name.equals("")) last_name = info.last_name;
-                if (first_name.equals("")) first_name = info.first_name;
-                if (email.equals("")) email = info.email;
-                if (password_hash.equals("")) password_hash = info.password_hash;
+                if (username.equals("")) username = info.getUsername();
+                if (last_name.equals("")) last_name = info.getLast_name();
+                if (first_name.equals("")) first_name = info.getFirst_name();
+                if (email.equals("")) email = info.getEmail();
+                if (password_hash.equals("")) password_hash = info.getPassword_hash();
 
-                if (username.equals(info.username) &&
-                        last_name.equals(info.last_name) &&
-                        first_name.equals(info.first_name) &&
-                        email.equals(info.email) &&
-                        password_hash.equals(info.password_hash) &&
-                        Arrays.equals(avatar, info.avatar_bitmap)
+                if (username.equals(info.getUsername()) &&
+                        last_name.equals(info.getLast_name()) &&
+                        first_name.equals(info.getFirst_name()) &&
+                        email.equals(info.getEmail()) &&
+                        password_hash.equals(info.getPassword_hash()) &&
+                        Arrays.equals(avatar, info.getAvatar_bitmap())
                     ) {
                     Toast.makeText(getApplicationContext(), "Nothing changes", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 try {
-                    ConnectToMySQL.update("user", "user_id", info.user_id, imageViewToByte(avatar_profile),
+                    ConnectToMySQL.update("user", "user_id", info.getUser_id(), imageViewToByte(avatar_profile),
                             new String[] {"username", "first_name", "last_name", "email", "password_hash"},
                             new String[] {username, first_name, last_name, email, password_hash});
                     databaseHelper.clearTable("user");
-                    databaseHelper.insertTableUser(info.user_id,
+                    databaseHelper.insertTableUser(info.getUser_id(),
                                                     username,
                                                     first_name,
                                                     last_name,

@@ -1,4 +1,4 @@
-package com.goldfish_dictionary.recycler_view_adapter;
+package com.goldfish_dictionary.adapter;
 
 import static com.goldfish_dictionary.util.Util.previewText;
 
