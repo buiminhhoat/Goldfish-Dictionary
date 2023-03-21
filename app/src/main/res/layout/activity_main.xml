@@ -56,13 +56,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#202442"
-        android:scrollbars="none"
         android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@+id/menu"
-        app:layout_constraintTop_toBottomOf="@+id/fl"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/fl"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
@@ -77,6 +78,7 @@
                 android:background="@drawable/btn_main_activity"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:elevation="7dp"
                 app:layout_constraintEnd_toEndOf="@+id/btn_fr_vi"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/btn_fr_vi"
@@ -251,20 +253,17 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginEnd="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_search_history"
+                app:layout_constraintStart_toStartOf="@+id/btn_saved_vocabulary"
                 app:layout_constraintTop_toBottomOf="@+id/btn_search_history">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="3dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginEnd="20dp"
                     android:background="#4F5AAA"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="@+id/or"
@@ -290,7 +289,6 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="3dp"
-                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="8dp"
                     android:background="#4F5AAA"
                     android:orientation="horizontal"
@@ -333,8 +331,8 @@
 
                         <ImageView
                             android:id="@+id/imageView11"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
                             android:src="@drawable/ic_translation"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_trans"
                             app:layout_constraintStart_toStartOf="parent"
@@ -350,15 +348,15 @@
                             android:text="Dịch văn bản"
                             android:textColor="#FFFFFF"
                             android:textFontWeight="950"
-                            android:textSize="24sp"
+                            android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView11"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/btn_translate"
-                            android:layout_width="100dp"
-                            android:layout_height="25dp"
+                            android:layout_width="90dp"
+                            android:layout_height="23dp"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/btn_main_translate"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -407,7 +405,9 @@
         android:id="@+id/recycler_voca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#202442"
+        android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="@+id/action_search"
         app:layout_constraintStart_toStartOf="@+id/action_search"
         app:layout_constraintTop_toBottomOf="@+id/action_search"

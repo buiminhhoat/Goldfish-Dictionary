@@ -6,11 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/recyclerview_item"
-    android:background="#202442"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/recyclerview_item"
@@ -18,8 +17,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp
-"
+            android:layout_height="0dp"
             android:background="@drawable/detail"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:orientation="horizontal">
 
@@ -46,8 +44,8 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="300dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <!--                    <ImageView-->
@@ -62,9 +60,9 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:text="Word"
-                            android:textFontWeight="500"
                             android:textColor="#011849"
-                            android:textSize="22sp" />
+                            android:textFontWeight="500"
+                            android:textSize="19sp" />
                     </LinearLayout>
 
                     <TextView
@@ -72,9 +70,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:textFontWeight="500"
                         android:text="/ipa/"
                         android:textColor="#011849"
+                        android:textFontWeight="500"
                         android:textSize="15sp" />
 
                 </LinearLayout>
