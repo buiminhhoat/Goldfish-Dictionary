@@ -67,12 +67,6 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(SignUp.this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
     void createAccount() throws Exception {
         String username = txt_username.getText().toString().trim();
         String email = txt_email.getText().toString().trim();
@@ -129,5 +123,12 @@ public class SignUp extends AppCompatActivity {
         }
         statement.executeUpdate("INSERT INTO user(username, email, password_hash) "
                 + "VALUES (\"" + username + "\", \"" + email + "\", \"" + password + "\")");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SignUp.this, SignIn.class);
+        startActivity(intent);
+        finish();
     }
 }

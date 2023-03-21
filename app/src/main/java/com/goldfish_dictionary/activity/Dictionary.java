@@ -104,4 +104,11 @@ public class Dictionary extends AppCompatActivity {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Dictionary.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

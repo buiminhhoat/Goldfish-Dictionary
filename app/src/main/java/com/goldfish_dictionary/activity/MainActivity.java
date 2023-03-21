@@ -3,6 +3,7 @@ package com.goldfish_dictionary.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_search_history;
     private Button btn_saved_vocabulary;
     private String name_database = "en_vi.db";
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         clickBtnSearchHistory();
         clickBtnSavedVocabulary();
     }
+
 
     private void map() {
         btn_fr_vi = findViewById(R.id.btn_fr_vi);
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Translate.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//                finish();
+                finish();
             }
         });
     }
@@ -195,8 +199,31 @@ public class MainActivity extends AppCompatActivity {
         dataBaseHelper.createDatabase();
         dataBaseHelper = new DatabaseHelper(MainActivity.this, "vi_fr.db");
         dataBaseHelper.createDatabase();
-
         dataBaseHelper = new DatabaseHelper(MainActivity.this, "en_vi.db");
         dataBaseHelper.createDatabase();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Nhấn một lần nữa để thoát", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 3000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        doubleBackToExitPressedOnce = false;
     }
 }

@@ -270,11 +270,11 @@ public class Profile extends Activity {
             @Override
             public void onClick(View view) {
                 List<User> users1 = databaseHelper.getAllProfile("user");
-                System.out.println(users1.size());
+//                System.out.println(users1.size());
 
                 databaseHelper.clearTable("user");
                 List<User> users = databaseHelper.getAllProfile("user");
-                System.out.println(users.size());
+//                System.out.println(users.size());
                 Intent intent = new Intent(Profile.this, SignIn.class);
                 startActivity(intent);
                 finish();
@@ -285,5 +285,12 @@ public class Profile extends Activity {
     private void initializationDatabase() {
         databaseHelper = new DatabaseHelper(Profile.this, "goldfish_dictionary_client.db");
         databaseHelper.createDatabase();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Profile.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

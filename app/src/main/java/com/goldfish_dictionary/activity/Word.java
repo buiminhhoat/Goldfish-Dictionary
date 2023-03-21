@@ -332,4 +332,11 @@ public class Word extends Activity {
         }
         return res;
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Word.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

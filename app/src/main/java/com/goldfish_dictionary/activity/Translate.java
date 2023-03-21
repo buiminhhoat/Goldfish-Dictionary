@@ -46,12 +46,6 @@ public class Translate extends Activity {
     EditText editText_input;
     TextView textView_output;
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        finishAfterTransition();
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,5 +234,12 @@ public class Translate extends Activity {
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Translate.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

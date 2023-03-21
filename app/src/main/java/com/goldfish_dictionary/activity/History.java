@@ -1,6 +1,7 @@
 package com.goldfish_dictionary.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -185,5 +186,12 @@ public class History extends AppCompatActivity {
                     new String[]{word_id, word, ipa, meaning, name_database, String.valueOf(is_synced),
                             String.valueOf(is_deleted), date_search});
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(History.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
