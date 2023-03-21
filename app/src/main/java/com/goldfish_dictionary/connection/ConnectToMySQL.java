@@ -39,8 +39,8 @@ public final class ConnectToMySQL {
     }
 
     public static synchronized Connection getConnection(Context context) {
-        if (isNetworkConnected(context) == false) return null;
-        if (connection == null) {
+        if (!isNetworkConnected(context)) return null;
+//        if (connection == null) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             try {
@@ -50,7 +50,7 @@ public final class ConnectToMySQL {
             catch (Exception e) {
                 String error = e.toString();
             }
-        }
+//        }
         return connection;
     }
 

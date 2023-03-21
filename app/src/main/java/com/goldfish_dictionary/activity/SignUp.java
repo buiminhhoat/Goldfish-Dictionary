@@ -76,6 +76,10 @@ public class SignUp extends AppCompatActivity {
         String password = txt_password.getText().toString().trim();
         String confirm_password = txt_confirm_password.getText().toString().trim();
 
+        if (connection == null) {
+            throw new Exception("Unable to connect to server\nPlease check your internet connection");
+        }
+
         if (TextUtils.isEmpty(username)) {
             throw new Exception("Enter username address!");
         }

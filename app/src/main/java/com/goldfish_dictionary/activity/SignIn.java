@@ -138,7 +138,8 @@ public class SignIn extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    throw new RuntimeException(e);
                 }
             }
         });
@@ -148,6 +149,9 @@ public class SignIn extends AppCompatActivity {
         String username = txt_username.getText().toString().trim();
         String password = txt_password.getText().toString().trim();
 
+        if (connection == null) {
+            throw new Exception("Unable to connect to server\nPlease check your internet connection");
+        }
         if (TextUtils.isEmpty(username)) {
             throw new Exception("Enter username address!");
         }
@@ -170,12 +174,11 @@ public class SignIn extends AppCompatActivity {
 
         String query = "SELECT * " + "FROM user WHERE username = " + "\"" + username + "\""
                 + " AND password_hash = " + "\"" + password + "\";";
-        ResultSet resultSet = connection.createStatement().executeQuery(query);
+        ResultSet resultSet = statement.executeQuery(query);
         boolean res = resultSet.next();
         if (!res) {
             return false;
         }
-
 
         Blob blob = resultSet.getBlob("avatar_bitmap");
         byte[] avatar = null;
