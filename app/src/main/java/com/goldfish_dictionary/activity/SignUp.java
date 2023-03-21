@@ -47,6 +47,9 @@ public class SignUp extends AppCompatActivity {
                 try {
                     createAccount();
                     Toast.makeText(getApplicationContext(), "Account successfully created", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUp.this, SignIn.class);
+                    startActivity(intent);
+                    finish();
                 } catch (Exception exception) {
                     Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }

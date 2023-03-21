@@ -172,6 +172,7 @@ public class Profile extends Activity {
         if (users.isEmpty()) {
             Intent intent = new Intent(Profile.this, SignIn.class);
             startActivity(intent);
+            finish();
             return;
         }
 
@@ -276,6 +277,7 @@ public class Profile extends Activity {
                 System.out.println(users.size());
                 Intent intent = new Intent(Profile.this, SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
