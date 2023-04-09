@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,27 +48,30 @@ import java.util.Arrays;
 
 public class SignIn extends AppCompatActivity {
     private static final int RC_SIGN_IN = 200;
-    DatabaseHelper databaseHelper;
-    Connection connection = null;
-    EditText txt_username = null;
-    EditText txt_password = null;
-    ImageButton btn_login_facebook;
+    private DatabaseHelper databaseHelper;
+    private Connection connection = null;
+    private EditText txt_username = null;
+    private EditText txt_password = null;
+    private ImageButton btn_login_facebook;
 
-    ImageButton btn_login_google;
-    CallbackManager callbackManager;
-    TextView tv_createNewOne;
+    private ImageButton btn_login_google;
+    private CallbackManager callbackManager;
+    private TextView tv_createNewOne;
 
-    Button btn_sign_in;
+    private ImageView btn_back;
+    private Button btn_sign_in;
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        map();
+
         databaseHelper = new DatabaseHelper(SignIn.this, "goldfish_dictionary_client.db");
 
         connection = ConnectToMySQL.getConnection(this);
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -90,13 +94,7 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-        btn_login_facebook = findViewById(R.id.btn_login_facebook);
-        btn_login_facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile", "email"));
-            }
-        });
+
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -104,9 +102,36 @@ public class SignIn extends AppCompatActivity {
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        btn_login_google = findViewById(R.id.btn_login_google);
+        clickBtnLoginFacebook();
+        clickBtnLoginGoogle();
+        clickTvCreateNewOne();
+        clickBtnSignIn();
+        clickBtnBack();
+    }
+
+    private void clickBtnBack() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void clickBtnLoginFacebook() {
+        btn_login_facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginManager.getInstance().logInWithReadPermissions(SignIn.this, Arrays.asList("public_profile", "email"));
+            }
+        });
+    }
+
+    private void clickBtnLoginGoogle() {
         btn_login_google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,8 +139,9 @@ public class SignIn extends AppCompatActivity {
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
+    }
 
-        tv_createNewOne = findViewById(R.id.tv_createNewOne);
+    private void clickTvCreateNewOne() {
         tv_createNewOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,8 +150,9 @@ public class SignIn extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
-        btn_sign_in = findViewById(R.id.btn_sign_in);
+    private void clickBtnSignIn() {
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +173,16 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void map() {
+        btn_back = findViewById(R.id.btn_back);
+        txt_username = findViewById(R.id.txt_username);
+        txt_password = findViewById(R.id.txt_password);
+        btn_sign_in = findViewById(R.id.btn_sign_in);
+        tv_createNewOne = findViewById(R.id.tv_createNewOne);
+        btn_login_google = findViewById(R.id.btn_login_google);
+        btn_login_facebook = findViewById(R.id.btn_login_facebook);
     }
 
     private boolean loginAccount() throws Exception {

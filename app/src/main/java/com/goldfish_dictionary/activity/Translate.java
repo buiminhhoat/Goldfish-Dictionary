@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,8 +44,8 @@ public class Translate extends Activity {
     private ConstraintLayout btn_reverse;
     private ImageView btn_exit_translate;
 
-    EditText editText_input;
-    TextView textView_output;
+    private EditText editText_input;
+    private TextView textView_output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +92,30 @@ public class Translate extends Activity {
 //
 //            }
 //        });
+
         setPopupMenu();
+        focusChangeEditTextInput();
         clickSelectLanguageInp();
         clickSelectLanguageOut();
         clickBtnReverse();
         clickBtnExitTranslate();
+    }
+
+    private void focusChangeEditTextInput() {
+        editText_input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+
+        });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private void clickBtnExitTranslate() {
@@ -112,7 +132,9 @@ public class Translate extends Activity {
         btn_reverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String input = editText_input.getText().toString();
+
                 if (input.equals("")) return;
                 String output = "\n";
                 try {

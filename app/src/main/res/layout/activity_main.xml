@@ -24,7 +24,8 @@
         android:background="@drawable/bg"
         app:layout_constraintBottom_toTopOf="@+id/fl"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+    </FrameLayout>
 
 
 <!--    <ImageView-->
@@ -277,7 +278,6 @@
                     android:id="@+id/or"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
                     android:text="Goldfish Dictionary"
                     android:textColor="#4F5AAA"
                     android:textFontWeight="500"
@@ -380,26 +380,61 @@
 
     </ScrollView>
 
-    <EditText
-        android:id="@+id/action_search"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_bar"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="-25dp"
         android:background="@drawable/search_bar_main"
-        android:drawableLeft="@drawable/ic_user"
-        android:drawablePadding="20dp"
-        android:hint="Tra từ Anh - Việt"
-        android:padding="12dp"
-        android:textColor="#2196F3"
-        android:textColorHint="#4F5AAA"
-        android:textSize="15sp"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toTopOf="@+id/fl"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/action_search"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/search_bar_main"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Tra từ Anh - Việt"
+            android:padding="12dp"
+            android:textColor="#2196F3"
+            android:textColorHint="#4F5AAA"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete_search_bar"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_delete_search_bar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="13dp"
+            android:src="@drawable/delete_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_voca"
@@ -408,9 +443,9 @@
         android:layout_marginTop="5dp"
         android:background="#202442"
         android:overScrollMode="never"
-        app:layout_constraintEnd_toEndOf="@+id/action_search"
-        app:layout_constraintStart_toStartOf="@+id/action_search"
-        app:layout_constraintTop_toBottomOf="@+id/action_search"
+        app:layout_constraintEnd_toEndOf="@+id/search_bar"
+        app:layout_constraintStart_toStartOf="@+id/search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
         tools:listitem="@layout/recyclerview_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

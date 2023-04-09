@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,27 +21,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SignUp extends AppCompatActivity {
-    Connection connection = null;
-    EditText txt_username = null;
-    EditText txt_email = null;
-    EditText txt_password = null;
-    EditText txt_confirm_password = null;
+    private Connection connection = null;
+    private EditText txt_username = null;
+    private EditText txt_email = null;
+    private EditText txt_password = null;
+    private EditText txt_confirm_password = null;
 
-    Button btn_sign_up = null;
+    private Button btn_sign_up = null;
 
-    TextView tv_signup = null;
+    private TextView tv_signup = null;
+
+    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        map();
 
         connection = ConnectToMySQL.getConnection(this);
-        txt_username = findViewById(R.id.txt_username);
-        txt_email = findViewById(R.id.txt_email);
-        txt_password = findViewById(R.id.txt_password);
-        txt_confirm_password = findViewById(R.id.txt_confirm_password);
-        btn_sign_up = findViewById(R.id.btn_sign_up);
+
+        clickBtnSignUp();
+        clickTvSignUp();
+        clickBtnBack();
+    }
+
+    private void clickBtnSignUp() {
         btn_sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,11 +61,33 @@ public class SignUp extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        tv_signup = findViewById(R.id.tv_signup);
+    private void clickTvSignUp() {
         tv_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, SignIn.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void map() {
+        btn_back = findViewById(R.id.btn_back);
+        txt_username = findViewById(R.id.txt_username);
+        txt_email = findViewById(R.id.txt_email);
+        txt_password = findViewById(R.id.txt_password);
+        txt_confirm_password = findViewById(R.id.txt_confirm_password);
+        btn_sign_up = findViewById(R.id.btn_sign_up);
+        tv_signup = findViewById(R.id.tv_signup);
+    }
+
+    private void clickBtnBack() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(SignUp.this, SignIn.class);
                 startActivity(intent);
                 finish();

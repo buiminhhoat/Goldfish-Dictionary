@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView btn_profile;
     private Button btn_search_history;
     private Button btn_saved_vocabulary;
+    private ImageView btn_delete_search_bar;
     private String name_database = "en_vi.db";
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         clickBtnDictionary();
         clickBtnSearchHistory();
         clickBtnSavedVocabulary();
+        clickBtnDeleteSearchBar();
     }
-
 
     private void map() {
         btn_fr_vi = findViewById(R.id.btn_fr_vi);
@@ -64,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
         btn_vi_en = findViewById(R.id.btn_vi_en);
         btn_profile = findViewById(R.id.btn_profile);
         btn_translate = findViewById(R.id.btn_translate);
+        btn_delete_search_bar = findViewById(R.id.btn_delete_search_bar);
+    }
+
+    private void clickBtnDeleteSearchBar() {
+        btn_delete_search_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchBar.setText("");
+            }
+        });
     }
 
     private void clickBtnTranslate() {
@@ -81,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 //                getWindow().setExitTransition(explode);
                 Intent intent = new Intent(MainActivity.this, Translate.class);
                 startActivity(intent);
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 finish();
             }
         });
@@ -133,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
     }

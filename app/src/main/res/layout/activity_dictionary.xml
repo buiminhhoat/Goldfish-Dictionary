@@ -4,53 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1">
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="850dp"
+        android:background="@drawable/background1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_dictionary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="23dp"
         android:fontFamily="sans-serif"
         android:text="Dictionary"
         android:textColor="#FFFFFF"
         android:textFontWeight="950"
-        android:textSize="34sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="34dp"
         tools:layout_conversion_absoluteWidth="87dp" />
 
-    <EditText
-        android:id="@+id/action_search"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_bar"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="25dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/search_bar_main"
-
-        android:iconifiedByDefault="false"
-        android:paddingTop="5dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="5dp"
-        android:queryHint="Search"
-
-        app:searchHintIcon="@drawable/ic_mail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_dictionary" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_dictionary">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="13dp"
+            android:src="@drawable/ic_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/action_search"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/search_bar_main"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:hint="Tìm kiếm"
+            android:padding="12dp"
+            android:textColor="#2196F3"
+            android:textColorHint="#4F5AAA"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete_search_bar"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_delete_search_bar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="13dp"
+            android:src="@drawable/delete_search_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_voca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/action_search"
-        app:layout_constraintStart_toStartOf="@+id/action_search"
-        app:layout_constraintTop_toBottomOf="@+id/action_search"
+        app:layout_constraintEnd_toEndOf="@+id/search_bar"
+        app:layout_constraintStart_toStartOf="@+id/search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
         tools:listitem="@layout/recyclerview_item" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

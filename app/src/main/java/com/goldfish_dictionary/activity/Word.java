@@ -49,7 +49,10 @@ public class Word extends Activity {
     private TextView list_antonym;
     private ImageView speaker;
     private ImageView exit_word;
-    private ImageView imageview_savedvocabulary;
+    private ImageView imageview_saved_vocabulary;
+    private TextView tv_word;
+    private TextView tv_ipa;
+    private TextView tv_meaning;
     private Pronounce pronounce;
 
     static OkHttpClient client = null;
@@ -62,6 +65,8 @@ public class Word extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
 
+        map();
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -71,12 +76,6 @@ public class Word extends Activity {
 
         initializationDatabase();
         client = new OkHttpClient();
-
-        TextView tv_word = findViewById(R.id.txt_word);
-        TextView tv_ipa = findViewById(R.id.txt_ipa);
-        TextView tv_meaning = findViewById(R.id.txt_meaning);
-        list_synonym = findViewById(R.id.list_synonym);
-        list_antonym = findViewById(R.id.list_antonym);
 
         tv_word.setText(word);
         String id = dataBaseHelper.getVocabulary(word).getWord_id();
@@ -108,9 +107,19 @@ public class Word extends Activity {
         clickImageViewSavedVocabulary();
     }
 
+    private void map() {
+        tv_word = findViewById(R.id.txt_word);
+        tv_ipa = findViewById(R.id.txt_ipa);
+        tv_meaning = findViewById(R.id.txt_meaning);
+        list_synonym = findViewById(R.id.list_synonym);
+        list_antonym = findViewById(R.id.list_antonym);
+        imageview_saved_vocabulary = findViewById(R.id.imageview_savedvocabulary);
+        exit_word = findViewById(R.id.exit_word);
+        speaker = findViewById(R.id.speaker);
+    }
+
     private void clickImageViewSavedVocabulary() {
-        imageview_savedvocabulary = findViewById(R.id.imageview_savedvocabulary);
-        imageview_savedvocabulary.setOnClickListener(new View.OnClickListener() {
+        imageview_saved_vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String word_id = dataBaseHelper.getVocabulary(word).getWord_id();
@@ -132,19 +141,19 @@ public class Word extends Activity {
     }
 
     private void clickBtnExitWord() {
-        exit_word = findViewById(R.id.exit_word);
         exit_word.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Word.this, MainActivity.class);
                 startActivity(intent);
+                finish();
+//                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             }
         });
     }
 
     private void clickBtnSpeaker() {
         pronounce = null;
-        speaker = findViewById(R.id.speaker);
         speaker.setImageResource(R.drawable.speaker_loading);
         Handler handler = new Handler();
         Thread thread = new Thread(){

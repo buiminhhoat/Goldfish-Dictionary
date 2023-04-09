@@ -162,6 +162,7 @@ public class Profile extends Activity {
                 Intent intent = new Intent(Profile.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
     }
@@ -292,5 +293,6 @@ public class Profile extends Activity {
         Intent intent = new Intent(Profile.this, MainActivity.class);
         startActivity(intent);
         finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

@@ -4,51 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_history"
+    android:background="#062A2C"
     android:clickable="true"
     android:focusableInTouchMode="true"
     >
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="740dp"
+        android:background="@drawable/bg_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="125dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/cancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:fontFamily="sans-serif"
+        android:text="Từ của bạn"
+        android:textColor="#FFFFFF"
+        android:textFontWeight="800"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
+
 
     <EditText
         android:id="@+id/search_saved_vocabulary"
+        android:singleLine="true"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/search_history"
         android:clickable="true"
-        android:drawableLeft="@drawable/ic_user"
-        android:drawablePadding="20dp"
+        android:drawableLeft="@drawable/ic_asset_search"
+        android:drawablePadding="10dp"
         android:focusableInTouchMode="true"
-        android:hint="Tìm kiếm từ đã tra"
-        android:padding="12dp"
+        android:hint="Tìm kiếm từ đã lưu"
+        android:paddingLeft="15dp"
+        android:paddingRight="20dp"
         android:textColor="#79FFE7"
         android:textColorHint="#FFFFFF"
-        android:textSize="15sp"
         android:textFontWeight="700"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_saved_vocabulary"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-        app:layout_constraintEnd_toEndOf="@+id/search_saved_vocabulary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/search_saved_vocabulary"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_saved_vocabulary"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/saved_vocabulary_item" />
@@ -56,7 +90,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

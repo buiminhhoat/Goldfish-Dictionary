@@ -1,5 +1,7 @@
 package com.goldfish_dictionary.adapter;
 
+import static com.goldfish_dictionary.utilities.Util.previewText;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +62,7 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
         if (vocabulary == null) return;
         holder.latin.setText(vocabulary.getWord());
         if (Objects.equals(vocabulary.getIpa(), "")) {
-            holder.detail.setText(vocabulary.getMeaning().split("\n")[0]);
+            holder.detail.setText(previewText(vocabulary.getMeaning().split("\n")[0], 45));
         }
         else {
             holder.detail.setText(vocabulary.getIpa());

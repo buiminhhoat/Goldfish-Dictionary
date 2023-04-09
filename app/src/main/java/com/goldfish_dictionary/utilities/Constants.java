@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Constants {
 //    public static final String IP = "192.168.43.127";
     public static final String IP = "goldfish-dictionary.buiminhhoat.com";
+//    public static final String IP = "localhost";
     public static final String PORT = "3306";
     public static final String DATABASE = "goldfish_dictionary";
     public static final String DATABASE_URL = "jdbc:mysql://" + IP + ":" + PORT + "/" + DATABASE + "?useUnicode=true&characterEncoding=UTF-8";
@@ -13,7 +14,7 @@ public class Constants {
     public static final String PASSWORD = "goldfish_dictionary";
 
     public static final ArrayList<String> languages_ISO_639  = new ArrayList<>(Arrays.asList(
-            "sq","am","ar","hy","az","eu","be","bn","bs","bg","ca","ceb","ny","zh_CN","zh_TW","co","hr","cs","da","nl","en","eo","et","tl","fi","fr","fy","gl","ka","de","el","gu","ht","ha","haw","iw","hi","hmn","hu","is","ig","id","ga","it","ja","jw","kn","kk","km","rw","ko","ku","ky","lo","la","lv","lt","lb","mk","mg","ms","ml","mt","mi","mr","mn","my","ne","no","or","ps","fa","pl","pt","pa","ro","ru","sm","gd","sr","st","sn","sd","si","sk","sl","so","es","su","sw","sv","tg","ta","tt","te","th","tr","tk","uk","ur","ug","uz","vi","cy","xh","yi","yo","zu"
+            "af","sq","am","ar","hy","az","eu","be","bn","bs","bg","ca","ceb","ny","zh_CN","zh_TW","co","hr","cs","da","nl","en","eo","et","tl","fi","fr","fy","gl","ka","de","el","gu","ht","ha","haw","iw","hi","hmn","hu","is","ig","id","ga","it","ja","jw","kn","kk","km","rw","ko","ku","ky","lo","la","lv","lt","lb","mk","mg","ms","ml","mt","mi","mr","mn","my","ne","no","or","ps","fa","pl","pt","pa","ro","ru","sm","gd","sr","st","sn","sd","si","sk","sl","so","es","su","sw","sv","tg","ta","tt","te","th","tr","tk","uk","ur","ug","uz","vi","cy","xh","yi","yo","zu"
     ));
 
     public static final ArrayList<String> languages = new ArrayList<>(Arrays.asList(

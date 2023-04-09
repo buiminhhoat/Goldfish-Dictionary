@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,10 +32,10 @@ import java.util.List;
 
 public class SavedVocabulary extends AppCompatActivity {
     private DatabaseHelper clientDataBaseHelper;
-
     private SavedVocabularyAdapter savedVocabularyAdapter;
     private RecyclerView recyclerWords;
     private EditText searchBar;
+    private ImageView btnBack;
     Connection connection = null;
 
     @Override
@@ -42,6 +43,7 @@ public class SavedVocabulary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_vocabulary);
         initializationDatabase();
+        map();
 
         Handler handler = new Handler();
         Thread thread = new Thread(){
@@ -64,11 +66,27 @@ public class SavedVocabulary extends AppCompatActivity {
 
         eventRecyclerWord();
         eventSearchBar();
+        clickBtnBack();
+    }
+
+    private void map() {
+        recyclerWords = findViewById(R.id.recycler_saved_vocabulary);
+        searchBar = findViewById(R.id.search_saved_vocabulary);
+        btnBack = findViewById(R.id.btn_back);
+    }
+
+    private void clickBtnBack() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SavedVocabulary.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void eventRecyclerWord() {
-        recyclerWords = findViewById(R.id.recycler_saved_vocabulary);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
@@ -78,8 +96,6 @@ public class SavedVocabulary extends AppCompatActivity {
     }
 
     private void eventSearchBar() {
-        searchBar = findViewById(R.id.search_saved_vocabulary);
-
         searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

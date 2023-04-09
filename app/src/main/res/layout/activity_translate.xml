@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="13dp"
             android:fontFamily="sans-serif"
             android:text="Translate"
             android:textColor="#FFFFFF"
@@ -33,7 +33,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
-            android:layout_width="220dp"
+            android:layout_width="300dp"
             android:layout_height="70dp"
             android:layout_marginBottom="-30dp"
             android:background="@drawable/box_translate_3"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="55dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/box_translate_1"
             android:gravity="top"
@@ -93,7 +93,7 @@
         </EditText>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="220dp"
+            android:layout_width="300dp"
             android:layout_height="70dp"
             android:layout_marginBottom="-30dp"
             android:background="@drawable/box_translate_3"
@@ -182,8 +182,8 @@
 
         <ImageView
             android:id="@+id/btn_exit_translate"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
             app:layout_constraintStart_toStartOf="parent"

@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,10 @@ public class Dictionary extends AppCompatActivity {
     private String name_database;
     private DatabaseHelper dataBaseHelper;
 
+    private TextView txt_dictionary;
+    private ImageView btn_delete_search_bar;
+    private ImageView btn_back;
+
     private VocabularyAdapter vocabularyAdapter;
     private RecyclerView recyclerWords;
     private EditText searchBar;
@@ -30,6 +35,8 @@ public class Dictionary extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary);
+
+        map();
 
         Intent intent = getIntent();
         name_database = intent.getStringExtra("NAME_DATABASE");
@@ -48,16 +55,17 @@ public class Dictionary extends AppCompatActivity {
 //        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 //        recyclerWords.addItemDecoration(itemDecoration);
 
-        searchBar = findViewById(R.id.action_search);
+        searchBarListener();
+        clickBtnDeleteSearchBar();
+        clickBtnBack();
+    }
 
+    private void searchBarListener() {
         searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
-                    recyclerWords.setAdapter(null);
-                } else {
-                    recyclerWords.setAdapter(vocabularyAdapter);
                 }
             }
         });
@@ -80,8 +88,34 @@ public class Dictionary extends AppCompatActivity {
         });
     }
 
+    private void map() {
+        txt_dictionary = findViewById(R.id.txt_dictionary);
+        searchBar = findViewById(R.id.action_search);
+        btn_delete_search_bar = findViewById(R.id.btn_delete_search_bar);
+        btn_back = findViewById(R.id.btn_back);
+    }
+
+    private void clickBtnBack() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Dictionary.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void clickBtnDeleteSearchBar() {
+        btn_delete_search_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchBar.setText("");
+            }
+        });
+    }
+
     private void changeTitle() {
-        TextView txt_dictionary = findViewById(R.id.txt_dictionary);
         switch (name_database) {
             case "vi_en.db":
                 txt_dictionary.setText("Từ điển Việt - Anh");

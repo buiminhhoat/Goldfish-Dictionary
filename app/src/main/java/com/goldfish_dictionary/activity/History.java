@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,8 @@ public class History extends AppCompatActivity {
     private HistoryAdapter historyAdapter;
     private RecyclerView recyclerWords;
     private EditText searchBar;
+
+    private ImageView btnBack;
     Connection connection = null;
 
     @Override
@@ -42,6 +45,7 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         initializationDatabase();
+        map();
 
         Handler handler = new Handler();
         Thread thread = new Thread(){
@@ -64,11 +68,28 @@ public class History extends AppCompatActivity {
 
         eventRecyclerWord();
         eventSearchBar();
+        clickBtnBack();
+    }
+
+    private void clickBtnBack() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(History.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+
+    private void map() {
+        recyclerWords = findViewById(R.id.recycler_history);
+        searchBar = findViewById(R.id.search_history);
+        btnBack = findViewById(R.id.btn_back);
     }
 
     private void eventRecyclerWord() {
-        recyclerWords = findViewById(R.id.recycler_history);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerWords.setLayoutManager(linearLayoutManager);
 
@@ -78,8 +99,6 @@ public class History extends AppCompatActivity {
     }
 
     private void eventSearchBar() {
-        searchBar = findViewById(R.id.search_history);
-
         searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
