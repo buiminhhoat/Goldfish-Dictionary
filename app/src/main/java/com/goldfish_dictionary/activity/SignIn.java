@@ -94,8 +94,6 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-
-
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -185,6 +183,70 @@ public class SignIn extends AppCompatActivity {
         btn_login_facebook = findViewById(R.id.btn_login_facebook);
     }
 
+    private void registerAccountWithSocial(String username, String name, String email) throws Exception {
+        // create a Statement from the connection
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            throw new Exception("Unable to connect to database!");
+        }
+
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT username " + "FROM user");
+        while (resultSet.next()) {
+            if (resultSet.getString("username").equals(email)) {
+                return;
+            }
+        }
+
+        resultSet = connection.createStatement().executeQuery("SELECT email " + "FROM user");
+        while (resultSet.next()) {
+            if (resultSet.getString("email").equals(email)) {
+                return;
+            }
+        }
+        String query = "INSERT INTO user(username, first_name, email) "
+                + "VALUES (\"" + username + "\", \"" + name + "\"" + ", \"" + email + "\")";
+        statement.executeUpdate(query);
+    }
+    private boolean loginAccountWithSocial(String username, String name, String email) throws Exception {
+        if (connection == null) {
+            throw new Exception("Unable to connect to server\nPlease check your internet connection");
+        }
+        // create a Statement from the connection
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            throw new Exception("Unable to connect to database!");
+        }
+
+        registerAccountWithSocial(username, name, email);
+
+        String query = "SELECT * " + "FROM user WHERE username = " + "\"" + username + "\";";
+        ResultSet resultSet = statement.executeQuery(query);
+        boolean res = resultSet.next();
+        if (!res) {
+            return false;
+        }
+        Blob blob = resultSet.getBlob("avatar_bitmap");
+        byte[] avatar = null;
+        if (blob != null) {
+            avatar = blob.getBytes(1, (int) blob.length());
+        }
+        if (databaseHelper.isEmpty("user")) {
+            databaseHelper.insertTableUser(resultSet.getInt("user_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("first_name"),
+                    resultSet.getString("last_name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password_hash"),
+                    avatar
+            );
+        }
+        return true;
+    }
+
     private boolean loginAccount() throws Exception {
         String username = txt_username.getText().toString().trim();
         String password = txt_password.getText().toString().trim();
@@ -249,9 +311,26 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
+                    String id = object.getString("id");
                     String name = object.getString("name");
                     String email = object.getString("email");
                     String image = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    System.out.println(id + " " + name + " " + email + " " + image);
+                    try {
+                        boolean sucessLogin = loginAccountWithSocial(email.split("@")[0], name, email);
+                        if (sucessLogin) {
+                            Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignIn.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    throw new RuntimeException(e);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -264,7 +343,6 @@ public class SignIn extends AppCompatActivity {
         // Initiate the GraphRequest
         request.executeAsync();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -294,6 +372,8 @@ public class SignIn extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
 //            updateUI(null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

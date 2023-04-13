@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Constants {
-//    public static final String IP = "192.168.43.127";
+//    public static final String IP = "192.168.0.106";
     public static final String IP = "goldfish-dictionary.buiminhhoat.com";
 //    public static final String IP = "localhost";
     public static final String PORT = "3306";

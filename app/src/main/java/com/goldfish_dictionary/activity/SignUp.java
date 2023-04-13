@@ -136,14 +136,14 @@ public class SignUp extends AppCompatActivity {
             throw new Exception("Unable to connect to database!");
         }
 
-        ResultSet resultSet    = connection.createStatement().executeQuery("SELECT username " + "FROM user");
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT username " + "FROM user");
         while (resultSet.next()) {
             if (resultSet.getString("username").equals(email)) {
                 throw new Exception("Username already exists");
             }
         }
 
-        resultSet    = connection.createStatement().executeQuery("SELECT email " + "FROM user");
+        resultSet = connection.createStatement().executeQuery("SELECT email " + "FROM user");
         while (resultSet.next()) {
             if (resultSet.getString("email").equals(email)) {
                 throw new Exception("Email already exists");
