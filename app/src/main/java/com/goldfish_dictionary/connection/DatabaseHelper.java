@@ -284,7 +284,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String whereClause = "";
         for (int i = 0; i < key_delete.length; ++i) {
-            whereClause += key_delete[i] + " = ?";
+            whereClause += key_delete[i] + " = ? ";
+            if (i < key_delete.length - 1) {
+                whereClause += " AND ";
+            }
         }
         database.delete(table, whereClause, value_delete);
         database.close();

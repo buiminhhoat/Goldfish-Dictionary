@@ -158,8 +158,8 @@ public class SavedVocabulary extends AppCompatActivity {
         for (int i = 0; i < list.size(); ++i) {
             String word_id = list.get(i);
             clientDataBaseHelper.deleteQuery("saved_vocabulary",
-                    new String[] {"word_id"},
-                    new String[] {word_id});
+                    new String[] {"word_id", "is_deleted"},
+                    new String[] {word_id, "true"});
         }
         String query = "SELECT * FROM saved_vocabulary WHERE is_synced = \"false\"";
         sqLiteDatabase = clientDataBaseHelper.getReadableDatabase();
