@@ -329,7 +329,6 @@ public class SignIn extends AppCompatActivity {
                         }
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    throw new RuntimeException(e);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -365,7 +364,20 @@ public class SignIn extends AppCompatActivity {
             String name = account.getDisplayName();
             Uri picture = account.getPhotoUrl();
             // Signed in successfully, show authenticated UI.
-//            updateUI(account);
+            try {
+                boolean sucessLogin = loginAccountWithSocial(email.split("@")[0], name, email);
+                if (sucessLogin) {
+                    Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignIn.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
             System.out.println("Success");
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
