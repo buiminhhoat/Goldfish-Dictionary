@@ -22,6 +22,7 @@ import com.goldfish_dictionary.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
@@ -134,8 +135,8 @@ public class Translate extends Activity {
             public void onClick(View view) {
 
                 String input = editText_input.getText().toString();
-
                 if (input.equals("")) return;
+                System.out.println(input);
                 String output = "\n";
                 try {
                     String source = languages_ISO_639.get(languages.indexOf((String) language_inp.getText()));
@@ -222,20 +223,19 @@ public class Translate extends Activity {
 
         String result = sendGET(url);
 
-        JSONTokener tokener = new JSONTokener(result);
-        JSONArray finalResult = new JSONArray(tokener);
-//        for (int i = 0; i < finalResult.length(); ++i) {
-//            System.out.println(finalResult.get(i));
-//        }
-        result = finalResult.get(0).toString();
-        tokener = new JSONTokener(result);
-        finalResult = new JSONArray(tokener);
+        // Parse chuỗi JSON thành một đối tượng JSONArray
+        JSONArray jsonArray = new JSONArray(result);
 
-        result = finalResult.get(0).toString();
-        tokener = new JSONTokener(result);
-        finalResult = new JSONArray(tokener);
+        // Truy cập vào phần tử đầu tiên của đối tượng JSONArray
+        JSONArray subArray = jsonArray.getJSONArray(0);
 
-        String translate = finalResult.get(0).toString();
+        String translate = "";
+        // Lặp qua mỗi mảng con và truy cập vào phần tử đầu tiên của mỗi mảng con
+        for (int i = 0; i < subArray.length(); i++) {
+            JSONArray subSubArray = subArray.getJSONArray(i);
+            String firstString = subSubArray.getString(0);
+            translate += firstString;
+        }
         return translate;
     }
 
