@@ -179,6 +179,7 @@ public class History extends AppCompatActivity {
             cursor.moveToNext();
         }
 
+        if (user_id == null) return;
         clientDataBaseHelper.clearTable("search_history");
 
         Statement statement = connection.createStatement();

@@ -175,6 +175,8 @@ public class SavedVocabulary extends AppCompatActivity {
             cursor.moveToNext();
         }
 
+        if (user_id == null) return;
+
         clientDataBaseHelper.clearTable("saved_vocabulary");
 
         Statement statement = connection.createStatement();
