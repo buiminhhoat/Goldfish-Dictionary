@@ -122,6 +122,7 @@ public class Word extends Activity {
         imageview_saved_vocabulary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                imageview_saved_vocabulary.setImageResource(R.drawable.mark1);
                 String word_id = dataBaseHelper.getVocabulary(word).getWord_id();
                 String ipa = dataBaseHelper.getVocabulary(word).getIpa();
                 String meaning = dataBaseHelper.getVocabulary(word).getMeaning();
