@@ -7,7 +7,9 @@ import static java.net.URLEncoder.encode;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
+import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -19,6 +21,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.goldfish_dictionary.R;
+import com.goldfish_dictionary.utilities.Pronounce;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +30,7 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import okhttp3.OkHttpClient;
@@ -38,6 +42,8 @@ public class Translate extends Activity {
     static OkHttpClient client = null;
     private ImageView select_language_inp;
     private ImageView select_language_out;
+    private ImageView ic_translate_sound_in;
+    private ImageView ic_translate_sound_out;
     private TextView language_inp;
     private TextView language_out;
     private PopupMenu popupLanguageInp;
@@ -47,6 +53,7 @@ public class Translate extends Activity {
 
     private EditText editText_input;
     private TextView textView_output;
+    private TextToSpeech textToSpeech;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,44 +69,44 @@ public class Translate extends Activity {
 
         client = new OkHttpClient();
 
-//        editText_input.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                String input = editText_input.getText().toString();
-//                if (input.equals("")) return;
-//                if (input.charAt(input.length() - 1) != '.') {
-//                    return;
-//                }
-//                String output = "\n";
-//                try {
-//                    String source = languages_ISO_639.get(languages.indexOf((String) language_inp.getText()));
-//                    String target = languages_ISO_639.get(languages.indexOf((String) language_out.getText()));
-//                    output = translate(source, target, List.of(input.split("\n")));
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                textView_output.setText(output);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-
         setPopupMenu();
         focusChangeEditTextInput();
         clickSelectLanguageInp();
         clickSelectLanguageOut();
+        clickIcTranslateSoundIn();
+        clickIcTranslateSoundOut();
         clickBtnReverse();
         clickBtnExitTranslate();
+
+        textToSpeech = new android.speech.tts.TextToSpeech(getApplicationContext(),
+                new android.speech.tts.TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if(status == TextToSpeech.SUCCESS){
+                            int language = textToSpeech.setLanguage(Locale.ENGLISH);
+                        }
+                    }
+                });
+    }
+
+    private void clickIcTranslateSoundIn() {
+        ic_translate_sound_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editText_input.getText().toString();
+                int speech = textToSpeech.speak(text, textToSpeech.QUEUE_FLUSH,null);
+            }
+        });
+    }
+
+    private void clickIcTranslateSoundOut() {
+        ic_translate_sound_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = textView_output.getText().toString();
+                int speech = textToSpeech.speak(text, textToSpeech.QUEUE_FLUSH,null);
+            }
+        });
     }
 
     private void focusChangeEditTextInput() {
@@ -210,6 +217,8 @@ public class Translate extends Activity {
         textView_output = findViewById(R.id.textView_output);
         select_language_inp = findViewById(R.id.select_language_inp);
         select_language_out = findViewById(R.id.select_language_out);
+        ic_translate_sound_in = findViewById(R.id.ic_translate_sound_in);
+        ic_translate_sound_out = findViewById(R.id.ic_translate_sound_out);
         language_inp = findViewById(R.id.language_inp);
         language_out = findViewById(R.id.language_out);
         btn_reverse = findViewById(R.id.btn_reverse);
