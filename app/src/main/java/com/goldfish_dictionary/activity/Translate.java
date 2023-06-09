@@ -7,7 +7,6 @@ import static java.net.URLEncoder.encode;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
@@ -21,12 +20,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.goldfish_dictionary.R;
-import com.goldfish_dictionary.utilities.Pronounce;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.util.List;
@@ -53,7 +49,8 @@ public class Translate extends Activity {
 
     private EditText editText_input;
     private TextView textView_output;
-    private TextToSpeech textToSpeech;;
+    private TextToSpeech textToSpeechInp;
+    private TextToSpeech textToSpeechOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +75,25 @@ public class Translate extends Activity {
         clickBtnReverse();
         clickBtnExitTranslate();
 
-        textToSpeech = new android.speech.tts.TextToSpeech(getApplicationContext(),
+        textToSpeechInp = new android.speech.tts.TextToSpeech(getApplicationContext(),
                 new android.speech.tts.TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int status) {
                         if(status == TextToSpeech.SUCCESS){
-                            int language = textToSpeech.setLanguage(Locale.ENGLISH);
+                            textToSpeechInp.setLanguage(Locale.ENGLISH);
                         }
                     }
                 });
+        textToSpeechOut = new android.speech.tts.TextToSpeech(getApplicationContext(),
+                new android.speech.tts.TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if(status == TextToSpeech.SUCCESS){
+                            textToSpeechOut.setLanguage(new Locale("vi"));
+                        }
+                    }
+                });
+
     }
 
     private void clickIcTranslateSoundIn() {
@@ -94,7 +101,7 @@ public class Translate extends Activity {
             @Override
             public void onClick(View view) {
                 String text = editText_input.getText().toString();
-                int speech = textToSpeech.speak(text, textToSpeech.QUEUE_FLUSH,null);
+                int speech = textToSpeechInp.speak(text, textToSpeechInp.QUEUE_FLUSH,null);
             }
         });
     }
@@ -104,7 +111,7 @@ public class Translate extends Activity {
             @Override
             public void onClick(View view) {
                 String text = textView_output.getText().toString();
-                int speech = textToSpeech.speak(text, textToSpeech.QUEUE_FLUSH,null);
+                int speech = textToSpeechOut.speak(text, textToSpeechOut.QUEUE_FLUSH,null);
             }
         });
     }
@@ -143,7 +150,7 @@ public class Translate extends Activity {
 
                 String input = editText_input.getText().toString();
                 if (input.equals("")) return;
-                System.out.println(input);
+//                System.out.println(input);
                 String output = "\n";
                 try {
                     String source = languages_ISO_639.get(languages.indexOf((String) language_inp.getText()));
@@ -175,6 +182,17 @@ public class Translate extends Activity {
             public boolean onMenuItemClick(MenuItem item) {
                 String selectedLanguage = item.getTitle().toString();
                 language_inp.setText(selectedLanguage);
+
+                textToSpeechInp = new android.speech.tts.TextToSpeech(getApplicationContext(),
+                        new android.speech.tts.TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if(status == TextToSpeech.SUCCESS){
+                                    String iso = languages_ISO_639.get(languages.indexOf(selectedLanguage));
+                                    textToSpeechInp.setLanguage(new Locale(iso));
+                                }
+                            }
+                        });
                 return true;
             }
         });
@@ -189,6 +207,17 @@ public class Translate extends Activity {
             public boolean onMenuItemClick(MenuItem item) {
                 String selectedLanguage = item.getTitle().toString();
                 language_out.setText(selectedLanguage);
+
+                textToSpeechOut = new android.speech.tts.TextToSpeech(getApplicationContext(),
+                        new android.speech.tts.TextToSpeech.OnInitListener() {
+                            @Override
+                            public void onInit(int status) {
+                                if(status == TextToSpeech.SUCCESS){
+                                    String iso = languages_ISO_639.get(languages.indexOf(selectedLanguage));
+                                    textToSpeechOut.setLanguage(new Locale(iso));
+                                }
+                            }
+                        });
                 return true;
             }
         });

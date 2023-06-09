@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import okhttp3.OkHttpClient;
@@ -54,7 +56,7 @@ public class Word extends Activity {
     private TextView tv_ipa;
     private TextView tv_meaning;
     private Pronounce pronounce;
-
+    private TextToSpeech textToSpeech;
     static OkHttpClient client = null;
 
     public Word() throws IOException {
@@ -154,6 +156,29 @@ public class Word extends Activity {
     }
 
     private void clickBtnSpeaker() {
+        if (this.name_database.equals("vi_fr.db") || this.name_database.equals("fr_vi.db") ||
+            this.name_database.equals(("vi_en.db"))) {
+            textToSpeech = new android.speech.tts.TextToSpeech(getApplicationContext(),
+                    new android.speech.tts.TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int status) {
+                            if(status == TextToSpeech.SUCCESS){
+                                if (name_database.equals("vi_fr.db") || name_database.equals("vi_en.db")) {
+                                    textToSpeech.setLanguage(new Locale("vi", "VN"));
+                                } else {
+                                    textToSpeech.setLanguage(Locale.FRANCE);
+                                }
+                            }
+                        }
+                    });
+            speaker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int speech = textToSpeech.speak(word, textToSpeech.QUEUE_FLUSH,null);
+                }
+            });
+            return;
+        }
         pronounce = null;
         speaker.setImageResource(R.drawable.speaker_loading);
         Handler handler = new Handler();
