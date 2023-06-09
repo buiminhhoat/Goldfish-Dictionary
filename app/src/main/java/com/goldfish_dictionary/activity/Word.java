@@ -157,7 +157,7 @@ public class Word extends Activity {
 
     private void clickBtnSpeaker() {
         if (this.name_database.equals("vi_fr.db") || this.name_database.equals("fr_vi.db") ||
-            this.name_database.equals(("vi_en.db"))) {
+            this.name_database.equals("vi_en.db") || this.name_database.equals("en_vi.db")) {
             textToSpeech = new android.speech.tts.TextToSpeech(getApplicationContext(),
                     new android.speech.tts.TextToSpeech.OnInitListener() {
                         @Override
@@ -166,7 +166,11 @@ public class Word extends Activity {
                                 if (name_database.equals("vi_fr.db") || name_database.equals("vi_en.db")) {
                                     textToSpeech.setLanguage(new Locale("vi", "VN"));
                                 } else {
-                                    textToSpeech.setLanguage(Locale.FRANCE);
+                                    if (name_database.equals("en_vi.db")) {
+                                        textToSpeech.setLanguage(Locale.ENGLISH);
+                                    } else {
+                                        textToSpeech.setLanguage(Locale.FRANCE);
+                                    }
                                 }
                             }
                         }
