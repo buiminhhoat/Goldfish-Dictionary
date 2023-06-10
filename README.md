@@ -13,11 +13,6 @@
 
 # Bài tập lớn Phát triển ứng dụng di động - Goldfish Dictionary
 
-## Video demo
-- Link youtube: [Goldfish Dictionary]()
-
-## UI
-
 ![img.png](img/img.png)
 
 ![img.png](img/img_1.png)
